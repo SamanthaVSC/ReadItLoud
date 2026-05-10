@@ -1,7 +1,12 @@
-```toml
 [project]
-name = "tts-desktop-app"
+name = "ReadItLoud"
 version = "0.1.0"
-description = "Offline TTS desktop app built with PySide"
+description = "A desktop app to practice reading, improve listening, and refine pronunciation — powered by offline TTS"
 authors = [{ name = "Samantha" }]
 requires-python = ">=3.10"
+license = "MIT"
+readme = "README.md"
+
+[project.urls]
+Repository = "https://github.com/SamanthaVSC/ReadItLout"
+Issues = "https://github.com/SamanthaVSC/ReadItLout/issues"

@@ -1,15 +1,15 @@
 app:
-  name: "TTS App"
-  version: "1.0.0"
+  name: "ReadItLoud"
+  version: "0.1.0"
 
 tts:
-  default_engine: "piper"           # or "kokoro"
+  default_engine: "piper"           # Options: piper, kokoro, coqui
   sample_rate: 22050
   volume: 0.8
 
 cache:
   enabled: true
-  directory: "./cache"              # or "/tmp/tts-cache"
+  directory: "./cache"
   max_size_mb: 500
 
 ui:
@@ -19,6 +19,8 @@ ui:
 
 voices:
   piper:
-    voice_dir: "core/voices/piper"
+    voice_dir: "core/engines_tts/piper_engine/voices"
   kokoro:
-    voice_dir: "core/voices/kokoro"
+    voice_dir: "core/engines_tts/kokoro_engine/voices"
+  coqui:
+    voice_dir: "core/engines_tts/coqui_engine/voices"

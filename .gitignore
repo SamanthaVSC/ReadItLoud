@@ -1,4 +1,89 @@
-# Cache (generated audio files – don't commit them!)
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+*.egg
+
+# PySide6 / Qt
+*.ui.autosave
+moc_*.cpp
+ui_*.h
+qrc_*.py
+
+# IDE
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# PyLint
+.pylintrc
+
+# Ruff
+.ruff_cache/
+
+# Audio cache (generated at runtime)
+cache/*.wav
+cache/*.mp3
+cache/*.ogg
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local# Cache (generated audio files – don't commit them!)
 cache/
 *.wav
 *.mp3
