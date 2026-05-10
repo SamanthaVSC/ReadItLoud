@@ -1,0 +1,7 @@
+```toml
+[project]
+name = "tts-desktop-app"
+version = "0.1.0"
+description = "Offline TTS desktop app built with PySide"
+authors = [{ name = "Samantha" }]
+requires-python = ">=3.10"

@@ -1,0 +1,29 @@
+# Cache (generated audio files – don't commit them!)
+cache/
+*.wav
+*.mp3
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Config with secrets (if any)
+config/secrets.yaml
+
+# Logs
+*.log

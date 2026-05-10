@@ -1,0 +1,24 @@
+app:
+  name: "TTS App"
+  version: "1.0.0"
+
+tts:
+  default_engine: "piper"           # or "kokoro"
+  sample_rate: 22050
+  volume: 0.8
+
+cache:
+  enabled: true
+  directory: "./cache"              # or "/tmp/tts-cache"
+  max_size_mb: 500
+
+ui:
+  theme: "dark"
+  window_width: 800
+  window_height: 600
+
+voices:
+  piper:
+    voice_dir: "core/voices/piper"
+  kokoro:
+    voice_dir: "core/voices/kokoro"
