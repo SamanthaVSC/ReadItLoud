@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1256</width>
+    <height>796</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LayoutDirection::LeftToRight</enum>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget_grid">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QWidget" name="RightContainer_widget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="Generated_audioLabel">
+         <property name="text">
+          <string>Generated audios/Engine</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="Generated_audioListWidget"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="yoursLabel">
+         <property name="text">
+          <string>Yours/Qualification</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="yoursListWidget"/>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="OptiongBox">
+         <property name="title">
+          <string>OPTIONS </string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QPushButton" name="play_pB">
+            <property name="text">
+             <string>PLAY</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="rename_pB">
+            <property name="text">
+             <string>RENAME</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_pB">
+            <property name="text">
+             <string>DELATE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <layout class="QHBoxLayout" name="centralwidget_pB_panels__hLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="left_panel_pB">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>left settings</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="right_panel_pB">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>right settings</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QMdiArea" name="mdiArea">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="mouseTracking">
+         <bool>false</bool>
+        </property>
+        <property name="tabletTracking">
+         <bool>false</bool>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+        </property>
+        <property name="toolTipDuration">
+         <number>8</number>
+        </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>-1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>-1</number>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustIgnored</enum>
+        </property>
+        <property name="viewMode">
+         <enum>QMdiArea::ViewMode::TabbedView</enum>
+        </property>
+        <property name="tabsMovable">
+         <bool>false</bool>
+        </property>
+        <property name="tabShape">
+         <enum>QTabWidget::TabShape::Rounded</enum>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::TabPosition::North</enum>
+        </property>
+        <widget class="QWidget" name="writer_sw">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+         </property>
+         <property name="windowTitle">
+          <string>WRITER</string>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStatesVirginIslands"/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_19">
+               <item>
+                <widget class="QPushButton" name="copy_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>COPY</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="cut_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>CUT</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="paste_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>PASTE</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="undo_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>UNDO</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="redo_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::FocusPolicy::ClickFocus</enum>
+                 </property>
+                 <property name="text">
+                  <string>REDO</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="upload_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+                 </property>
+                 <property name="text">
+                  <string>UPLOAD</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="clear_pB_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>CLEAR</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QTextEdit" name="Reader_editText">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_20">
+               <item>
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>0/1000</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <item>
+                <widget class="QPushButton" name="pushButton_17">
+                 <property name="text">
+                  <string>READ</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_18">
+                 <property name="text">
+                  <string>READ ALL</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_19">
+                 <property name="text">
+                  <string>RECORD</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_20">
+                 <property name="text">
+                  <string>SAVE</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QProgressBar" name="main_pB">
+               <property name="value">
+                <number>24</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="Reader">
+         <property name="windowTitle">
+          <string>READER</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QWebEngineView" name="webEngineView">
+            <property name="url">
+             <url>
+              <string>about:blank</string>
+             </url>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="Split">
+         <property name="windowTitle">
+          <string>SPLIT</string>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QWebEngineView" name="webEngineView_2">
+            <property name="url">
+             <url>
+              <string>about:blank</string>
+             </url>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="Panel_widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::TabPosition::West</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::TabShape::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>main</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="QTabWidget" name="tabWidget_2">
+          <property name="layoutDirection">
+           <enum>Qt::LayoutDirection::LeftToRight</enum>
+          </property>
+          <property name="currentIndex">
+           <number>4</number>
+          </property>
+          <widget class="QWidget" name="tab_3">
+           <attribute name="title">
+            <string>Engines</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <item>
+               <widget class="QLabel" name="engineLabel_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LayoutDirection::LeftToRight</enum>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::Shape::NoFrame</enum>
+                </property>
+                <property name="text">
+                 <string>Engine</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="engine_cB">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Piper</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Coquis</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Kokoro</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Orpheus</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="about_engineButton_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>About</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QLabel" name="voiceLabel_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LayoutDirection::LeftToRight</enum>
+                </property>
+                <property name="text">
+                 <string>Voice</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="voice_cB">
+                <item>
+                 <property name="text">
+                  <string>v1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>v2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>v3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>v4</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="preview_pB">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Preview</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="reaload_engine_pB">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>RELOAD ENGINES</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Orientation::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Policy::Preferred</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="speech_settings_gB">
+              <property name="title">
+               <string>SPEECH SETTING</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="speed_speech_settingslabel">
+                   <property name="text">
+                    <string>Speed</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="speed_speech_settings_hS">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="pitch_speech_settingslabel">
+                   <property name="text">
+                    <string>Pitch</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="pitch_speech_hS_2">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="volume_speech_settingslabel">
+                   <property name="text">
+                    <string>Volume</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="volume_speed_speech_settings_hS_2">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="animated_image_right_panelLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="audio_settings_gB">
+              <property name="title">
+               <string>AUDIO SETTINGS</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_17">
+               <property name="bottomMargin">
+                <number>9</number>
+               </property>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_11">
+                 <item>
+                  <widget class="QLabel" name="label_20">
+                   <property name="text">
+                    <string>Output format</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_6">
+                   <item>
+                    <property name="text">
+                     <string>mp3</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_12">
+                 <item>
+                  <widget class="QLabel" name="label_21">
+                   <property name="text">
+                    <string>Sample Rate</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_7">
+                   <item>
+                    <property name="text">
+                     <string>128</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_13">
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_3">
+                   <property name="text">
+                    <string>Normalize Audio</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="left_container_widget">
+           <attribute name="title">
+            <string>Models</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="vertru">
+            <item>
+             <widget class="QGroupBox" name="audio_model_gB">
+              <property name="title">
+               <string>Audio</string>
+              </property>
+              <widget class="QLabel" name="audio_settingLabel">
+               <property name="geometry">
+                <rect>
+                 <x>12</x>
+                 <y>90</y>
+                 <width>62</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>Settings</string>
+               </property>
+              </widget>
+              <widget class="QWidget" name="layoutWidget">
+               <property name="geometry">
+                <rect>
+                 <x>12</x>
+                 <y>35</y>
+                 <width>198</width>
+                 <height>32</height>
+                </rect>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>Model</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="audio_model_cB">
+                  <item>
+                   <property name="text">
+                    <string>m1</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>m2</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>m3</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>m4</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="about_audio_model">
+                  <property name="text">
+                   <string>About</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_4">
+           <attribute name="title">
+            <string>Dict</string>
+           </attribute>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="meaning_searchLabel">
+              <property name="text">
+               <string>Look up meanings</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="search_pB">
+              <property name="text">
+               <string>Search</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="search_lE">
+              <property name="placeholderText">
+               <string>Insert a word...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QWebEngineView" name="search_wVE">
+              <property name="url">
+               <url>
+                <string>about:blank</string>
+               </url>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_5">
+           <attribute name="title">
+            <string>Score</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="score_label">
+              <property name="text">
+               <string>Feedbacks</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListView" name="score_frame"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_6">
+           <attribute name="title">
+            <string>SRS</string>
+           </attribute>
+           <widget class="QLabel" name="space_rep_systemLabel">
+            <property name="geometry">
+             <rect>
+              <x>50</x>
+              <y>30</y>
+              <width>131</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Space Repetition System</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="tab_7">
+           <attribute name="title">
+            <string>Library</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>User profile</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_8">
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+       <widget class="QPushButton" name="theme_pB">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>30</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>theme</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>160</y>
+          <width>179</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Display language</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_9">
+       <attribute name="title">
+        <string>Pluggins</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>About</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_11">
+       <attribute name="title">
+        <string>Manual</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>left_panel_pB</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RightContainer_widget</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>169</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>right_panel_pB</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>tabWidget</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1063</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1123</x>
+     <y>53</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

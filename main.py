@@ -1,22 +1,16 @@
-"""ReadItLoud — A desktop app for reading, listening, and pronunciation practice."""
-
+from mainwindow import MainWindow, QApplication
 import sys
+from pathlib import Path
+from qt_material import apply_stylesheet
 
-from PySide6.QtWidgets import QApplication
-
-from views.mainwindow import MainWindow
-
+import os
 
 def main():
-    """Entry point for the ReadItLoud application."""
     app = QApplication(sys.argv)
-    app.setApplicationName("ReadItLoud")
-
-    window = MainWindow()
-    window.show()
-
-    sys.exit(app.exec())
-
+    apply_stylesheet(app, theme='light_blue.xml')
+    w = MainWindow(app)
+    w.show()
+    app.exec()
 
 if __name__ == "__main__":
     main()
