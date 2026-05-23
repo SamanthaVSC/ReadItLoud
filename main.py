@@ -1,9 +1,8 @@
-from mainwindow import MainWindow, QApplication
 import sys
-from pathlib import Path
+from PySide6.QtWidgets import QApplication
+from mainwindow import MainWindow
 from qt_material import apply_stylesheet
 
-import os
 
 def main():
     app = QApplication(sys.argv)
@@ -11,6 +10,7 @@ def main():
     w = MainWindow(app)
     w.show()
     app.exec()
+
 
 if __name__ == "__main__":
     main()

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.1
+## Created by: Qt User Interface Compiler version 6.11.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,7 +27,7 @@ class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         if not mainWindow.objectName():
             mainWindow.setObjectName(u"mainWindow")
-        mainWindow.resize(1388, 796)
+        mainWindow.resize(1256, 796)
         mainWindow.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         mainWindow.setAutoFillBackground(False)
         mainWindow.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
@@ -147,53 +147,57 @@ class Ui_mainWindow(object):
         self.writer_sw.setLocale(QLocale(QLocale.English, QLocale.UnitedStatesVirginIslands))
         self.verticalLayout_3 = QVBoxLayout(self.writer_sw)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.widget = QWidget(self.writer_sw)
-        self.widget.setObjectName(u"widget")
-        self.verticalLayout_4 = QVBoxLayout(self.widget)
+        self.writerwidget = QWidget(self.writer_sw)
+        self.writerwidget.setObjectName(u"writerwidget")
+        self.verticalLayout_4 = QVBoxLayout(self.writerwidget)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.copy_pB_5 = QPushButton(self.widget)
+        self.copy_pB_5 = QPushButton(self.writerwidget)
         self.copy_pB_5.setObjectName(u"copy_pB_5")
         sizePolicy.setHeightForWidth(self.copy_pB_5.sizePolicy().hasHeightForWidth())
         self.copy_pB_5.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_19.addWidget(self.copy_pB_5)
 
-        self.cut_pB_5 = QPushButton(self.widget)
+        self.cut_pB_5 = QPushButton(self.writerwidget)
         self.cut_pB_5.setObjectName(u"cut_pB_5")
         sizePolicy.setHeightForWidth(self.cut_pB_5.sizePolicy().hasHeightForWidth())
         self.cut_pB_5.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_19.addWidget(self.cut_pB_5)
 
-        self.paste_pB_5 = QPushButton(self.widget)
+        self.paste_pB_5 = QPushButton(self.writerwidget)
         self.paste_pB_5.setObjectName(u"paste_pB_5")
         sizePolicy.setHeightForWidth(self.paste_pB_5.sizePolicy().hasHeightForWidth())
         self.paste_pB_5.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_19.addWidget(self.paste_pB_5)
 
-        self.undo_pB_5 = QPushButton(self.widget)
+        self.undo_pB_5 = QPushButton(self.writerwidget)
         self.undo_pB_5.setObjectName(u"undo_pB_5")
         sizePolicy.setHeightForWidth(self.undo_pB_5.sizePolicy().hasHeightForWidth())
         self.undo_pB_5.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_19.addWidget(self.undo_pB_5)
 
-        self.redo_pB_5 = QPushButton(self.widget)
+        self.redo_pB_5 = QPushButton(self.writerwidget)
         self.redo_pB_5.setObjectName(u"redo_pB_5")
+        sizePolicy.setHeightForWidth(self.redo_pB_5.sizePolicy().hasHeightForWidth())
+        self.redo_pB_5.setSizePolicy(sizePolicy)
         self.redo_pB_5.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
         self.horizontalLayout_19.addWidget(self.redo_pB_5)
 
-        self.upload_pB_5 = QPushButton(self.widget)
+        self.upload_pB_5 = QPushButton(self.writerwidget)
         self.upload_pB_5.setObjectName(u"upload_pB_5")
+        sizePolicy.setHeightForWidth(self.upload_pB_5.sizePolicy().hasHeightForWidth())
+        self.upload_pB_5.setSizePolicy(sizePolicy)
         self.upload_pB_5.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
 
         self.horizontalLayout_19.addWidget(self.upload_pB_5)
 
-        self.clear_pB_5 = QPushButton(self.widget)
+        self.clear_pB_5 = QPushButton(self.writerwidget)
         self.clear_pB_5.setObjectName(u"clear_pB_5")
         sizePolicy.setHeightForWidth(self.clear_pB_5.sizePolicy().hasHeightForWidth())
         self.clear_pB_5.setSizePolicy(sizePolicy)
@@ -203,7 +207,7 @@ class Ui_mainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_19)
 
-        self.Reader_editText = QTextEdit(self.widget)
+        self.Reader_editText = QTextEdit(self.writerwidget)
         self.Reader_editText.setObjectName(u"Reader_editText")
         sizePolicy1.setHeightForWidth(self.Reader_editText.sizePolicy().hasHeightForWidth())
         self.Reader_editText.setSizePolicy(sizePolicy1)
@@ -217,7 +221,7 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout_20.addItem(self.horizontalSpacer_6)
 
-        self.label_7 = QLabel(self.widget)
+        self.label_7 = QLabel(self.writerwidget)
         self.label_7.setObjectName(u"label_7")
 
         self.horizontalLayout_20.addWidget(self.label_7)
@@ -227,22 +231,22 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout_21 = QHBoxLayout()
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
-        self.pushButton_17 = QPushButton(self.widget)
+        self.pushButton_17 = QPushButton(self.writerwidget)
         self.pushButton_17.setObjectName(u"pushButton_17")
 
         self.horizontalLayout_21.addWidget(self.pushButton_17)
 
-        self.pushButton_18 = QPushButton(self.widget)
+        self.pushButton_18 = QPushButton(self.writerwidget)
         self.pushButton_18.setObjectName(u"pushButton_18")
 
         self.horizontalLayout_21.addWidget(self.pushButton_18)
 
-        self.pushButton_19 = QPushButton(self.widget)
+        self.pushButton_19 = QPushButton(self.writerwidget)
         self.pushButton_19.setObjectName(u"pushButton_19")
 
         self.horizontalLayout_21.addWidget(self.pushButton_19)
 
-        self.pushButton_20 = QPushButton(self.widget)
+        self.pushButton_20 = QPushButton(self.writerwidget)
         self.pushButton_20.setObjectName(u"pushButton_20")
 
         self.horizontalLayout_21.addWidget(self.pushButton_20)
@@ -250,14 +254,14 @@ class Ui_mainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_21)
 
-        self.main_pB = QProgressBar(self.widget)
+        self.main_pB = QProgressBar(self.writerwidget)
         self.main_pB.setObjectName(u"main_pB")
         self.main_pB.setValue(24)
 
         self.verticalLayout_4.addWidget(self.main_pB)
 
 
-        self.verticalLayout_3.addWidget(self.widget)
+        self.verticalLayout_3.addWidget(self.writerwidget)
 
         self.mdiArea.addSubWindow(self.writer_sw)
         self.Reader = QWidget()
@@ -266,7 +270,7 @@ class Ui_mainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.webEngineView = QWebEngineView(self.Reader)
         self.webEngineView.setObjectName(u"webEngineView")
-        self.webEngineView.setUrl(QUrl(u"about:blank"))
+        self.webEngineView.setProperty(u"url", QUrl(u"about:blank"))
 
         self.verticalLayout_2.addWidget(self.webEngineView)
 
@@ -278,7 +282,7 @@ class Ui_mainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.webEngineView_2 = QWebEngineView(self.Split)
         self.webEngineView_2.setObjectName(u"webEngineView_2")
-        self.webEngineView_2.setUrl(QUrl(u"about:blank"))
+        self.webEngineView_2.setProperty(u"url", QUrl(u"about:blank"))
 
         self.verticalLayout.addWidget(self.webEngineView_2)
 
@@ -299,22 +303,22 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout_2.addLayout(self.verticalLayout_5)
 
-        self.tabWidget = QTabWidget(self.centralwidget_grid)
-        self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setEnabled(True)
-        self.tabWidget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.tabWidget.setAutoFillBackground(False)
-        self.tabWidget.setTabPosition(QTabWidget.TabPosition.West)
-        self.tabWidget.setTabShape(QTabWidget.TabShape.Rounded)
-        self.tabWidget.setDocumentMode(False)
-        self.tabWidget.setTabsClosable(False)
+        self.contentLayout = QTabWidget(self.centralwidget_grid)
+        self.contentLayout.setObjectName(u"contentLayout")
+        self.contentLayout.setEnabled(True)
+        self.contentLayout.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.contentLayout.setAutoFillBackground(False)
+        self.contentLayout.setTabPosition(QTabWidget.TabPosition.West)
+        self.contentLayout.setTabShape(QTabWidget.TabShape.Rounded)
+        self.contentLayout.setDocumentMode(False)
+        self.contentLayout.setTabsClosable(False)
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
         self.verticalLayout_11 = QVBoxLayout(self.tab)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.tabWidget_2 = QTabWidget(self.tab)
-        self.tabWidget_2.setObjectName(u"tabWidget_2")
-        self.tabWidget_2.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.topBarLayout = QTabWidget(self.tab)
+        self.topBarLayout.setObjectName(u"topBarLayout")
+        self.topBarLayout.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.tab_3 = QWidget()
         self.tab_3.setObjectName(u"tab_3")
         self.verticalLayout_12 = QVBoxLayout(self.tab_3)
@@ -497,12 +501,12 @@ class Ui_mainWindow(object):
 
         self.verticalLayout_12.addWidget(self.audio_settings_gB)
 
-        self.tabWidget_2.addTab(self.tab_3, "")
-        self.left_container_widget = QWidget()
-        self.left_container_widget.setObjectName(u"left_container_widget")
-        self.vertru = QVBoxLayout(self.left_container_widget)
+        self.topBarLayout.addTab(self.tab_3, "")
+        self.modelWidget = QWidget()
+        self.modelWidget.setObjectName(u"modelWidget")
+        self.vertru = QVBoxLayout(self.modelWidget)
         self.vertru.setObjectName(u"vertru")
-        self.audio_model_gB = QGroupBox(self.left_container_widget)
+        self.audio_model_gB = QGroupBox(self.modelWidget)
         self.audio_model_gB.setObjectName(u"audio_model_gB")
         self.audio_settingLabel = QLabel(self.audio_model_gB)
         self.audio_settingLabel.setObjectName(u"audio_settingLabel")
@@ -535,7 +539,7 @@ class Ui_mainWindow(object):
 
         self.vertru.addWidget(self.audio_model_gB)
 
-        self.tabWidget_2.addTab(self.left_container_widget, "")
+        self.topBarLayout.addTab(self.modelWidget, "")
         self.tab_4 = QWidget()
         self.tab_4.setObjectName(u"tab_4")
         self.formLayout = QFormLayout(self.tab_4)
@@ -557,11 +561,11 @@ class Ui_mainWindow(object):
 
         self.search_wVE = QWebEngineView(self.tab_4)
         self.search_wVE.setObjectName(u"search_wVE")
-        self.search_wVE.setUrl(QUrl(u"about:blank"))
+        self.search_wVE.setProperty(u"url", QUrl(u"about:blank"))
 
         self.formLayout.setWidget(2, QFormLayout.ItemRole.SpanningRole, self.search_wVE)
 
-        self.tabWidget_2.addTab(self.tab_4, "")
+        self.topBarLayout.addTab(self.tab_4, "")
         self.tab_5 = QWidget()
         self.tab_5.setObjectName(u"tab_5")
         self.verticalLayout_7 = QVBoxLayout(self.tab_5)
@@ -576,66 +580,66 @@ class Ui_mainWindow(object):
 
         self.verticalLayout_7.addWidget(self.score_frame)
 
-        self.tabWidget_2.addTab(self.tab_5, "")
+        self.topBarLayout.addTab(self.tab_5, "")
         self.tab_6 = QWidget()
         self.tab_6.setObjectName(u"tab_6")
         self.space_rep_systemLabel = QLabel(self.tab_6)
         self.space_rep_systemLabel.setObjectName(u"space_rep_systemLabel")
         self.space_rep_systemLabel.setGeometry(QRect(50, 30, 131, 16))
-        self.tabWidget_2.addTab(self.tab_6, "")
+        self.topBarLayout.addTab(self.tab_6, "")
         self.tab_7 = QWidget()
         self.tab_7.setObjectName(u"tab_7")
-        self.tabWidget_2.addTab(self.tab_7, "")
+        self.topBarLayout.addTab(self.tab_7, "")
 
-        self.verticalLayout_11.addWidget(self.tabWidget_2)
+        self.verticalLayout_11.addWidget(self.topBarLayout)
 
-        self.tabWidget.addTab(self.tab, "")
+        self.contentLayout.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
-        self.tabWidget.addTab(self.tab_2, "")
+        self.contentLayout.addTab(self.tab_2, "")
         self.tab_8 = QWidget()
         self.tab_8.setObjectName(u"tab_8")
         self.theme_pB = QPushButton(self.tab_8)
         self.theme_pB.setObjectName(u"theme_pB")
         self.theme_pB.setGeometry(QRect(80, 30, 93, 29))
         self.theme_pB.setCheckable(True)
-        self.widget1 = QWidget(self.tab_8)
-        self.widget1.setObjectName(u"widget1")
-        self.widget1.setGeometry(QRect(60, 160, 179, 26))
-        self.horizontalLayout_3 = QHBoxLayout(self.widget1)
+        self.layoutWidget2 = QWidget(self.tab_8)
+        self.layoutWidget2.setObjectName(u"layoutWidget2")
+        self.layoutWidget2.setGeometry(QRect(60, 160, 206, 30))
+        self.horizontalLayout_3 = QHBoxLayout(self.layoutWidget2)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.label_2 = QLabel(self.widget1)
+        self.label_2 = QLabel(self.layoutWidget2)
         self.label_2.setObjectName(u"label_2")
 
         self.horizontalLayout_3.addWidget(self.label_2)
 
-        self.comboBox = QComboBox(self.widget1)
+        self.comboBox = QComboBox(self.layoutWidget2)
         self.comboBox.setObjectName(u"comboBox")
 
         self.horizontalLayout_3.addWidget(self.comboBox)
 
-        self.tabWidget.addTab(self.tab_8, "")
+        self.contentLayout.addTab(self.tab_8, "")
         self.tab_9 = QWidget()
         self.tab_9.setObjectName(u"tab_9")
-        self.tabWidget.addTab(self.tab_9, "")
+        self.contentLayout.addTab(self.tab_9, "")
         self.tab_10 = QWidget()
         self.tab_10.setObjectName(u"tab_10")
-        self.tabWidget.addTab(self.tab_10, "")
+        self.contentLayout.addTab(self.tab_10, "")
         self.tab_11 = QWidget()
         self.tab_11.setObjectName(u"tab_11")
-        self.tabWidget.addTab(self.tab_11, "")
+        self.contentLayout.addTab(self.tab_11, "")
 
-        self.horizontalLayout_2.addWidget(self.tabWidget)
+        self.horizontalLayout_2.addWidget(self.contentLayout)
 
         mainWindow.setCentralWidget(self.centralwidget_grid)
 
         self.retranslateUi(mainWindow)
         self.left_panel_pB.toggled.connect(self.RightContainer_widget.setHidden)
-        self.right_panel_pB.toggled.connect(self.tabWidget.setHidden)
+        self.right_panel_pB.toggled.connect(self.contentLayout.setHidden)
 
-        self.tabWidget.setCurrentIndex(2)
-        self.tabWidget_2.setCurrentIndex(0)
+        self.contentLayout.setCurrentIndex(0)
+        self.topBarLayout.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(mainWindow)
@@ -694,7 +698,7 @@ class Ui_mainWindow(object):
         self.comboBox_7.setItemText(0, QCoreApplication.translate("mainWindow", u"128", None))
 
         self.checkBox_3.setText(QCoreApplication.translate("mainWindow", u"Normalize Audio", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), QCoreApplication.translate("mainWindow", u"Engines", None))
+        self.topBarLayout.setTabText(self.topBarLayout.indexOf(self.tab_3), QCoreApplication.translate("mainWindow", u"Engines", None))
         self.audio_model_gB.setTitle(QCoreApplication.translate("mainWindow", u"Audio", None))
         self.audio_settingLabel.setText(QCoreApplication.translate("mainWindow", u"Settings", None))
         self.label.setText(QCoreApplication.translate("mainWindow", u"Model", None))
@@ -704,23 +708,23 @@ class Ui_mainWindow(object):
         self.audio_model_cB.setItemText(3, QCoreApplication.translate("mainWindow", u"m4", None))
 
         self.about_audio_model.setText(QCoreApplication.translate("mainWindow", u"About", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.left_container_widget), QCoreApplication.translate("mainWindow", u"Models", None))
+        self.topBarLayout.setTabText(self.topBarLayout.indexOf(self.modelWidget), QCoreApplication.translate("mainWindow", u"Models", None))
         self.meaning_searchLabel.setText(QCoreApplication.translate("mainWindow", u"Look up meanings", None))
         self.search_pB.setText(QCoreApplication.translate("mainWindow", u"Search", None))
         self.search_lE.setPlaceholderText(QCoreApplication.translate("mainWindow", u"Insert a word...", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), QCoreApplication.translate("mainWindow", u"Dict", None))
+        self.topBarLayout.setTabText(self.topBarLayout.indexOf(self.tab_4), QCoreApplication.translate("mainWindow", u"Dict", None))
         self.score_label.setText(QCoreApplication.translate("mainWindow", u"Feedbacks", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_5), QCoreApplication.translate("mainWindow", u"Score", None))
+        self.topBarLayout.setTabText(self.topBarLayout.indexOf(self.tab_5), QCoreApplication.translate("mainWindow", u"Score", None))
         self.space_rep_systemLabel.setText(QCoreApplication.translate("mainWindow", u"Space Repetition System", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_6), QCoreApplication.translate("mainWindow", u"SRS", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_7), QCoreApplication.translate("mainWindow", u"Library", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("mainWindow", u"main", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("mainWindow", u"User profile", None))
+        self.topBarLayout.setTabText(self.topBarLayout.indexOf(self.tab_6), QCoreApplication.translate("mainWindow", u"SRS", None))
+        self.topBarLayout.setTabText(self.topBarLayout.indexOf(self.tab_7), QCoreApplication.translate("mainWindow", u"Library", None))
+        self.contentLayout.setTabText(self.contentLayout.indexOf(self.tab), QCoreApplication.translate("mainWindow", u"main", None))
+        self.contentLayout.setTabText(self.contentLayout.indexOf(self.tab_2), QCoreApplication.translate("mainWindow", u"User profile", None))
         self.theme_pB.setText(QCoreApplication.translate("mainWindow", u"theme", None))
         self.label_2.setText(QCoreApplication.translate("mainWindow", u"Display language", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("mainWindow", u"Settings", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), QCoreApplication.translate("mainWindow", u"Pluggins", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_10), QCoreApplication.translate("mainWindow", u"About", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_11), QCoreApplication.translate("mainWindow", u"Manual", None))
+        self.contentLayout.setTabText(self.contentLayout.indexOf(self.tab_8), QCoreApplication.translate("mainWindow", u"Settings", None))
+        self.contentLayout.setTabText(self.contentLayout.indexOf(self.tab_9), QCoreApplication.translate("mainWindow", u"Pluggins", None))
+        self.contentLayout.setTabText(self.contentLayout.indexOf(self.tab_10), QCoreApplication.translate("mainWindow", u"About", None))
+        self.contentLayout.setTabText(self.contentLayout.indexOf(self.tab_11), QCoreApplication.translate("mainWindow", u"Manual", None))
     # retranslateUi
 

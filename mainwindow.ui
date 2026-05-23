@@ -211,7 +211,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QWidget" name="writerwidget" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_19">
@@ -401,8 +401,8 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QWebEngineView" name="webEngineView">
-            <property name="url">
+           <widget class="QWebEngineView" name="webEngineView" native="true">
+            <property name="url" stdset="0">
              <url>
               <string>about:blank</string>
              </url>
@@ -420,8 +420,8 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QWebEngineView" name="webEngineView_2">
-            <property name="url">
+           <widget class="QWebEngineView" name="webEngineView_2" native="true">
+            <property name="url" stdset="0">
              <url>
               <string>about:blank</string>
              </url>
@@ -445,7 +445,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="contentLayout">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -462,7 +462,7 @@
        <enum>QTabWidget::TabShape::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -476,12 +476,12 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
-         <widget class="QTabWidget" name="tabWidget_2">
+         <widget class="QTabWidget" name="topBarLayout">
           <property name="layoutDirection">
            <enum>Qt::LayoutDirection::LeftToRight</enum>
           </property>
           <property name="currentIndex">
-           <number>4</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_3">
            <attribute name="title">
@@ -776,7 +776,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="left_container_widget">
+          <widget class="QWidget" name="modelWidget">
            <attribute name="title">
             <string>Models</string>
            </attribute>
@@ -880,8 +880,8 @@
              </widget>
             </item>
             <item row="2" column="0" colspan="2">
-             <widget class="QWebEngineView" name="search_wVE">
-              <property name="url">
+             <widget class="QWebEngineView" name="search_wVE" native="true">
+              <property name="url" stdset="0">
                <url>
                 <string>about:blank</string>
                </url>
@@ -959,13 +959,13 @@
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="layoutWidget2">
         <property name="geometry">
          <rect>
           <x>60</x>
           <y>160</y>
-          <width>179</width>
-          <height>26</height>
+          <width>206</width>
+          <height>30</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1030,7 +1030,7 @@
   <connection>
    <sender>right_panel_pB</sender>
    <signal>toggled(bool)</signal>
-   <receiver>tabWidget</receiver>
+   <receiver>contentLayout</receiver>
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
