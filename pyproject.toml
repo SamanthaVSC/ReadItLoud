@@ -1,12 +1,14 @@
 [project]
-name = "ReadItLoud"
+name = "readitloud"
 version = "0.1.0"
-description = "A desktop app to practice reading, improve listening, and refine pronunciation — powered by offline TTS"
-authors = [{ name = "Samantha" }]
-requires-python = ">=3.10"
-license = "MIT"
+description = "Add your description here"
 readme = "README.md"
-
-[project.urls]
-Repository = "https://github.com/SamanthaVSC/ReadItLout"
-Issues = "https://github.com/SamanthaVSC/ReadItLout/issues"
+requires-python = ">=3.11"
+dependencies = [
+    "ctranslate2>=4.7.2",
+    "pydub>=0.25.1",
+    "pyside6>=6.11.1",
+    "qt-material>=2.17",
+    "qt-pyqt-pyside-custom-widgets>=2.1.4",
+    "sounddevice>=0.5.5",
+]

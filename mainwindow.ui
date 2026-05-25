@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1256</width>
+    <width>1466</width>
     <height>796</height>
    </rect>
   </property>
@@ -59,6 +59,27 @@
           <string>OPTIONS </string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QPushButton" name="check_pronounce_pB">
+            <property name="text">
+             <string>CHECK PRONOUNCE</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="reaload_audio_pB">
+            <property name="text">
+             <string>RELOAD</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="transcibe_pB">
+            <property name="text">
+             <string>TRANCRIBE</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QPushButton" name="play_pB">
             <property name="text">
@@ -123,6 +144,16 @@
          </spacer>
         </item>
         <item>
+         <widget class="QPushButton" name="theme_pB">
+          <property name="text">
+           <string>theme</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="right_panel_pB">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -148,6 +179,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777212</height>
+         </size>
+        </property>
         <property name="mouseTracking">
          <bool>false</bool>
         </property>
@@ -159,6 +196,9 @@
         </property>
         <property name="toolTipDuration">
          <number>8</number>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LayoutDirection::LeftToRight</enum>
         </property>
         <property name="locale">
          <locale language="English" country="UnitedStates"/>
@@ -200,6 +240,12 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="contextMenuPolicy">
           <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
          </property>
@@ -216,9 +262,9 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_19">
                <item>
-                <widget class="QPushButton" name="copy_pB_5">
+                <widget class="QPushButton" name="copy_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -229,9 +275,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="cut_pB_5">
+                <widget class="QPushButton" name="cut_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -242,9 +288,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="paste_pB_5">
+                <widget class="QPushButton" name="paste_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -255,9 +301,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="undo_pB_5">
+                <widget class="QPushButton" name="undo_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -268,9 +314,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="redo_pB_5">
+                <widget class="QPushButton" name="redo_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -284,9 +330,32 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="upload_pB_5">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Policy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="export_pB">
+                 <property name="text">
+                  <string>EXPORT</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="upload_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -300,9 +369,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="clear_pB_5">
+                <widget class="QPushButton" name="clear_pB">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -354,28 +423,35 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_21">
                <item>
-                <widget class="QPushButton" name="pushButton_17">
+                <widget class="QPushButton" name="read_pB">
                  <property name="text">
                   <string>READ</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_18">
+                <widget class="QPushButton" name="Check_grammar_pB">
                  <property name="text">
-                  <string>READ ALL</string>
+                  <string>CHECK GRAMMAR</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_19">
+                <widget class="QPushButton" name="translate_pB">
+                 <property name="text">
+                  <string>TRANSLATE</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="record_pB">
                  <property name="text">
                   <string>RECORD</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_20">
+                <widget class="QPushButton" name="save_pB">
                  <property name="text">
                   <string>SAVE</string>
                  </property>
@@ -384,7 +460,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QProgressBar" name="main_pB">
+              <widget class="QProgressBar" name="ar">
                <property name="value">
                 <number>24</number>
                </property>
@@ -401,8 +477,38 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QWebEngineView" name="webEngineView" native="true">
-            <property name="url" stdset="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QPushButton" name="open_book_bP">
+              <property name="text">
+               <string>Open a book (PDF)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QWebEngineView" name="book_webEngineView">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="url">
              <url>
               <string>about:blank</string>
              </url>
@@ -420,8 +526,8 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QWebEngineView" name="webEngineView_2" native="true">
-            <property name="url" stdset="0">
+           <widget class="QWebEngineView" name="webEngineView_2">
+            <property name="url">
              <url>
               <string>about:blank</string>
              </url>
@@ -491,7 +597,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_14">
               <item>
-               <widget class="QLabel" name="engineLabel_2">
+               <widget class="QLabel" name="engineLabel">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -543,7 +649,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="about_engineButton_2">
+               <widget class="QPushButton" name="about_engineButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -736,6 +842,11 @@
                      <string>mp3</string>
                     </property>
                    </item>
+                   <item>
+                    <property name="text">
+                     <string>wav</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                 </layout>
@@ -753,7 +864,12 @@
                   <widget class="QComboBox" name="comboBox_7">
                    <item>
                     <property name="text">
-                     <string>128</string>
+                     <string>44100</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>48000</string>
                     </property>
                    </item>
                   </widget>
@@ -778,7 +894,7 @@
           </widget>
           <widget class="QWidget" name="modelWidget">
            <attribute name="title">
-            <string>Models</string>
+            <string>Transcript</string>
            </attribute>
            <layout class="QVBoxLayout" name="vertru">
             <item>
@@ -786,69 +902,98 @@
               <property name="title">
                <string>Audio</string>
               </property>
-              <widget class="QLabel" name="audio_settingLabel">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>90</y>
-                 <width>62</width>
-                 <height>20</height>
-                </rect>
-               </property>
-               <property name="text">
-                <string>Settings</string>
-               </property>
-              </widget>
-              <widget class="QWidget" name="layoutWidget">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>35</y>
-                 <width>198</width>
-                 <height>32</height>
-                </rect>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
-                 <widget class="QLabel" name="label">
-                  <property name="text">
-                   <string>Model</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="audio_model_cB">
-                  <item>
-                   <property name="text">
-                    <string>m1</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m3</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m4</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="about_audio_model">
-                  <property name="text">
-                   <string>About</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
+              <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0">
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>Model</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="audio_model_cB">
+                     <item>
+                      <property name="text">
+                       <string>m1</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>m2</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>m3</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>m4</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="about_audio_model">
+                     <property name="text">
+                      <string>About</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label_3">
+                     <property name="text">
+                      <string>Detect language</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboBox_3">
+                     <item>
+                      <property name="text">
+                       <string>Auto</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>English</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Spanish</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <item>
+                    <widget class="QLabel" name="label_4">
+                     <property name="text">
+                      <string>Format input</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboBox_2"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
@@ -880,30 +1025,13 @@
              </widget>
             </item>
             <item row="2" column="0" colspan="2">
-             <widget class="QWebEngineView" name="search_wVE" native="true">
-              <property name="url" stdset="0">
+             <widget class="QWebEngineView" name="search_wVE">
+              <property name="url">
                <url>
                 <string>about:blank</string>
                </url>
               </property>
              </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_5">
-           <attribute name="title">
-            <string>Score</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
-            <item>
-             <widget class="QLabel" name="score_label">
-              <property name="text">
-               <string>Feedbacks</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QListView" name="score_frame"/>
             </item>
            </layout>
           </widget>
@@ -934,6 +1062,39 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_12">
+       <attribute name="title">
+        <string>Translation</string>
+       </attribute>
+       <widget class="QLabel" name="score_label">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>4</y>
+          <width>83</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Translation</string>
+        </property>
+       </widget>
+       <widget class="QListView" name="score_frame">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>243</width>
+          <height>678</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_13">
+       <attribute name="title">
+        <string>Score/feedback</string>
+       </attribute>
+      </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
         <string>User profile</string>
@@ -943,28 +1104,12 @@
        <attribute name="title">
         <string>Settings</string>
        </attribute>
-       <widget class="QPushButton" name="theme_pB">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>30</y>
-          <width>93</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>theme</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
        <widget class="QWidget" name="layoutWidget2">
         <property name="geometry">
          <rect>
-          <x>60</x>
-          <y>160</y>
-          <width>206</width>
+          <x>30</x>
+          <y>20</y>
+          <width>231</width>
           <height>30</height>
          </rect>
         </property>

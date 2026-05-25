@@ -6,8 +6,8 @@ from qt_material import apply_stylesheet
 
 def main():
     app = QApplication(sys.argv)
-    apply_stylesheet(app, theme='light_blue.xml')
     w = MainWindow(app)
+    w.initial_theme()
     w.show()
     app.exec()
 
