@@ -9,6 +9,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
     def __init__(self, app):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle("ReadItLoud")
         self.app = app
         
         # Show messages
@@ -105,9 +106,9 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         file_path, _ = QFileDialog.getSaveFileName(
             self,
             "Save Text File",
-            "",
-            "text Files (*.txt);;All Files (*)"
-        )
+            ".txt",
+            "*.txt (*.txt)")
+    
 
         # If the user cancels the dialog, file_path will be empty
         if not file_path:
@@ -148,16 +149,16 @@ class MainWindow(QMainWindow, Ui_mainWindow):
     def change_theme(self, checked):
         
     # Apply the selected theme and save it in a txt file to be loaded at the next startup
-        if checked:
+        if not checked:
             t = 'dark_teal.xml'
             with open('config/themes/default.txt', 'w') as th:
-                new_theme = th.write('dark_teal.xml')
+                new_theme = th.write(t)
             return apply_stylesheet(self.app, theme=t)
                 
         else:
             t = 'light_blue.xml'
             with open('config/themes/default.txt', 'w') as th:
-                new_theme = th.write('light_blue.xml')
+                new_theme = th.write(t)
         return apply_stylesheet(self.app, theme=t)
 
 
@@ -169,7 +170,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
     def load_pdf(self):
         paths = QFileDialog.getOpenFileNames(
             self,
-            "Open PDF File(s)",
+            "Open PDF file",
             "",
             "PDF Files (*.pdf)"
          )
@@ -183,7 +184,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
     def browse_file(self):
         fileName = QFileDialog.getOpenFileName(self, 
                                                "Open file","",
-                                                "TEXT Files (*.txt)")
+                                                "*txt (*.txt)")
         return Path(fileName[0]).name
 
     # Load the content of the selected text file into the text editor
