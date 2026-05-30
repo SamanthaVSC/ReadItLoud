@@ -733,8 +733,8 @@ class Ui_mainWindow(object):
         self.left_panel_pB.toggled.connect(self.RightContainer_widget.setHidden)
         self.right_panel_pB.toggled.connect(self.contentLayout.setHidden)
 
-        self.contentLayout.setCurrentIndex(0)
-        self.topBarLayout.setCurrentIndex(0)
+        self.contentLayout.setCurrentIndex(2)
+        self.topBarLayout.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(mainWindow)

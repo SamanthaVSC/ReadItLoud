@@ -6,7 +6,7 @@ from qt_material import apply_stylesheet
 
 
 class MainWindow(QMainWindow, Ui_mainWindow):
-    def __init__(self, app):
+    def __init__(self, app) -> None:
         super().__init__()
         self.setupUi(self)
         self.setWindowTitle("ReadItLoud")
@@ -40,7 +40,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
     ######################
     
     # Show a message box to confirm the deletion of a file
-    def Show_deleteMSG(self):
+    def Show_deleteMSG(self) -> None:
         delete_msg = QMessageBox()
         delete_msg.setMinimumSize(700,200)
         delete_msg.setWindowTitle("Warning")
@@ -57,7 +57,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
             print("User chose Cancel")
             
     # Show message boxes with license details of the selected model and engine
-    def show_modelABOUT(self):
+    def show_modelABOUT(self) -> None:
         delete_msg = QMessageBox()
         delete_msg.setMinimumSize(700,200)
         delete_msg.setWindowTitle("About")
@@ -68,7 +68,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         ret = delete_msg.exec()
         
     # Show message boxes with license details of the selected model and engine
-    def show_engineABOUT(self):
+    def show_engineABOUT(self) -> None:
         delete_msg = QMessageBox()
         delete_msg.setMinimumSize(700,200)
         delete_msg.setWindowTitle("About")
@@ -79,22 +79,22 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         ret = delete_msg.exec()
 
     # Edit menu functions #
-    def COPY(self):
+    def COPY(self) -> None:
         self.Reader_editText.copy()
 
-    def CUT(self):
+    def CUT(self) -> None:
         self.Reader_editText.cut()
         
-    def PASTE(self):
+    def PASTE(self) -> None:
         self.Reader_editText.paste()
         
-    def UNDO(self):
+    def UNDO(self) -> None:
         self.Reader_editText.undo()
         
-    def REDO(self):
+    def REDO(self) -> None:
         self.Reader_editText.redo()
         
-    def get_text_save(self):
+    def get_text_save(self) -> None:
         """
         Save the content of the text editor to a file chosen by the user.
         """
@@ -132,7 +132,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
                 f"Could not save the file:\n{e}"
             )
         
-    def CLEAR(self):
+    def CLEAR(self) -> None:
         self.Reader_editText.clear()
 
         ###############
@@ -140,34 +140,31 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         ###############
         
     # Load the default theme from a txt file and apply it at startup
-    def initial_theme(self):
+    def initial_theme(self)  -> None:
         with open('config/themes/default.txt', 'r') as th:
             default = th.read() # tema inicial
         apply_stylesheet(self.app, theme=default)
 
-    # Change theme and save the selected theme in a txt file
-    def change_theme(self, checked):
-        
-    # Apply the selected theme and save it in a txt file to be loaded at the next startup
-        if not checked:
-            t = 'dark_teal.xml'
-            with open('config/themes/default.txt', 'w') as th:
-                new_theme = th.write(t)
-            return apply_stylesheet(self.app, theme=t)
-                
+    def change_theme(self) -> None:
+        # Apply the selected theme and save it in a txt file to be loaded at the next start
+        with open('config/themes/default.txt', 'r') as th:
+            theme = th.read().strip()
+    
+        if theme == "dark_teal.xml":
+            with open('config/themes/default.txt', 'w') as new:
+                new.write("light_blue.xml")
+            return apply_stylesheet(self.app, theme="light_blue.xml")
         else:
-            t = 'light_blue.xml'
-            with open('config/themes/default.txt', 'w') as th:
-                new_theme = th.write(t)
-        return apply_stylesheet(self.app, theme=t)
-
+            with open('config/themes/default.txt', 'w') as new:
+                new.write("dark_teal.xml")
+            return apply_stylesheet(self.app, theme="dark_teal.xml")
 
         ###############
         # Open a book #
         ###############
         
     # Open a file dialog to select a PDF file and return its path
-    def load_pdf(self):
+    def load_pdf(self) -> None:
         paths = QFileDialog.getOpenFileNames(
             self,
             "Open PDF file",
@@ -181,21 +178,21 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         ############### 
         
     # Open a file dialog to select a text file and return its name 
-    def browse_file(self):
+    def browse_file(self) -> str:
         fileName = QFileDialog.getOpenFileName(self, 
                                                "Open file","",
                                                 "*txt (*.txt)")
         return Path(fileName[0]).name
 
     # Load the content of the selected text file into the text editor
-    def load_text_files(self):
+    def load_text_files(self) -> None:
         with open(self.browse_file(), 'r') as f:
             contents = f.read()
         return self.Reader_editText.setText(contents)
         
    
         #return book_webEngineView.printFinished('book.pdf')
-    def load_media_generated(self, folder: str):
+    def load_media_generated(self, folder: str) -> None:
         self.Generated_audioListWidget.clear()
         path = Path('cache/generated')
 
@@ -210,7 +207,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         else:
             self.Generated_audioListWidget.addItem("No .mp3 or .wav files found.")
             
-    def load_media_record(self, folder: str):
+    def load_media_record(self, folder: str) -> None:
         self.yoursListWidget.clear()
         path = Path('cache/records')
 

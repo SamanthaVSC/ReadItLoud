@@ -1,10 +1,8 @@
 import sys
 from PySide6.QtWidgets import QApplication
 from mainwindow import MainWindow
-from qt_material import apply_stylesheet
 
-
-def main():
+def main() -> None:
     app = QApplication(sys.argv)
     w = MainWindow(app)
     w.initial_theme()
