@@ -28,13 +28,10 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         self.app = app
         
         # Create messages objects
-        model_about = QMessageBox()
         engine_about = QMessageBox()
         
         # Connect buttons to functions
         self.delete_pB.clicked.connect(self.Show_deleteMSG)
-        self.about_audio_model.clicked.connect(self.show_modelABOUT)
-        self.about_engineButton.clicked.connect(self.show_engineABOUT)
    
         self.copy_pB.clicked.connect(self.COPY)
         self.cut_pB.clicked.connect(self.CUT)
