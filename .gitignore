@@ -11,6 +11,13 @@ venv/
 env/
 ENV/
 
+#
+engines_tss/
+audio transcription/
+image transcription/
+translation engines/
+
+
 # Distribution / packaging
 build/
 develop-eggs/
@@ -113,3 +120,9 @@ config/secrets.yaml
 
 # Logs
 *.log
+
+# Other
+tests
+cores
+shh_key.txt
+shh_key.txt.pub

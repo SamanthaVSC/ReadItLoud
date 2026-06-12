@@ -5,6 +5,21 @@ from ui_mainwindow import Ui_mainWindow
 from qt_material import apply_stylesheet
 
 
+import sys
+import os
+import threading
+import queue
+import wave
+from datetime import datetime
+import numpy as np
+
+import sounddevice as sd
+import scipy.io.wavfile as wav
+import sounddevice as sd
+from PySide6.QtCore    import Qt, QThread, Signal, QPropertyAnimation, QEasingCurve, Property
+from PySide6.QtGui     import QColor, QPainter, QBrush, QPen, QFont, QIcon
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
+
 class MainWindow(QMainWindow, Ui_mainWindow):
     def __init__(self, app) -> None:
         super().__init__()
@@ -12,7 +27,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         self.setWindowTitle("ReadItLoud")
         self.app = app
         
-        # Show messages
+        # Create messages objects
         model_about = QMessageBox()
         engine_about = QMessageBox()
         
@@ -29,16 +44,18 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         self.export_pB.clicked.connect(self.get_text_save)
         self.clear_pB.clicked.connect(self.CLEAR)
         
+        
+        self.read_pB.clicked.connect(self.READ)        
+        self.translate_pB.clicked.connect(self.TRANSLATE)
+        self.transcibe_pB.clicked.connect(self.TRANSCIRBE)
+        self.Check_grammar_pB.clicked.connect(self.CHECK_GRAMMAR)
+        
         self.theme_pB.clicked.connect(self.change_theme)
         self.open_book_bP.clicked.connect(self.load_pdf)
         self.upload_pB.clicked.connect(self.load_text_files)
-        self.reaload_audio_pB.clicked.connect(self.load_media_generated)
-        self.reaload_audio_pB.clicked.connect(self.load_media_record)
-    
-    ######################   
-    # Show message boxes #
-    ######################
-    
+        self.reload_audio_pB.clicked.connect(self.load_media_generated)
+        self.reload_audio_pB.clicked.connect(self.load_media_record)
+ 
     # Show a message box to confirm the deletion of a file
     def Show_deleteMSG(self) -> None:
         delete_msg = QMessageBox()
@@ -221,3 +238,30 @@ class MainWindow(QMainWindow, Ui_mainWindow):
                 self.yoursListWidget.addItem(file.name)  # or str(file) for full path
         else:
             self.yoursListWidget.addItem("No .mp3 or .wav files found.")
+            
+
+    
+    def CHECK_PRONOUNCE(self):
+        pass
+    
+    def PLAY(self):
+        pass #sample_rate, data = wav.read()
+    
+    def RENAME(self):
+        pass
+    
+    def DELETE(self):
+        pass
+    
+    def READ(self, text):
+        pass
+    
+    def TRANSLATE(self):
+        print("Translated")
+        
+    def TRANSCIRBE(self):
+        print("Transcribed")
+
+    def CHECK_GRAMMAR(self):
+        print("Checked grammar")
+        
