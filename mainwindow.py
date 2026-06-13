@@ -1,24 +1,7 @@
-"""Main window for ReadItLoud application."""
-from PySide6.QtWidgets import QMainWindow, QFileDialog, QMessageBox
+from PySide6.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QMdiSubWindow
 from pathlib import Path
 from ui_mainwindow import Ui_mainWindow
 from qt_material import apply_stylesheet
-
-
-import sys
-import os
-import threading
-import queue
-import wave
-from datetime import datetime
-import numpy as np
-
-import sounddevice as sd
-import scipy.io.wavfile as wav
-import sounddevice as sd
-from PySide6.QtCore    import Qt, QThread, Signal, QPropertyAnimation, QEasingCurve, Property
-from PySide6.QtGui     import QColor, QPainter, QBrush, QPen, QFont, QIcon
-from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
 
 class MainWindow(QMainWindow, Ui_mainWindow):
     def __init__(self, app) -> None:
@@ -26,6 +9,15 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         self.setupUi(self)
         self.setWindowTitle("ReadItLoud")
         self.app = app
+        
+        # --- SOLUCIÓN ---
+        # 1. Obtenemos la subventana contenedora de tu widget
+        sub_window = self.writer_sw.parentWidget()
+        
+        # 2. Nos aseguramos de que realmente sea un QMdiSubWindow
+        if isinstance(sub_window, QMdiSubWindow):
+            self.mdiArea.setActiveSubWindow(sub_window)
+            # Opcional: sub_window.showMaximized()
         
         # Create messages objects
         engine_about = QMessageBox()
