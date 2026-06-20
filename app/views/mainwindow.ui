@@ -40,24 +40,24 @@
         <number>9</number>
        </property>
        <item>
-        <widget class="QLabel" name="Generated_audioLabel">
+        <widget class="QLabel" name="audioLabel">
          <property name="text">
-          <string>Generated audios/Engine</string>
+          <string>Historial records</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="Generated_audioListWidget"/>
+        <widget class="QListWidget" name="audioListWidget"/>
        </item>
        <item>
-        <widget class="QLabel" name="yoursLabel">
+        <widget class="QLabel" name="rep_timeLabel">
          <property name="text">
-          <string>Yours/Qualification</string>
+          <string>00:00</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="yoursListWidget"/>
        </item>
        <item>
         <widget class="QGroupBox" name="OptiongBox">
@@ -87,9 +87,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="play_pB">
+           <widget class="QPushButton" name="play_pause_pB">
             <property name="text">
-             <string>PLAY</string>
+             <string>PLAY/STOP</string>
             </property>
            </widget>
           </item>
@@ -103,7 +103,7 @@
           <item>
            <widget class="QPushButton" name="delete_pB">
             <property name="text">
-             <string>DELATE</string>
+             <string>DELETE</string>
             </property>
            </widget>
           </item>
@@ -129,7 +129,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>left settings</string>
+           <string>Audio</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -137,46 +137,20 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+         <widget class="QLabel" name="image1Label">
           <property name="text">
-           <string>Language</string>
-          </property>
-          <property name="textFormat">
-           <enum>Qt::TextFormat::RichText</enum>
+           <string/>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QPushButton" name="theme_pB">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="theme_pB">
           <property name="text">
            <string>theme</string>
           </property>
@@ -266,7 +240,7 @@
          <bool>false</bool>
         </property>
         <property name="tabShape">
-         <enum>QTabWidget::TabShape::Triangular</enum>
+         <enum>QTabWidget::TabShape::Rounded</enum>
         </property>
         <property name="tabPosition">
          <enum>QTabWidget::TabPosition::North</enum>
@@ -447,9 +421,9 @@
                 </spacer>
                </item>
                <item>
-                <widget class="QLabel" name="label_7">
+                <widget class="QLabel" name="counterLabel">
                  <property name="text">
-                  <string>0/1000</string>
+                  <string>0/5000</string>
                  </property>
                 </widget>
                </item>
@@ -457,6 +431,19 @@
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <item>
+                <spacer name="horizontalSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
                <item>
                 <widget class="QPushButton" name="read_pB">
                  <property name="text">
@@ -479,16 +466,25 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="record_pB">
+                <widget class="QPushButton" name="record_pause_pB">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
-                  <string>RECORD</string>
+                  <string>RECORD/PAUSE</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="save_pB">
+                <widget class="QPushButton" name="stop_pB">
                  <property name="text">
-                  <string>SAVE</string>
+                  <string>STOP</string>
                  </property>
                 </widget>
                </item>
@@ -529,52 +525,17 @@
            </layout>
           </item>
           <item>
-           <widget class="QWebEngineView" name="book_webEngineView" native="true">
+           <widget class="QWebEngineView" name="book_webEngineView">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="url" stdset="0">
+            <property name="url">
              <url>
               <string>about:blank</string>
              </url>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="Split">
-         <property name="windowTitle">
-          <string>SPLIT</string>
-         </property>
-         <property name="locale">
-          <locale language="English" country="UnitedStates"/>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QWebEngineView" name="webEngineView_2" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="url" stdset="0">
-             <url>
-              <string>about:blank</string>
-             </url>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="Panel_widget" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
             </property>
            </widget>
           </item>
@@ -616,21 +577,21 @@
       <property name="tabsClosable">
        <bool>false</bool>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="engine_tab">
        <attribute name="title">
-        <string>Settings</string>
+        <string>Engines</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_12">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QGroupBox" name="audio_settings_gB">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="title">
-           <string>Engine TSS</string>
+           <string>Choice a TSS engine and a voice</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
@@ -732,22 +693,25 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
+         <widget class="QLabel" name="image1Label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
-         </spacer>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -796,54 +760,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_12">
-       <attribute name="title">
-        <string>Translations</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <widget class="QLabel" name="score_label">
-          <property name="text">
-           <string>Translation</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>From</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_2"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>to</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_3"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QTextBrowser" name="textBrowser_2"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_13">
+      <widget class="QWidget" name="feedback_tab">
        <attribute name="title">
         <string>Feedbacks</string>
        </attribute>
@@ -854,6 +771,23 @@
            <string>Grammar Checker</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="grammarLabel">
+               <property name="text">
+                <string>Language</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="grammar_cb"/>
+             </item>
+            </layout>
+           </item>
            <item>
             <widget class="QTextBrowser" name="textBrowser">
              <property name="sizePolicy">
@@ -916,6 +850,53 @@
            </item>
           </layout>
          </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="translation_tab">
+       <attribute name="title">
+        <string>Translations</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QLabel" name="score_label">
+          <property name="text">
+           <string>Translation</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>From</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_2"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>to</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_3"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="textBrowser_2"/>
         </item>
        </layout>
       </widget>

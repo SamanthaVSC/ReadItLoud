@@ -1,1 +1,1 @@
-dark_teal.xml
+modern_dark
