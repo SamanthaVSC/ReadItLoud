@@ -3,7 +3,7 @@ import soundfile as sf
 import numpy as np
 import time
 
-class SimpleRecorder:
+class Record:
     def __init__(self, samplerate=44100, channels=1):
         self.samplerate = samplerate
         self.channels = channels

@@ -1,0 +1,64 @@
+ReadItLoud — Desktop application for language learning
+through document reading with text-to-speech (TTS), pronunciation feedback,
+and integrated grammar correction.
+
+Copyright (C) 2026 Samantha Alvarez Hechevarría (autor original)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+================================================================================
+NOTICE OF ATTRIBUTION
+================================================================================
+
+ReadItLoud was originally conceived, designed and implemented by
+Samantha Alvarez Hechevarría in 2026 as a personal project for learning
+languages while reading academic materials.
+
+The original repository is hosted at:
+    https://github.com/SamanthaVSC/ReadItLoud
+
+Any modified version of this software MUST:
+
+  1. Retain this NOTICE file.
+  2. Retain the copyright notices in each source file.
+  3. Mention the original author (Samantha Alvarez Hechevarría) in:
+       - The README of any derivative work
+       - The "About" dialog or equivalent in any derivative software
+       - Any academic paper, presentation or report describing the
+         derivative work, citing the original project ReadItLoud.
+
+================================================================================
+THIRD-PARTY COMPONENTS
+================================================================================
+
+This project uses the following third-party components, each under its
+own license:
+
+faster_whisper	- MIT License
+whisper - (OpenAI)	MIT License
+piper tts -	MIT License (engine is also available under GPL-3.0; voice models may have other licenses like CC0)
+kokoro - Apache License 2.0
+orpheus - Apache License 2.0 (some variants are under CC-BY-NC 4.0)
+languagetool - GNU Lesser General Public License (LGPL) v2.1+
+argos-translate	- Dual-licensed under MIT License or Creative Commons CC0
+================================================================================
+CONTACT
+================================================================================
+
+For questions about licensing, attribution or contributions, contact:
+
+    Author:   Samantha Alvarez Hechevarría
+    Email:    samanthadesktop324@gmail.com
+    GitHub:   https://github.com/SamanthaVSC
+

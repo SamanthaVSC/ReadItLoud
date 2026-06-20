@@ -1,81 +1,67 @@
-
 ---
 
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
 
-=============
-=    MVP    =
+=    MVC    =
 =============
 
-    tts-app/  
+    ├── app/
+    │   ├── controllers/
+    │   │   ├── main_controller.py
+    │   ├── models/
+    │   │   ├── book_model.py
+    │   │   ├── document_model.py
+    │   │   ├── llm_model.py
+    │   │   ├── media_model.py
+    │   │   ├── record_model.py
+    │   │   ├── theme_model.py
+    │   │   └── tts_engine_factory.py
+    │   └── views/
+    │   ├── main_window.py
+    │   ├── mainwindow.ui
+    │   ├── mainwindow_ui.py
+    │   └── ui_mainwindow.py
     ├── cache/
-    │   ├── hash(text)_kokoro.wav
-    │   └── hash(text)_piper.wav
-    │ 
+    │   └── records/
     ├── config/
-    │   └── settings.yaml
-    │
-    ├── data/
-    │   └── text_input.txt
-    │
+    │   ├── themes/
+    │   │   ├── default.txt
+    │   │   ├── templates/
+    │   │   │   ├── modern_dark.xml
+    │   │   │   └── modern_light.xml
+    │   │   └── themes.py
+    │   └── wallpapers/
+    │   ├── light.jpeg
+    │   └── night.jpeg
+
+    ├── cores/
+    │   ├── audio qualifiers/
+    │   │   └── faster-whisper
+    │   ├── audio transcription/
+    │   │   └── whisper
+    │   ├── Engines/
+    │   │   ├── kokoro-tts
+    │   │   ├── orpheus
+    │   │   └── Piper-tts
+    │   ├── Grammar models/
+    │   │   └── languagetool
+    │   ├── model_factory.py
+    │   ├── translation models/
+    │   │   ├── argos-translate
     ├── docs/
-    │   └── architecture.md
-    │
-    ├── core/
-    │   ├── models_factory.py # abstract base class or factory
-    │   │   │
-    │   │   ├── audio_text_extractors/
-    │   │   │   └── sample
-    │   │   │
-    │   │   ├── pronunciation_qualifiter/
-    │   │   │   └── sample
-    │   │   │
-    │   │   └── text_from_image/
-    │   │       └── sample
-    │   │
-    │   └── engines_tss/
-    │       ├── piper_engine/
-    │       │   ├── venv/
-    │       │   ├── voices/
-    │       │   └── sample
-    │       │
-    │       ├── kokoro_engine/
-    │       │   ├── venv/
-    │       │   ├── voices/
-    │       │   └── sample
-    │       │
-    │       └── coquis_engine/
-    │                ├── venv/
-    │                ├── voices/
-    │                └── sample
-    ├── domain/
-    │   └── logic.py
-    │
-    ├── tests/
-    │
-    ├── Presenters
-    │   └── Presenter.py
-    │
-    ├── resources/
-    │   ├── icons/
-    │   ├── themes/
-    │   └── fonts/
-    │
-    ├── views/
-    │      ├── form.ui
-    │      ├── form.py
-    │      └── main_window.py
-    │       
-    │
-    ├── third_party_licenses/
-    │   └──LGPLv3.txt
-    │
-    ├── .gitignore
-    │
+    │   └── │architecture.md
+    ├── AUTHORS
+    ├── CONTRIBUTING.md
+    ├── CODE_OF_CONDUCT.md
+    ├── LICENSE
     ├── main.py
-    │
+    ├── NOTICE
+    ├── pyproject.toml
+    ├── README.md
     ├── requirements.txt
-    │
-    └── README.md
+    ├── tests/
+    ├── third_party_licenses/
+    │   └── LGPLv3.txt
+    └── uv.lock
