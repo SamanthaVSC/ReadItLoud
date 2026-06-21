@@ -81,32 +81,32 @@ ReadItLoud/
 ### Installation
 
 1. **Clone the repository**
-
+   
    ```bash
    git clone https://github.com/SamanthaVSC/ReadItLout.git
    cd ReadItLout
    ```
 
 2. **Create and activate a virtual environment**
-
+   
    ```bash
    # Linux / macOS
    python3 -m venv .venv
    source .venv/bin/activate
-
+   
    # Windows
    python -m venv .venv
    .venv\Scripts\activate
    ```
 
 3. **Install dependencies**
-
+   
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Run the application**
-
+   
    ```bash
    python main.py
    ```
@@ -133,7 +133,7 @@ Please read our [**Contributing Guide**](CONTRIBUTING.md) to get started, and ou
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GPL v3** — see the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for details.
 
 ### Third-Party Licenses
 
