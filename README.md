@@ -133,7 +133,7 @@ Please read our [**Contributing Guide**](CONTRIBUTING.md) to get started, and ou
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GPL v3** — see the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for details.
 
 ### Third-Party Licenses
 
