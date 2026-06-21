@@ -1,3 +1,28 @@
+"""
+ReadItLoud — Desktop application for language learning through
+reading documents with speech synthesis (TTS), pronunciation feedback
+and integrated grammar correction.
+
+Copyright (C) 2026 Samantha Alvarez Hechevarría
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+Author: Samantha Alvarez Hechevarria
+Contact: samanthadesktop324@gmail.com
+GitHub: https://github.com/SamanthaVSC/ReadItLoud
+"""
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -129,6 +154,13 @@ class Ui_mainWindow(object):
         self.theme_pB.setCheckable(False)
 
         self.centralwidget_pB_panels__hLayout.addWidget(self.theme_pB)
+
+        self.about_software_pB = QPushButton(self.centralwidget_grid)
+        self.about_software_pB.setObjectName(u"about_software_pB")
+        sizePolicy1.setHeightForWidth(self.about_software_pB.sizePolicy().hasHeightForWidth())
+        self.about_software_pB.setSizePolicy(sizePolicy1)
+
+        self.centralwidget_pB_panels__hLayout.addWidget(self.about_software_pB)
 
         self.right_panel_pB = QPushButton(self.centralwidget_grid)
         self.right_panel_pB.setObjectName(u"right_panel_pB")
@@ -632,6 +664,7 @@ class Ui_mainWindow(object):
         self.left_panel_pB.setText(QCoreApplication.translate("mainWindow", u"Audio", None))
         self.image1Label.setText("")
         self.theme_pB.setText(QCoreApplication.translate("mainWindow", u"theme", None))
+        self.about_software_pB.setText(QCoreApplication.translate("mainWindow", u"About", None))
         self.right_panel_pB.setText(QCoreApplication.translate("mainWindow", u"Tools", None))
         self.writer_sw.setWindowTitle(QCoreApplication.translate("mainWindow", u"WRITER", None))
         self.copy_pB.setText(QCoreApplication.translate("mainWindow", u"COPY", None))

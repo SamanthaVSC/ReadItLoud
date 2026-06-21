@@ -232,12 +232,11 @@ Contributions are welcome. Please read [AUTHORS](https://github.com/SamanthaVSC/
 - Global open-source community
 - faster_whisper - MIT License
 - whisper - (OpenAI) MIT License
-- piper tts - MIT License (engine is also available under GPL-3.0; voice models may have other licenses like CC0)
+- piper tts -  GPL-3.0
 - kokoro - Apache License 2.0
-- orpheus - Apache License 2.0 (some variants are under CC-BY-NC 4.0)
 - languagetool - GNU Lesser General Public License (LGPL) v2.1+
 - argos-translate - Dual-licensed under MIT License or Creative Commons CC0
-
+- espeak-ng - GPL-3.0. 
 ---
 
 *If ReadItLoud has been useful to you, please share it with someone who is learning a language. That is the best way to give back.* 🌎
