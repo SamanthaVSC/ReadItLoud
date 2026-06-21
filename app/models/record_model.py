@@ -23,67 +23,158 @@ Contact: samanthadesktop324@gmail.com
 GitHub: https://github.com/SamanthaVSC/ReadItLoud
 """
 
+"""
+Record — Captures audio from the default input device with pause/resume
+support and saves WAV files to cache/records.
+
+State machine
+-------------
+    IDLE  ──record_audio()──▶  RECORDING
+    RECORDING  ──pause()──▶  PAUSED
+    PAUSED  ──resume()──▶  RECORDING
+    RECORDING | PAUSED  ──stop()──▶  IDLE  (audio data preserved)
+
+After stop() the captured audio remains in memory until save(filename)
+writes it to disk (clearing the buffer) or discard() throws it away.
+"""
+
+from datetime import datetime
+from enum import Enum
+from pathlib import Path
+
+import numpy as np
 import sounddevice as sd
 import soundfile as sf
-import numpy as np
-import time
+
+
+class RecordState(Enum):
+    """States of the Record state machine."""
+
+    IDLE = "idle"
+    RECORDING = "recording"
+    PAUSED = "paused"
+
 
 class Record:
-    def __init__(self, samplerate=44100, channels=1):
-        self.samplerate = samplerate
-        self.channels = channels
-        self.audio_data = []
-        self.is_recording = False
-        self.is_paused = False
+    """Records mono/stereo audio with pause/resume support.
+
+    The audio is captured in chunks by a sounddevice callback running on
+    a background thread. Each chunk is appended to ``self.audio_data``;
+    on save() they are concatenated into a single numpy array and written
+    as a WAV file.
+    """
+
+    DEFAULT_RECORDS_DIR = "cache/records"
+
+    def __init__(self, samplerate: int = 44100, channels: int = 1) -> None:
+        self.samplerate: int = samplerate
+        self.channels: int = channels
+        self.audio_data: list[np.ndarray] = []
+        self.state: RecordState = RecordState.IDLE
         self.stream = None
 
-    def _callback(self, indata, frames, time_info, status):
-        # sounddevice calls this continuously in the background
-        if self.is_recording and not self.is_paused:
+    # ── Audio callback (runs on sounddevice's thread) ──────────
+
+    def _callback(self, indata, frames, time_info, status) -> None:
+        """Append captured audio while in the RECORDING state.
+
+        Reading ``self.state`` is safe under the GIL; a stale read at
+        most drops a single chunk (~tens of ms), which is acceptable.
+        """
+        if self.state == RecordState.RECORDING:
             self.audio_data.append(indata.copy())
 
-    def start(self):
+    # ── State transitions ──────────────────────────────────────
+
+    def record_audio(self) -> None:
+        """Start a new recording session. Only valid from IDLE."""
+        if self.state != RecordState.IDLE:
+            return
         self.audio_data = []
-        self.is_recording = True
-        self.is_paused = False
-        self.stream = sd.InputStream(samplerate=self.samplerate, channels=self.channels, callback=self._callback)
+        self.state = RecordState.RECORDING
+        self.stream = sd.InputStream(
+            samplerate=self.samplerate,
+            channels=self.channels,
+            callback=self._callback,
+        )
         self.stream.start()
 
-    def pause(self):
-        self.is_paused = True
+    def pause(self) -> None:
+        """Pause the current recording. Only valid from RECORDING."""
+        if self.state == RecordState.RECORDING:
+            self.state = RecordState.PAUSED
 
-    def resume(self):
-        self.is_paused = False
+    def resume(self) -> None:
+        """Resume a paused recording. Only valid from PAUSED."""
+        if self.state == RecordState.PAUSED:
+            self.state = RecordState.RECORDING
 
-    def stop_and_save(self, filename):
-        self.is_recording = False
-        self.stream.stop()
-        self.stream.close()
-        
-        if self.audio_data:
-            final_audio = np.concatenate(self.audio_data, axis=0)
-            sf.write(filename, final_audio, self.samplerate)
+    def stop(self) -> None:
+        """Stop the recording and close the stream.
 
+        Audio data captured so far is preserved in memory so it can be
+        saved with save() or thrown away with discard(). Calling stop()
+        from IDLE is a no-op.
+        """
+        if self.state == RecordState.IDLE:
+            return
+        self.state = RecordState.IDLE
+        if self.stream is not None:
+            try:
+                self.stream.stop()
+                self.stream.close()
+            except Exception:
+                # Stream may already be stopped/closed; ignore.
+                pass
+            self.stream = None
 
-# --- Simple Execution Example ---
-if __name__ == "__main__":
-    rec = SimpleRecorder(samplerate=44100, channels=1)
+    # ── Output ─────────────────────────────────────────────────
 
-    print("Starting recording...")
-    rec.start()
+    def has_audio(self) -> bool:
+        """Return True if there is captured audio data available to save."""
+        return bool(self.audio_data)
 
-    print("Recording for 2 seconds...")
-    time.sleep(2)
+    def save(self, filename: str | Path) -> str:
+        """Write the captured audio to a WAV file.
 
-    print("Pausing for 2 seconds (no audio will be recorded)...")
-    rec.pause()
-    time.sleep(2)
+        Args:
+            filename: Destination path. Parent directories are created
+                automatically.
 
-    print("Resuming and recording for 2 more seconds...")
-    rec.resume()
-    time.sleep(2)
+        Returns:
+            The filename as a string.
 
-    print("Stopping and saving to 'output.wav'...")
-    rec.stop_and_save("record.wav")
-    
-    print("Done!")
+        Raises:
+            ValueError: If no audio data has been captured.
+            OSError: If the file cannot be written.
+        """
+        if not self.audio_data:
+            raise ValueError("No audio data to save")
+
+        final_audio = np.concatenate(self.audio_data, axis=0)
+        path = Path(filename)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        sf.write(str(path), final_audio, self.samplerate)
+
+        # Clear the buffer so the next recording starts fresh.
+        self.audio_data = []
+        return str(path)
+
+    def discard(self) -> None:
+        """Discard any captured audio data without writing to disk."""
+        self.audio_data = []
+
+    # ── Filename generation ────────────────────────────────────
+
+    @staticmethod
+    def generate_filename(directory: str | Path = DEFAULT_RECORDS_DIR) -> str:
+        """Generate a timestamped filename like ``record_20260522201545.wav``.
+
+        Uses the current local time. The timestamp follows the
+        ``YYYYMMDDHHMMSS`` layout (year, month, day, hour, minute,
+        second — no separators inside the date/time block) so that
+        files sort alphabetically by recency. The prefix ``record_``
+        and ``.wav`` extension are fixed.
+        """
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        return str(Path(directory) / f"record_{timestamp}.wav")

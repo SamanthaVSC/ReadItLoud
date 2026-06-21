@@ -37,6 +37,8 @@ methods instead.  The View never calls Model methods — the Controller
 does that on its behalf.
 """
 
+from pathlib import Path
+
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from qt_material import apply_stylesheet
 
@@ -46,7 +48,7 @@ from app.models.theme_model import ThemeModel
 from app.models.media_model import MediaModel
 from app.models.llm_model import TTSModel
 from app.models.book_model import BookModel
-from app.models.record_model import Record
+from app.models.record_model import Record, RecordState
 
 
 class MainController:
@@ -173,14 +175,93 @@ class MainController:
         issues = self.llm_model.check_grammar(text)
         print("Checked grammar — issues:", len(issues))
         
-    def on_record_pause(self, checked):
+    def on_record_pause(self, checked: bool) -> None:
+        """Toggle between recording and paused states.
+
+        Because ``record_pause_pB`` is checkable, the click alternates
+        the checked flag. We use the controller's own state machine
+        (Record.state) as the source of truth and treat ``checked``
+        as a hint:
+
+          - checked=True  → start a new recording (from IDLE)
+                            or resume (from PAUSED)
+          - checked=False → pause the current recording (from RECORDING)
+        """
         if checked:
-            self.record.record_audio()
+            if self.record.state == RecordState.IDLE:
+                # Start a brand-new recording
+                try:
+                    self.record.record_audio()
+                    self._view.start_recording_timer()
+                except Exception as e:
+                    # e.g. no input device available, PortAudio error, ...
+                    QMessageBox.critical(
+                        self._view, "Recording error",
+                        f"Could not start recording:\n{e}"
+                    )
+                    # Roll back the button to the IDLE state
+                    self._view.reset_recording_ui()
+            elif self.record.state == RecordState.PAUSED:
+                # Resume from pause
+                self.record.resume()
+                self._view.start_recording_timer()
         else:
-            self.record.pause()
-        
-    def on_stop_record(self):
+            if self.record.state == RecordState.RECORDING:
+                self.record.pause()
+                self._view.pause_recording_timer()
+
+    def on_stop_record(self) -> None:
+        """Stop the recording and ask the user whether to save it.
+
+        If the user accepts, the audio is written to
+        ``cache/records/record_YYYYMMDDHHMMSS.wav`` and the audio list
+        is refreshed so the new file shows up immediately. If the user
+        declines, the captured audio is discarded. After either branch
+        the UI returns to the IDLE state.
+
+        Calling stop() while in IDLE is ignored silently (the user
+        clicked STOP without an active recording).
+        """
+        # Nothing to do if there is no recording in progress
+        if self.record.state == RecordState.IDLE:
+            return
+
+        # Stop the stream and freeze the timer
         self.record.stop()
+        self._view.pause_recording_timer()
+
+        # If nothing was captured, just reset the UI
+        if not self.record.has_audio():
+            self._view.reset_recording_ui()
+            return
+
+        # Ask the user whether to save the recording
+        resp = QMessageBox.question(
+            self._view, "Save recording",
+            "Do you want to save this recording?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.Yes,
+        )
+
+        if resp == QMessageBox.StandardButton.Yes:
+            filename = Record.generate_filename()
+            try:
+                saved_path = self.record.save(filename)
+                # Refresh the audio list so the new file appears immediately
+                self._refresh_audio_lists()
+                QMessageBox.information(
+                    self._view, "Saved",
+                    f"Recording saved as:\n{Path(saved_path).name}"
+                )
+            except Exception as e:
+                QMessageBox.critical(
+                    self._view, "Save error",
+                    f"Could not save the recording:\n{e}"
+                )
+
+        # Always return to the IDLE state and discard any leftover audio
+        self.record.discard()
+        self._view.reset_recording_ui()
 
     # ── Theme handler ───────────────────────────────────────────
 

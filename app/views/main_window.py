@@ -36,7 +36,7 @@ Controller via Qt signal/slot connections.
 """
 
 from pathlib import Path
-from PySide6.QtCore import QSize, Qt, QUrl
+from PySide6.QtCore import QSize, Qt, QTimer, QUrl
 from PySide6.QtGui import QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtWebEngineCore import QWebEngineScript, QWebEngineSettings
@@ -145,6 +145,17 @@ class MainWindowView(QMainWindow):
         # ── Contador de caracteres en tiempo real ────────────────
         self.editor.textChanged.connect(self._on_editor_text_changed)
         self._update_char_counter()  # Mostrar "0 / 5000" al inicio
+
+        # ── Cronómetro de grabación ─────────────────────────────
+        # QTimer que hace tick cada segundo mientras se graba. El
+        # texto del botón record_pause_pB se actualiza en cada tick
+        # con el tiempo transcurrido en formato MM:SS.
+        self._record_timer = QTimer(self)
+        self._record_timer.setInterval(1000)  # 1 segundo
+        self._record_timer.timeout.connect(self._on_record_tick)
+        self._record_elapsed_ms: int = 0
+        # Guardamos el texto original del botón para restaurarlo tras STOP
+        self._record_button_default_text: str = self.buttons["record_pause"].text()
 
     # ── Char counter + limit ─────────────────────────────────────
 
@@ -493,7 +504,43 @@ class MainWindowView(QMainWindow):
         safety net (the PDF viewer may initialise after DocumentCreation)."""
         if ok and self._reader_dark_mode:
             self.book_viewer.page().runJavaScript(_JS_INJECT_DARK_STYLE)
-            
-    ## ── Record ────────────────────────────────────────────────
-    
-    
+
+    # ── Recording timer helpers ────────────────────────────────
+
+    def _on_record_tick(self) -> None:
+        """Increment the elapsed time by 1 second and refresh the
+        record/pause button text with the new MM:SS value."""
+        self._record_elapsed_ms += 1000
+        self._update_record_button_text()
+
+    def _update_record_button_text(self) -> None:
+        """Set the record/pause button text to the current elapsed time
+        formatted as MM:SS."""
+        total_seconds = self._record_elapsed_ms // 1000
+        minutes = total_seconds // 60
+        seconds = total_seconds % 60
+        self.buttons["record_pause"].setText(f"{minutes:02d}:{seconds:02d}")
+
+    def start_recording_timer(self) -> None:
+        """Start (or resume) the recording timer. The button text is
+        updated immediately so the user sees the time without waiting
+        for the first tick."""
+        self._record_timer.start()
+        self._update_record_button_text()
+
+    def pause_recording_timer(self) -> None:
+        """Stop the timer while preserving the elapsed time. The button
+        keeps showing the frozen time so the user knows how much has
+        been recorded so far."""
+        self._record_timer.stop()
+
+    def reset_recording_ui(self) -> None:
+        """Reset the recording UI back to the IDLE state: stop the
+        timer, zero the elapsed time, uncheck the button and restore
+        its default text ('RECORD/PAUSE')."""
+        self._record_timer.stop()
+        self._record_elapsed_ms = 0
+        btn = self.buttons["record_pause"]
+        btn.setChecked(False)
+        btn.setText(self._record_button_default_text)
+
