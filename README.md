@@ -123,7 +123,7 @@ python main.py
     │   └── wallpapers/
     │   ├── light.jpeg
     │   └── night.jpeg
-
+    
     ├── cores/
     │   ├── audio qualifiers/
     │   │   └── faster-whisper
@@ -211,7 +211,7 @@ You should have received a copy of the GNU General Public License
 
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-Ver el archivo [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) para el texto completo de la licencia GPL v3.
+See the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for the full text of the GPL v3 license.
 
 ---
 
@@ -221,7 +221,7 @@ Ver el archivo [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) para el t
 
 - 📧 Email: [samanthadesktop324@gmail.com](mailto:samanthadesktop324@gmail.com)
 - 🐙 GitHub: [@SamanthaVSC](https://github.com/SamanthaVSC)
-- 📅 Año de creación: 2026
+- 📅 Year of creation: 2026
 
 ## 🤝 Contributions
 
@@ -237,6 +237,7 @@ Contributions are welcome. Please read [AUTHORS](https://github.com/SamanthaVSC/
 - languagetool - GNU Lesser General Public License (LGPL) v2.1+
 - argos-translate - Dual-licensed under MIT License or Creative Commons CC0
 - espeak-ng - GPL-3.0. 
+
 ---
 
 *If ReadItLoud has been useful to you, please share it with someone who is learning a language. That is the best way to give back.* 🌎
