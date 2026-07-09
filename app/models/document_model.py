@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-Author: Samantha Alvarez Hechevarria
+Author: Samantha Alvarez Hechevarría
 Contact: samanthadesktop324@gmail.com
 GitHub: https://github.com/SamanthaVSC/ReadItLoud
 """

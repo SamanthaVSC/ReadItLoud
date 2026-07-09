@@ -13,12 +13,12 @@ the Free Software Foundation, either version 3 of the License, or
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+GNU General Public License for more details.x
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-Author: Samantha Alvarez Hechevarria
+Author: Samantha Alvarez Hechevarría
 Contact: samanthadesktop324@gmail.com
 GitHub: https://github.com/SamanthaVSC/ReadItLoud
 """
@@ -36,8 +36,9 @@ The Controller never manipulates widgets directly — it calls View helper
 methods instead.  The View never calls Model methods — the Controller
 does that on its behalf.
 """
-
+import json
 from pathlib import Path
+from os import walk
 
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from qt_material import apply_stylesheet
@@ -46,10 +47,11 @@ from app.views.main_window import MainWindowView
 from app.models.document_model import DocumentModel
 from app.models.theme_model import ThemeModel
 from app.models.media_model import MediaModel
-from app.models.llm_model import TTSModel
 from app.models.book_model import BookModel
 from app.models.record_model import Record, RecordState
 
+with open("data/tts_engine.json", "r") as file:
+    TTS_DATA = json.load(file)
 
 class MainController:
     """Central controller wiring the ReadItLoud UI to its domain models."""
@@ -62,7 +64,6 @@ class MainController:
         self._doc_model = DocumentModel()
         self._theme_model = ThemeModel()
         self._media_model = MediaModel()
-        self.llm_model = TTSModel()
         self._book_model = BookModel()
         self.record = Record()
 
@@ -78,9 +79,9 @@ class MainController:
         self._view.set_wallpaper(self._theme_model.wallpaper_path)
 
     # ── Signal wiring ───────────────────────────────────────────
-
     def _connect_signals(self) -> None:
         btns = self._view.buttons
+        cmbs = self._view.comoboxes
 
         # Edit operations
         btns["delete"].clicked.connect(self._on_delete)
@@ -116,7 +117,62 @@ class MainController:
 
         # Reader mode toggle
         btns["toggle_reader_mode"].clicked.connect(self._on_toggle_reader_mode)
+        
+        # ── TTS engine combos ───────────────────────────────────
+        # Engine change  →  refresh available languages
+        cmbs["engine"].currentTextChanged.connect(self.update_languages)
+        # Language change → refresh available voices
+        cmbs["engine_lang"].currentTextChanged.connect(self.update_voices)
 
+        # Seed the engine combo with every available TTS engine.
+        # This first population will trigger `update_languages` automatically
+        # (currentTextChanged fires when the first item is added).
+        cmbs["engine"].addItems(list(TTS_DATA.keys()))
+        
+
+    def update_languages(self, selected_engine: str) -> None:
+        """Refresh the language combo box based on the selected engine.
+
+        Triggered when the user picks a different TTS engine. Clears
+        both the language and voice combos, then fills the language
+        combo with the keys available under that engine in TTS_DATA.
+        """
+        lang_combo = self._view.comoboxes["engine_lang"]
+        voice_combo = self._view.comoboxes["engine_voices"]
+
+        lang_combo.blockSignals(True)
+        voice_combo.blockSignals(True)
+        lang_combo.clear()
+        voice_combo.clear()
+        lang_combo.blockSignals(False)
+        voice_combo.blockSignals(False)
+
+        if selected_engine in TTS_DATA:
+            lang_combo.addItems(list(TTS_DATA[selected_engine].keys()))
+
+        # If no languages are available, the voice combo stays empty.
+        # Otherwise, adding the first item to lang_combo will emit
+        # currentTextChanged and trigger update_voices automatically.
+
+    def update_voices(self, selected_language: str) -> None:
+        """Refresh the voice combo box based on the current engine
+        and the selected language.
+
+        Triggered when the user picks a different language (or when
+        `update_languages` populates the language combo).
+        """
+        engine_combo = self._view.comoboxes["engine"]
+        voice_combo = self._view.comoboxes["engine_voices"]
+
+        voice_combo.blockSignals(True)
+        voice_combo.clear()
+        voice_combo.blockSignals(False)
+
+        selected_engine = engine_combo.currentText()
+        if (selected_engine in TTS_DATA
+                and selected_language in TTS_DATA[selected_engine]):
+            voice_combo.addItems(TTS_DATA[selected_engine][selected_language])
+        
         # ── Book viewer debug signal ────────────────────────────
         # (loadFinished is already connected inside MainWindowView to
         # re-apply dark mode — no need to connect it again here.)
@@ -157,23 +213,19 @@ class MainController:
 
     # ── TTS / NLP handlers ──────────────────────────────────────
 
-    def _on_read(self) -> None:
-        text = self._view.get_editor_text()
-        self.llm_model.read_aloud(text)
-
+    def _on_read(self, checked) -> None:
+        pass
+                
+    
     def _on_translate(self) -> None:
-        text = self._view.get_editor_text()
-        result = self.llm_model.translate(text)
-        print("Translated:", result)
+        pass
 
     def _on_transcribe(self) -> None:
-        self.llm_model.transcribe("")
-        print("Transcribed")
+        pass
 
     def _on_check_grammar(self) -> None:
-        text = self._view.get_editor_text()
-        issues = self.llm_model.check_grammar(text)
-        print("Checked grammar — issues:", len(issues))
+        pass
+
         
     def on_record_pause(self, checked: bool) -> None:
         """Toggle between recording and paused states.

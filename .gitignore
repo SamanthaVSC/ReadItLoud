@@ -124,3 +124,5 @@ cores/
 shh_key.txt
 shh_key.txt.pub
 cache/
+config/themes/default.txt
+config/themes/

@@ -13,7 +13,7 @@ ReadItLoud is a free, open-source desktop application that lets you **learn lang
 - 📚 Read the document within the interface
 - 🔊 Listen to correct pronunciation via text-to-speech
 - 🗣️ Practice your own pronunciation with real-time feedback
-- ✍️ Receive grammar corrections while writing or reading
+- 📖 Receive grammar corrections while writing or reading
 - 🌐 Translate text snippets without leaving the app
 
 The project's philosophy is simple: **you shouldn't have to choose between studying for your degree and learning a language—with ReadItLoud, you can do both at the same time.**
@@ -25,18 +25,19 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 ### ✅ Implemented (v0.1 demo)
 
 - 📝 Integrated text editor (5,000 characters)
-- 📖 PDF and EPUB reader with built-in web viewer
+- 📚 PDF and EPUB reader with built-in web viewer
 - 🎵 Audio player (WAV/MP3 files)
 - 🌙 Dark/light mode (app and reader)
 - 📊 Real-time character counter
 - 💾 Import/export text files
+- 🎤 Audio recorder
 
 ## 🚧 In development (architecture ready)
 
-- 🗣️ Speech synthesis (TTS) — Factory pattern architecture
+- 🔊 Speech synthesis (TTS) — Factory pattern architecture
 - 🌐 Integrated translation
-- ✍️ Grammar correction
-- 🎤 Audio transcription
+- 📖 Grammar correction
+- ✍️ Audio transcription
 - 🗣️ Pronunciation feedback
 
 ------
@@ -45,13 +46,10 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 
  ReadItLoud follows a **strict MVC** architecture with design patterns that ensure extensibility:
 
-**Patrones de diseño empleados:**
+**Design pattern:**
 
-- **MVC** — Separación estricta de responsabilidades
-- **Factory** — `ModelFactory` para crear motores TTS por nombre
-- **Abstract Base Class** — `TTSEngine(ABC)` para interfaz uniforme de motores
-- **Protocol** — Para `TranslateEngine`, `TranscribeEngine`, `GrammarEngine`
-- **Dependency Injection** — `TTSModel.set_tts_engine()` para mantener modelos desacoplados
+- **MVC** — Strict separation of responsabilities
+- **Abstract Base Class** — `TTSEngine(ABC)` for uniform iterface of engines
 
 ---
 
@@ -176,7 +174,7 @@ python main.py
 
 ReadItLoud was born from the conviction that:
 
-1. **Language learning shouldn't be a luxury** — Commercial apps cost $75–$168/year, making them inaccessible to millions of students in Latin America.
+1. **Language learning shouldn't be a luxury** — Commercial apps cost $75–$168/year, making them inaccessible to millions of students in some countries from Eastern Medium, Latin America, Africa and India.
 2. **Study materials should be your own** — Not decontextualized phrases, but the actual texts each student needs.
 3. **Technological sovereignty matters** — 100% offline processing; no data sent to the cloud, no reliance on foreign companies.
 4. **Knowledge should be free** — That’s why it’s licensed under GPL v3: anyone can use, learn from, and improve it, but credit always goes back to the community.
@@ -185,9 +183,7 @@ ReadItLoud was born from the conviction that:
 
 ## 📜 License
 
-text
-
-ReadItLoud — Desktop application for language learning
+ ReadItLoud — Desktop application for language learning
 
 Copyright (C) 2026 Samantha Alvarez Hechevarría
 

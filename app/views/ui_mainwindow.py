@@ -1,28 +1,3 @@
-"""
-ReadItLoud — Desktop application for language learning through
-reading documents with speech synthesis (TTS), pronunciation feedback
-and integrated grammar correction.
-
-Copyright (C) 2026 Samantha Alvarez Hechevarría
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-Author: Samantha Alvarez Hechevarria
-Contact: samanthadesktop324@gmail.com
-GitHub: https://github.com/SamanthaVSC/ReadItLoud
-"""
-
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -42,16 +17,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QCheckBox, QComboBox,
-    QFrame, QGroupBox, QHBoxLayout, QLabel,
-    QListWidget, QListWidgetItem, QMainWindow, QMdiArea,
-    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
-    QTextBrowser, QTextEdit, QVBoxLayout, QWidget)
+    QFormLayout, QFrame, QGroupBox, QHBoxLayout,
+    QLabel, QListWidget, QListWidgetItem, QMainWindow,
+    QMdiArea, QPushButton, QSizePolicy, QSlider,
+    QSpacerItem, QTabWidget, QTextBrowser, QTextEdit,
+    QVBoxLayout, QWidget)
 
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         if not mainWindow.objectName():
             mainWindow.setObjectName(u"mainWindow")
-        mainWindow.resize(1932, 797)
+        mainWindow.resize(1917, 797)
         mainWindow.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         mainWindow.setAutoFillBackground(False)
         mainWindow.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
@@ -283,16 +259,16 @@ class Ui_mainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_19)
 
-        self.Reader_editText = QTextEdit(self.writerwidget)
-        self.Reader_editText.setObjectName(u"Reader_editText")
+        self.writer_editText = QTextEdit(self.writerwidget)
+        self.writer_editText.setObjectName(u"writer_editText")
         sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.Reader_editText.sizePolicy().hasHeightForWidth())
-        self.Reader_editText.setSizePolicy(sizePolicy5)
-        self.Reader_editText.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        sizePolicy5.setHeightForWidth(self.writer_editText.sizePolicy().hasHeightForWidth())
+        self.writer_editText.setSizePolicy(sizePolicy5)
+        self.writer_editText.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
 
-        self.verticalLayout_4.addWidget(self.Reader_editText)
+        self.verticalLayout_4.addWidget(self.writer_editText)
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
@@ -316,6 +292,8 @@ class Ui_mainWindow(object):
 
         self.read_pB = QPushButton(self.writerwidget)
         self.read_pB.setObjectName(u"read_pB")
+        self.read_pB.setCheckable(False)
+        self.read_pB.setChecked(False)
 
         self.horizontalLayout_21.addWidget(self.read_pB)
 
@@ -385,8 +363,8 @@ class Ui_mainWindow(object):
         self.contentLayout = QTabWidget(self.centralwidget_grid)
         self.contentLayout.setObjectName(u"contentLayout")
         self.contentLayout.setEnabled(True)
-        sizePolicy2.setHeightForWidth(self.contentLayout.sizePolicy().hasHeightForWidth())
-        self.contentLayout.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.contentLayout.sizePolicy().hasHeightForWidth())
+        self.contentLayout.setSizePolicy(sizePolicy)
         self.contentLayout.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.contentLayout.setAutoFillBackground(False)
         self.contentLayout.setTabPosition(QTabWidget.TabPosition.North)
@@ -395,8 +373,8 @@ class Ui_mainWindow(object):
         self.contentLayout.setTabsClosable(False)
         self.engine_tab = QWidget()
         self.engine_tab.setObjectName(u"engine_tab")
-        self.verticalLayout = QVBoxLayout(self.engine_tab)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout_17 = QVBoxLayout(self.engine_tab)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
         self.audio_settings_gB = QGroupBox(self.engine_tab)
         self.audio_settings_gB.setObjectName(u"audio_settings_gB")
         sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
@@ -404,10 +382,12 @@ class Ui_mainWindow(object):
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.audio_settings_gB.sizePolicy().hasHeightForWidth())
         self.audio_settings_gB.setSizePolicy(sizePolicy6)
-        self.verticalLayout_9 = QVBoxLayout(self.audio_settings_gB)
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.verticalLayout_16 = QVBoxLayout(self.audio_settings_gB)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.engineLabel = QLabel(self.audio_settings_gB)
         self.engineLabel.setObjectName(u"engineLabel")
         sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
@@ -419,27 +399,47 @@ class Ui_mainWindow(object):
         self.engineLabel.setAutoFillBackground(False)
         self.engineLabel.setFrameShape(QFrame.Shape.NoFrame)
 
-        self.horizontalLayout_2.addWidget(self.engineLabel)
+        self.verticalLayout.addWidget(self.engineLabel)
 
         self.engine_cB = QComboBox(self.audio_settings_gB)
         self.engine_cB.setObjectName(u"engine_cB")
-        sizePolicy1.setHeightForWidth(self.engine_cB.sizePolicy().hasHeightForWidth())
-        self.engine_cB.setSizePolicy(sizePolicy1)
+        sizePolicy6.setHeightForWidth(self.engine_cB.sizePolicy().hasHeightForWidth())
+        self.engine_cB.setSizePolicy(sizePolicy6)
+        self.engine_cB.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
+        self.engine_cB.setFrame(False)
 
-        self.horizontalLayout_2.addWidget(self.engine_cB)
-
-        self.about_engineButton = QPushButton(self.audio_settings_gB)
-        self.about_engineButton.setObjectName(u"about_engineButton")
-        sizePolicy1.setHeightForWidth(self.about_engineButton.sizePolicy().hasHeightForWidth())
-        self.about_engineButton.setSizePolicy(sizePolicy1)
-
-        self.horizontalLayout_2.addWidget(self.about_engineButton)
+        self.verticalLayout.addWidget(self.engine_cB)
 
 
-        self.verticalLayout_9.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
+
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.languageLabel = QLabel(self.audio_settings_gB)
+        self.languageLabel.setObjectName(u"languageLabel")
+        sizePolicy7.setHeightForWidth(self.languageLabel.sizePolicy().hasHeightForWidth())
+        self.languageLabel.setSizePolicy(sizePolicy7)
+
+        self.verticalLayout_9.addWidget(self.languageLabel)
+
+        self.engine_lang_cB = QComboBox(self.audio_settings_gB)
+        self.engine_lang_cB.setObjectName(u"engine_lang_cB")
+        sizePolicy6.setHeightForWidth(self.engine_lang_cB.sizePolicy().hasHeightForWidth())
+        self.engine_lang_cB.setSizePolicy(sizePolicy6)
+
+        self.verticalLayout_9.addWidget(self.engine_lang_cB)
+
+
+        self.horizontalLayout_2.addLayout(self.verticalLayout_9)
+
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_2)
+
+        self.verticalSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+
+        self.verticalLayout_16.addItem(self.verticalSpacer)
 
         self.horizontalLayout_15 = QHBoxLayout()
-        self.horizontalLayout_15.setSpacing(6)
         self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
         self.voiceLabel = QLabel(self.audio_settings_gB)
         self.voiceLabel.setObjectName(u"voiceLabel")
@@ -449,33 +449,95 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout_15.addWidget(self.voiceLabel)
 
-        self.voice_cB = QComboBox(self.audio_settings_gB)
-        self.voice_cB.setObjectName(u"voice_cB")
-        sizePolicy1.setHeightForWidth(self.voice_cB.sizePolicy().hasHeightForWidth())
-        self.voice_cB.setSizePolicy(sizePolicy1)
+        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_15.addWidget(self.voice_cB)
+        self.horizontalLayout_15.addItem(self.horizontalSpacer_8)
+
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_15)
+
+        self.horizontalLayout_14 = QHBoxLayout()
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.engine_voice_cB = QComboBox(self.audio_settings_gB)
+        self.engine_voice_cB.setObjectName(u"engine_voice_cB")
+        sizePolicy6.setHeightForWidth(self.engine_voice_cB.sizePolicy().hasHeightForWidth())
+        self.engine_voice_cB.setSizePolicy(sizePolicy6)
+
+        self.horizontalLayout_14.addWidget(self.engine_voice_cB)
 
         self.preview_pB = QPushButton(self.audio_settings_gB)
         self.preview_pB.setObjectName(u"preview_pB")
-        sizePolicy1.setHeightForWidth(self.preview_pB.sizePolicy().hasHeightForWidth())
-        self.preview_pB.setSizePolicy(sizePolicy1)
+        sizePolicy7.setHeightForWidth(self.preview_pB.sizePolicy().hasHeightForWidth())
+        self.preview_pB.setSizePolicy(sizePolicy7)
 
-        self.horizontalLayout_15.addWidget(self.preview_pB)
-
-
-        self.verticalLayout_9.addLayout(self.horizontalLayout_15)
+        self.horizontalLayout_14.addWidget(self.preview_pB)
 
 
-        self.verticalLayout.addWidget(self.audio_settings_gB)
+        self.verticalLayout_16.addLayout(self.horizontalLayout_14)
+
+
+        self.verticalLayout_17.addWidget(self.audio_settings_gB)
+
+        self.groupBox_4 = QGroupBox(self.engine_tab)
+        self.groupBox_4.setObjectName(u"groupBox_4")
+        sizePolicy6.setHeightForWidth(self.groupBox_4.sizePolicy().hasHeightForWidth())
+        self.groupBox_4.setSizePolicy(sizePolicy6)
+        self.formLayout = QFormLayout(self.groupBox_4)
+        self.formLayout.setObjectName(u"formLayout")
+        self.verticalLayout_12 = QVBoxLayout()
+        self.verticalLayout_12.setSpacing(4)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.volumeLabel = QLabel(self.groupBox_4)
+        self.volumeLabel.setObjectName(u"volumeLabel")
+        sizePolicy7.setHeightForWidth(self.volumeLabel.sizePolicy().hasHeightForWidth())
+        self.volumeLabel.setSizePolicy(sizePolicy7)
+
+        self.verticalLayout_12.addWidget(self.volumeLabel)
+
+        self.speedLabel = QLabel(self.groupBox_4)
+        self.speedLabel.setObjectName(u"speedLabel")
+        sizePolicy7.setHeightForWidth(self.speedLabel.sizePolicy().hasHeightForWidth())
+        self.speedLabel.setSizePolicy(sizePolicy7)
+
+        self.verticalLayout_12.addWidget(self.speedLabel)
+
+
+        self.formLayout.setLayout(0, QFormLayout.ItemRole.LabelRole, self.verticalLayout_12)
+
+        self.verticalLayout_15 = QVBoxLayout()
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.volume_HSlider_2 = QSlider(self.groupBox_4)
+        self.volume_HSlider_2.setObjectName(u"volume_HSlider_2")
+        sizePolicy6.setHeightForWidth(self.volume_HSlider_2.sizePolicy().hasHeightForWidth())
+        self.volume_HSlider_2.setSizePolicy(sizePolicy6)
+        self.volume_HSlider_2.setOrientation(Qt.Orientation.Horizontal)
+
+        self.verticalLayout_15.addWidget(self.volume_HSlider_2)
+
+        self.speed_HSlider = QSlider(self.groupBox_4)
+        self.speed_HSlider.setObjectName(u"speed_HSlider")
+        sizePolicy6.setHeightForWidth(self.speed_HSlider.sizePolicy().hasHeightForWidth())
+        self.speed_HSlider.setSizePolicy(sizePolicy6)
+        self.speed_HSlider.setOrientation(Qt.Orientation.Horizontal)
+
+        self.verticalLayout_15.addWidget(self.speed_HSlider)
+
+
+        self.formLayout.setLayout(0, QFormLayout.ItemRole.FieldRole, self.verticalLayout_15)
+
+
+        self.verticalLayout_17.addWidget(self.groupBox_4)
 
         self.image1Label_2 = QLabel(self.engine_tab)
         self.image1Label_2.setObjectName(u"image1Label_2")
-        sizePolicy3.setHeightForWidth(self.image1Label_2.sizePolicy().hasHeightForWidth())
-        self.image1Label_2.setSizePolicy(sizePolicy3)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.image1Label_2.sizePolicy().hasHeightForWidth())
+        self.image1Label_2.setSizePolicy(sizePolicy8)
         self.image1Label_2.setStyleSheet(u"")
 
-        self.verticalLayout.addWidget(self.image1Label_2)
+        self.verticalLayout_17.addWidget(self.image1Label_2)
 
         self.groupBox = QGroupBox(self.engine_tab)
         self.groupBox.setObjectName(u"groupBox")
@@ -519,7 +581,7 @@ class Ui_mainWindow(object):
         self.verticalLayout_5.addWidget(self.normalize_audio_checkbox)
 
 
-        self.verticalLayout.addWidget(self.groupBox)
+        self.verticalLayout_17.addWidget(self.groupBox)
 
         self.contentLayout.addTab(self.engine_tab, "")
         self.feedback_tab = QWidget()
@@ -538,10 +600,10 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout_5.addWidget(self.grammarLabel)
 
-        self.grammar_cb = QComboBox(self.groupBox_2)
-        self.grammar_cb.setObjectName(u"grammar_cb")
+        self.grammar_lang_cb = QComboBox(self.groupBox_2)
+        self.grammar_lang_cb.setObjectName(u"grammar_lang_cb")
 
-        self.horizontalLayout_5.addWidget(self.grammar_cb)
+        self.horizontalLayout_5.addWidget(self.grammar_lang_cb)
 
 
         self.verticalLayout_14.addLayout(self.horizontalLayout_5)
@@ -565,6 +627,21 @@ class Ui_mainWindow(object):
         self.groupBox_3.setObjectName(u"groupBox_3")
         self.verticalLayout_13 = QVBoxLayout(self.groupBox_3)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.label_2 = QLabel(self.groupBox_3)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_10.addWidget(self.label_2)
+
+        self.qualifier_lang_cB = QComboBox(self.groupBox_3)
+        self.qualifier_lang_cB.setObjectName(u"qualifier_lang_cB")
+
+        self.horizontalLayout_10.addWidget(self.qualifier_lang_cB)
+
+
+        self.verticalLayout_13.addLayout(self.horizontalLayout_10)
+
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.clear_checker_pB = QPushButton(self.groupBox_3)
@@ -610,21 +687,10 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout.addWidget(self.label_3)
 
-        self.comboBox_2 = QComboBox(self.translation_tab)
-        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.trans_from_cB = QComboBox(self.translation_tab)
+        self.trans_from_cB.setObjectName(u"trans_from_cB")
 
-        self.horizontalLayout.addWidget(self.comboBox_2)
-
-        self.label_4 = QLabel(self.translation_tab)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.label_4)
-
-        self.comboBox_3 = QComboBox(self.translation_tab)
-        self.comboBox_3.setObjectName(u"comboBox_3")
-
-        self.horizontalLayout.addWidget(self.comboBox_3)
+        self.horizontalLayout.addWidget(self.trans_from_cB)
 
 
         self.verticalLayout_6.addLayout(self.horizontalLayout)
@@ -633,6 +699,27 @@ class Ui_mainWindow(object):
         self.textBrowser_2.setObjectName(u"textBrowser_2")
 
         self.verticalLayout_6.addWidget(self.textBrowser_2)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.label_4 = QLabel(self.translation_tab)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_6.addWidget(self.label_4)
+
+        self.trans_to_cB = QComboBox(self.translation_tab)
+        self.trans_to_cB.setObjectName(u"trans_to_cB")
+
+        self.horizontalLayout_6.addWidget(self.trans_to_cB)
+
+
+        self.verticalLayout_6.addLayout(self.horizontalLayout_6)
+
+        self.textEdit_2 = QTextEdit(self.translation_tab)
+        self.textEdit_2.setObjectName(u"textEdit_2")
+
+        self.verticalLayout_6.addWidget(self.textEdit_2)
 
         self.contentLayout.addTab(self.translation_tab, "")
 
@@ -645,6 +732,8 @@ class Ui_mainWindow(object):
         self.right_panel_pB.toggled.connect(self.contentLayout.setHidden)
 
         self.contentLayout.setCurrentIndex(0)
+        self.engine_cB.setCurrentIndex(-1)
+        self.engine_lang_cB.setCurrentIndex(-1)
 
 
         QMetaObject.connectSlotsByName(mainWindow)
@@ -685,9 +774,13 @@ class Ui_mainWindow(object):
         self.open_book_bP.setText(QCoreApplication.translate("mainWindow", u"Open a book (PDF)", None))
         self.audio_settings_gB.setTitle(QCoreApplication.translate("mainWindow", u"Choice a TSS engine and a voice", None))
         self.engineLabel.setText(QCoreApplication.translate("mainWindow", u"Engine", None))
-        self.about_engineButton.setText(QCoreApplication.translate("mainWindow", u"About", None))
-        self.voiceLabel.setText(QCoreApplication.translate("mainWindow", u"Voice", None))
+        self.engine_cB.setCurrentText("")
+        self.languageLabel.setText(QCoreApplication.translate("mainWindow", u"Language", None))
+        self.voiceLabel.setText(QCoreApplication.translate("mainWindow", u"Voice ", None))
         self.preview_pB.setText(QCoreApplication.translate("mainWindow", u"Preview", None))
+        self.groupBox_4.setTitle(QCoreApplication.translate("mainWindow", u"Settings", None))
+        self.volumeLabel.setText(QCoreApplication.translate("mainWindow", u"Volume", None))
+        self.speedLabel.setText(QCoreApplication.translate("mainWindow", u"Speed", None))
         self.image1Label_2.setText("")
         self.groupBox.setTitle(QCoreApplication.translate("mainWindow", u"Output", None))
         self.sample_ratetLabel.setText(QCoreApplication.translate("mainWindow", u"Sample Rate", None))
@@ -698,6 +791,7 @@ class Ui_mainWindow(object):
         self.grammarLabel.setText(QCoreApplication.translate("mainWindow", u"Language", None))
         self.label.setText(QCoreApplication.translate("mainWindow", u"QUALIFICATION:", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("mainWindow", u"Expected text to ponunciation", None))
+        self.label_2.setText(QCoreApplication.translate("mainWindow", u"Language", None))
         self.clear_checker_pB.setText(QCoreApplication.translate("mainWindow", u"CLEAR", None))
         self.pushButton.setText(QCoreApplication.translate("mainWindow", u"PASTE", None))
         self.contentLayout.setTabText(self.contentLayout.indexOf(self.feedback_tab), QCoreApplication.translate("mainWindow", u"Feedbacks", None))
