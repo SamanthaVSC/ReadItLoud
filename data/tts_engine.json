@@ -1,85 +1,41 @@
 {
-    "Kokoro": {
-        "English": [
-            "\ud83c\uddfa\ud83c\uddf8 Adam (M)",
-            "\ud83c\uddec\ud83c\udde7 Alice (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Alloy (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Aoede (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Bella (F)",
-            "\ud83c\uddec\ud83c\udde7 Daniel (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Echo (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Eric (M)",
-            "\ud83c\uddec\ud83c\udde7 Fable (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Fenrir (M)",
-            "\ud83c\uddec\ud83c\udde7 George (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Heart (F)",
-            "\ud83c\uddec\ud83c\udde7 Isabella (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Jessica (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Kore (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Liam (M)",
-            "\ud83c\uddec\ud83c\udde7 Lily (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Michael (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Nicole (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Nova (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Onyx (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Puck (M)",
-            "\ud83c\uddfa\ud83c\uddf8 River (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Sarah (F)",
-            "\ud83c\uddfa\ud83c\uddf8 Santa (M)",
-            "\ud83c\uddfa\ud83c\uddf8 Sky (F)"
-        ],
-        "Spanish": [
-            "\ud83c\uddf2\ud83c\uddfd Carlos (M)",
-            "\ud83c\uddea\ud83c\uddf8 Javier (M)",
-            "\ud83c\uddea\ud83c\uddf8 Sof\u00eda (F)",
-            "\ud83c\uddf2\ud83c\uddfd Valeria (F)"
-        ]
+  "Kokoro": {
+    "en-us": {
+      "Adam (M)": "am_adam",
+      "Alloy (F)": "af_alloy",
+      "Aoede (F)": "af_aoede",
+      "Bella (F)": "af_bella",
+      "Echo (M)": "am_echo",
+      "Eric (M)": "am_eric",
+      "Fenrir (M)": "am_fenrir",
+      "Heart (F)": "af_heart",
+      "Jessica (F)": "af_jessica",
+      "Kore (F)": "af_kore",
+      "Liam (M)": "am_liam",
+      "Michael (M)": "am_michael",
+      "Nicole (F)": "af_nicole",
+      "Nova (F)": "af_nova",
+      "Onyx (M)": "am_onyx",
+      "Puck (M)": "am_puck",
+      "River (F)": "af_river",
+      "Sarah (F)": "af_sarah",
+      "Santa (M)": "am_santa",
+      "Sky (F)": "af_sky"
     },
-    "Piper": {
-        "English": [
-            "\ud83c\uddec\ud83c\udde7 Alan (M) low",
-            "\ud83c\uddec\ud83c\udde7 Alan (M) medium",
-            "\ud83c\uddec\ud83c\udde7 Alba (F) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Amy (F) low",
-            "\ud83c\uddfa\ud83c\uddf8 Amy (F) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Arctic (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Bryce (M) medium",
-            "\ud83c\uddec\ud83c\udde7 Cori (F) high",
-            "\ud83c\uddec\ud83c\udde7 Cori (F) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Danny (M) low",
-            "\ud83c\uddfa\ud83c\uddf8 Hfc Female (F) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Hfc Male (M) medium",
-            "\ud83c\uddec\ud83c\udde7 Jenny Dioco (F) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Joe (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 John (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Kathleen (F) low",
-            "\ud83c\uddfa\ud83c\uddf8 Kristin (F) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Kusal (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 L2arctic (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Lessac (F) high",
-            "\ud83c\uddfa\ud83c\uddf8 Lessac (F) low",
-            "\ud83c\uddfa\ud83c\uddf8 Libritts (M) high",
-            "\ud83c\uddfa\ud83c\uddf8 Libritts R (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Ljspeech (F) high",
-            "\ud83c\uddfa\ud83c\uddf8 Ljspeech (F) medium",
-            "\ud83c\uddec\ud83c\udde7 Northern English Male (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Norman (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Reza Ibrahim (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Ryan (M) high",
-            "\ud83c\uddfa\ud83c\uddf8 Ryan (M) low",
-            "\ud83c\uddfa\ud83c\uddf8 Ryan (M) medium",
-            "\ud83c\uddfa\ud83c\uddf8 Sam (M) medium",
-            "\ud83c\uddec\ud83c\udde7 Semaine (M) medium",
-            "\ud83c\uddec\ud83c\udde7 Southern English Female (F) low",
-            "\ud83c\uddec\ud83c\udde7 Vctk (M) medium"
-        ],
-        "Spanish": [
-            "\ud83c\uddea\ud83c\uddf8 Carlfm (M) x_low",
-            "\ud83c\udde6\ud83c\uddf7 Daniela (F) high",
-            "\ud83c\uddea\ud83c\uddf8 Davefx (M) medium",
-            "\ud83c\uddea\ud83c\uddf8 Mls 10246 (F) low",
-            "\ud83c\uddea\ud83c\uddf8 Mls 9972 (M) low",
-            "\ud83c\uddea\ud83c\uddf8 Sharvard (F) medium"
-        ]
+    "en-gb": {
+      "Alice (F)": "bf_alice",
+      "Emma (F)": "bf_emma",
+      "Isabella (F)": "bf_isabella",
+      "Lily (F)": "bf_lily",
+      "Daniel (M)": "bm_daniel",
+      "Fable (M)": "bm_fable",
+      "George (M)": "bm_george",
+      "Lewis (M)": "bm_lewis"
+    },
+    "es": {
+      "Alex (M)": "em_alex",
+      "Dora (F)": "ef_dora",
+      "Santa (M)": "em_santa"
     }
+  }
 }

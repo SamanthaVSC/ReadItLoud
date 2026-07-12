@@ -23,6 +23,13 @@ Contact: samanthadesktop324@gmail.com
 GitHub: https://github.com/SamanthaVSC/ReadItLoud
 """
 
+"""
+ReadItLoud — Desktop application for language learning through
+reading documents with speech synthesis (TTS), pronunciation feedback
+and integrated grammar correction.
+...
+"""
+
 import sys
 import io
 import numpy as np
@@ -35,17 +42,17 @@ import datetime
 import tempfile
 import os
 
-now = datetime.datetime.now()
-output_name = f"{now.strftime('%Y%m%d%H%M%S')}.wav"
-
 kokoro_tts = "Kokoro"
 piper_tts = "Piper"
 es_text = """El español es un idioma muy dificil"""
 en_text = """How can I help you today, dear friend?"""
 
+# Allowed sample rates
+ALLOWED_SAMPLE_RATES = [44100, 48000]
+
 kokoro_attr = {
-    "text_input": es_text,
-    "voice": "em_santa",
+    "text_input": en_text,
+    "voice": "af_bella",
     "speed": 1.0,
     "volume": 1.0,
     "normalize_audio": True,
@@ -53,7 +60,8 @@ kokoro_attr = {
     "output_path": "./cache/records/",
     "model_path": "cores/Engines/kokoro-tts/kokoro-v1.0.onnx",
     "voice_path": "cores/Engines/kokoro-tts/voices-v1.0.bin",
-    "dect_lang": "es"
+    "detect_lang": "en-us",
+    "sample_rate": 48000,
 }
 
 piper_attr = {
@@ -63,14 +71,14 @@ piper_attr = {
     "normalize_audio": False,
     "format": ".wav",
     "output_path": "./cache/records/",
-    "voice_path": "cores/Engines/Piper-tts/en/en_GB-alan-medium.onnx",
-    "dect_lang": "es",
+    "detect_lang": "en",
     "voice": "",
     "model_path": "",
     "length_scale": 1,
     "noise_scale": 0.5,
     "noise_w": 0.6,
-    "sentence_silence": 0.1
+    "sentence_silence": 0.1,
+    "sample_rate": 48000,
 }
 
 
@@ -85,10 +93,11 @@ class FactoryTTS:
 
 
 class EngineTTS(ABC):
-    def __init__(self, text_input: str, voice: str, speed: float, volume: float,
-                 model_path: str, voice_path: str,
+    def __init__(self, detect_lang: str = "", text_input: str = "", voice: str = "", 
+                 speed: float = 1.0, volume: float = 1.0,
+                 model_path: str = "", voice_path: str = "",
                  normalize_audio: bool = False, format: str = ".wav", 
-                 output_path: str = "."):
+                 output_path: str = ".", sample_rate: int = 48000, **kwargs):
         self.text_input = text_input
         self.voice = voice
         self.speed = speed
@@ -97,7 +106,15 @@ class EngineTTS(ABC):
         self.voice_path = voice_path
         self.normalize_audio = normalize_audio
         self.format = format
-        self.output_path = output_path  # <-- Stored here
+        self.output_path = output_path
+        self.detect_lang = detect_lang
+        
+        if sample_rate not in ALLOWED_SAMPLE_RATES:
+            raise ValueError(
+                f"Invalid sample_rate '{sample_rate}'. "
+                f"Expected one of: {ALLOWED_SAMPLE_RATES}"
+            )
+        self.sample_rate = sample_rate
 
     def _apply_volume(self, audio):
         if not isinstance(audio, np.ndarray):
@@ -105,6 +122,33 @@ class EngineTTS(ABC):
         audio = audio.astype(np.float32)
         audio = audio * self.volume
         return np.clip(audio, -1.0, 1.0)
+
+    def _resample(self, audio, orig_sr, target_sr):
+        if orig_sr == target_sr:
+            return audio.astype(np.float32)
+
+        audio = np.asarray(audio, dtype=np.float32)
+
+        if audio.ndim == 2:
+            num_channels = audio.shape[1]
+            resampled_channels = []
+            for ch in range(num_channels):
+                num_samples = int(len(audio) * target_sr / orig_sr)
+                resampled = np.interp(
+                    np.linspace(0, len(audio) - 1, num_samples),
+                    np.arange(len(audio)),
+                    audio[:, ch]
+                )
+                resampled_channels.append(resampled)
+            return np.column_stack(resampled_channels)
+        else:
+            num_samples = int(len(audio) * target_sr / orig_sr)
+            resampled = np.interp(
+                np.linspace(0, len(audio) - 1, num_samples),
+                np.arange(len(audio)),
+                audio
+            )
+            return resampled.astype(np.float32)
 
     @abstractmethod
     def generate_audio(self, text_input: str = None):
@@ -122,18 +166,18 @@ class EngineTTS(ABC):
 
 
 class PiperTTS(EngineTTS):
-    def __init__(self, text_input, speed, volume, voice_path, dect_lang="", voice="",
-                 model_path="", length_scale=1.0, noise_scale=0.5, noise_w=0.6,
+    def __init__(self, detect_lang: str = "", text_input: str = "", voice: str = "", 
+                 speed: float = 1.0, volume: float = 1.0, voice_path: str = "", model_path: str = "",
+                 length_scale=1.0, noise_scale=0.5, noise_w=0.6,
                  sentence_silence=0.1, normalize_audio=False, format=".wav", 
-                 output_path: str = "."):
-        super().__init__(text_input, voice, speed, volume, model_path, voice_path,
+                 output_path: str = ".", sample_rate: int = 48000, **kwargs):
+        super().__init__(detect_lang, text_input, voice, speed, volume, model_path, voice_path,
                          normalize_audio=normalize_audio, format=format, 
-                         output_path=output_path)
+                         output_path=output_path, sample_rate=sample_rate)
         self.length_scale = length_scale
         self.noise_scale = noise_scale
         self.noise_w = noise_w
         self.sentence_silence = sentence_silence
-        self.dect_lang = dect_lang
 
     def generate_audio(self, text_input: str = None):
         if text_input is not None:
@@ -188,7 +232,6 @@ class PiperTTS(EngineTTS):
     def save_audio(self, audio, sample_rate, output_wav,
                    normalize_audio: bool = None, format: str = None, 
                    output_path: str = None) -> None:
-        # Apply instance defaults if parameters are not provided
         if normalize_audio is None:
             normalize_audio = self.normalize_audio
         if format is None:
@@ -196,37 +239,39 @@ class PiperTTS(EngineTTS):
         if output_path is None:
             output_path = self.output_path
 
+        audio = self._resample(audio, sample_rate, self.sample_rate)
+        sample_rate = self.sample_rate
+
         if normalize_audio:
             max_val = np.max(np.abs(audio))
             if max_val > 0:
                 audio = audio / max_val
 
-        # Ensure the directory exists
         if output_path and not os.path.exists(output_path):
             os.makedirs(output_path, exist_ok=True)
 
         base_name = os.path.splitext(output_wav)[0]
         file_name = base_name + format
-        
-        # Join the output directory with the file name
         final_output = os.path.join(output_path, file_name)
         sf_format = format.replace('.', '').upper()
 
         try:
             sf.write(final_output, audio, sample_rate, format=sf_format)
-            print(f"Saved audio to: {final_output}")
+            print(f"Saved audio to: {final_output} (sample_rate={sample_rate})")
         except Exception as e:
             print(f"Error saving {sf_format}: {e}. (Note: MP3 requires libsndfile 1.1.0+)")
 
 
 class KokoroTTS(EngineTTS):
-    def __init__(self, text_input, voice, speed, volume, model_path, voice_path,
-                 dect_lang: str, normalize_audio=False, format=".wav", 
-                 output_path: str = "."):
-        self.dect_lang = dect_lang
-        super().__init__(text_input, voice, speed, volume, model_path, voice_path,
+    def __init__(self, detect_lang: str = "", text_input: str = "", voice: str = "", 
+                 speed: float = 1.0, volume: float = 1.0, 
+                 model_path: str = "cores/Engines/kokoro-tts/kokoro-v1.0.onnx", 
+                 voice_path: str = "cores/Engines/kokoro-tts/voices-v1.0.bin",
+                 normalize_audio: bool = False, format: str = ".wav", 
+                 output_path: str = ".", sample_rate: int = 48000, **kwargs):
+        super().__init__(detect_lang, text_input, voice, speed, volume, model_path, voice_path,
                          normalize_audio=normalize_audio, format=format, 
-                         output_path=output_path)
+                         output_path=output_path, sample_rate=sample_rate)
 
     def generate_audio(self, text_input: str = None):
         if text_input is not None:
@@ -241,7 +286,7 @@ class KokoroTTS(EngineTTS):
             text=self.text_input,
             voice=self.voice,
             speed=self.speed,
-            lang=self.dect_lang
+            lang=self.detect_lang  # Fixed property name
         )
 
         if isinstance(audio, list):
@@ -257,7 +302,6 @@ class KokoroTTS(EngineTTS):
     def save_audio(self, audio, sample_rate, output_wav,
                    normalize_audio: bool = None, format: str = None, 
                    output_path: str = None) -> None:
-        # Apply instance defaults if parameters are not provided
         if normalize_audio is None:
             normalize_audio = self.normalize_audio
         if format is None:
@@ -265,31 +309,31 @@ class KokoroTTS(EngineTTS):
         if output_path is None:
             output_path = self.output_path
 
+        audio = self._resample(audio, sample_rate, self.sample_rate)
+        sample_rate = self.sample_rate
+
         if normalize_audio:
             max_val = np.max(np.abs(audio))
             if max_val > 0:
                 audio = audio / max_val
 
-        # Ensure the directory exists
         if output_path and not os.path.exists(output_path):
             os.makedirs(output_path, exist_ok=True)
 
         base_name = os.path.splitext(output_wav)[0]
         file_name = base_name + format
-        
-        # Join the output directory with the file name
         final_output = os.path.join(output_path, file_name)
         sf_format = format.replace('.', '').upper()
 
         try:
             sf.write(final_output, audio, sample_rate, format=sf_format)
-            print(f"Saved audio to: {final_output}")
+            print(f"Saved audio to: {final_output} (sample_rate={sample_rate})")
         except Exception as e:
             print(f"Error saving {sf_format}: {e}. (Note: MP3 requires libsndfile 1.1.0+)")
 
-
+"""
 if __name__ == "__main__":
-    """
+    
     print("Generating audio with Kokoro...")
     kokoro_engine = FactoryTTS.create(kokoro_tts, **kokoro_attr)
     audio_k, sr_k = kokoro_engine.generate_audio()
@@ -301,7 +345,8 @@ if __name__ == "__main__":
         "kokoro_" + output_name,
         normalize_audio=kokoro_attr["normalize_audio"],
         format=kokoro_attr["format"],
-        output_path=kokoro_attr["output_path"]  # <-- Passing it explicitly
+        output_path=kokoro_attr["output_path"],
+        sample_rate=kokoro_attr["sample_rate"]
     )
     print("Kokoro: Audio played and saved.\n")
     
@@ -309,6 +354,8 @@ if __name__ == "__main__":
     print("Generating audio with Piper...")
     piper_engine = FactoryTTS.create(piper_tts, **piper_attr)
     audio_p, sr_p = piper_engine.generate_audio()
+    prin                        "model_path": "cores/Engines/kokoro-tts/kokoro-v1.0.onnx",
+                        "voice_path": "cores/Engines/kokoro-tts/voices-v1.0.bin",t(f"Original sample rate from Piper: {sr_p}")
     print("Playing...")
     piper_engine.play(audio_p, sr_p)
     
@@ -318,7 +365,8 @@ if __name__ == "__main__":
         "piper_" + output_name,
         normalize_audio=piper_attr["normalize_audio"],
         format=piper_attr["format"],
-        output_path=piper_attr["output_path"]  # <-- Passing it explicitly
+        output_path=piper_attr["output_path"],
+        sample_rate=piper_attr["sample_rate"]
     )
-    print("Piper: Audio played and saved.")
+    print(f"Piper: Audio played and saved")
     """

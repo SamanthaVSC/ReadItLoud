@@ -544,14 +544,14 @@
            </layout>
           </item>
           <item>
-           <widget class="QWebEngineView" name="book_webEngineView">
+           <widget class="QWebEngineView" name="book_webEngineView" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="url">
+            <property name="url" stdset="0">
              <url>
               <string>about:blank</string>
              </url>
@@ -822,7 +822,7 @@
            <item row="0" column="1">
             <layout class="QVBoxLayout" name="verticalLayout_15">
              <item>
-              <widget class="QSlider" name="volume_HSlider_2">
+              <widget class="QSlider" name="volume_HSlider">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -890,7 +890,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="sample_rate_cb"/>
+              <widget class="QComboBox" name="sample_rate_cB"/>
              </item>
             </layout>
            </item>
@@ -904,7 +904,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="choice_format_cb"/>
+              <widget class="QComboBox" name="choice_format_cB"/>
              </item>
             </layout>
            </item>
