@@ -37,5 +37,57 @@
       "Dora (F)": "ef_dora",
       "Santa (M)": "em_santa"
     }
+  },
+  "Piper": {
+    "en-gb": {
+      "Alan (M) low": "en_GB-alan-low.onnx",
+      "Alan (M) medium": "en_GB-alan-medium.onnx",
+      "Alba (F) medium": "en_GB-alba-medium.onnx",
+      "Aru (F) medium": "en_GB-aru-medium.onnx",
+      "Cori (F) high": "en_GB-cori-high.onnx",
+      "Cori (F) medium": "en_GB-cori-medium.onnx",
+      "Jenny Dioco (F) medium": "en_GB-jenny_dioco-medium.onnx",
+      "Northern English Male (M) medium": "en_GB-northern_english_male-medium.onnx",
+      "Semaine (M) medium": "en_GB-semaine-medium.onnx",
+      "Southern English Female (F) low": "en_GB-southern_english_female-low.onnx",
+      "Vctk (M) medium": "en_GB-vctk-medium.onnx"
+    },
+    "en-us": {
+      "Amy (F) low": "en_US-amy-low.onnx",
+      "Amy (F) medium": "en_US-amy-medium.onnx",
+      "Arctic (M) medium": "en_US-arctic-medium.onnx",
+      "Bryce (M) medium": "en_US-bryce-medium.onnx",
+      "Danny (M) low": "en_US-danny-low.onnx",
+      "Hfc Female (F) medium": "en_US-hfc_female-medium.onnx",
+      "Hfc Male (M) medium": "en_US-hfc_male-medium.onnx",
+      "Joe (M) medium": "en_US-joe-medium.onnx",
+      "John (M) medium": "en_US-john-medium.onnx",
+      "Kathleen (F) low": "en_US-kathleen-low.onnx",
+      "Kristin (F) medium": "en_US-kristin-medium.onnx",
+      "Kusal (M) medium": "en_US-kusal-medium.onnx",
+      "L2arctic (M) medium": "en_US-l2arctic-medium.onnx",
+      "Lessac (F) high": "en_US-lessac-high.onnx",
+      "Lessac (F) low": "en_US-lessac-low.onnx",
+      "Libritts (M) high": "en_US-libritts-high.onnx",
+      "Libritts R (M) medium": "en_US-libritts_r-medium.onnx",
+      "Ljspeech (F) high": "en_US-ljspeech-high.onnx",
+      "Ljspeech (F) medium": "en_US-ljspeech-medium.onnx",
+      "Norman (M) medium": "en_US-norman-medium.onnx",
+      "Reza Ibrahim (M) medium": "en_US-reza_ibrahim-medium.onnx",
+      "Ryan (M) high": "en_US-ryan-high.onnx",
+      "Ryan (M) low": "en_US-ryan-low.onnx",
+      "Ryan (M) medium": "en_US-ryan-medium.onnx",
+      "Sam (M) medium": "en_US-sam-medium.onnx"
+    },
+    "es-ar": {
+      "Daniela (F) high": "es_AR-daniela-high.onnx"
+    },
+    "es-es": {
+      "Carlfm (M) x_low": "es_ES-carlfm-x_low.onnx",
+      "Davefx (M) medium": "es_ES-davefx-medium.onnx",
+      "Mls 10246 (F) low": "es_ES-mls_10246-low.onnx",
+      "Mls 9972 (M) low": "es_ES-mls_9972-low.onnx",
+      "Sharvard (F) medium": "es_ES-sharvard-medium.onnx"
+    }
   }
 }

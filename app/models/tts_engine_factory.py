@@ -65,6 +65,7 @@ kokoro_attr = {
 }
 
 piper_attr = {
+    "engine_name": "en_GB-southern_english_female-low.onnx",
     "text_input": en_text,
     "speed": 1.0,
     "volume": 1.0,
@@ -74,10 +75,10 @@ piper_attr = {
     "detect_lang": "en",
     "voice": "",
     "model_path": "",
-    "length_scale": 1,
-    "noise_scale": 0.5,
-    "noise_w": 0.6,
-    "sentence_silence": 0.1,
+    #"length_scale": 1.0,
+    #"noise_scale": 0.5,
+    #"noise_w": 0.6,
+    #"sentence_silence": 0.1,
     "sample_rate": 48000,
 }
 
@@ -166,14 +167,17 @@ class EngineTTS(ABC):
 
 
 class PiperTTS(EngineTTS):
-    def __init__(self, detect_lang: str = "", text_input: str = "", voice: str = "", 
-                 speed: float = 1.0, volume: float = 1.0, voice_path: str = "", model_path: str = "",
+    def __init__(self, engine_name, detect_lang: str = "", text_input: str = "", 
+                 speed: float = 1.0, volume: float = 1.0,
                  length_scale=1.0, noise_scale=0.5, noise_w=0.6,
                  sentence_silence=0.1, normalize_audio=False, format=".wav", 
                  output_path: str = ".", sample_rate: int = 48000, **kwargs):
-        super().__init__(detect_lang, text_input, voice, speed, volume, model_path, voice_path,
+        super().__init__(detect_lang, text_input, speed, volume,
                          normalize_audio=normalize_audio, format=format, 
                          output_path=output_path, sample_rate=sample_rate)
+        self.engine_name = engine_name
+        self.speed = speed
+        self.volume = volume
         self.length_scale = length_scale
         self.noise_scale = noise_scale
         self.noise_w = noise_w
@@ -191,7 +195,7 @@ class PiperTTS(EngineTTS):
 
         cmd = [
             "piper",
-            "--model", "./" + self.voice_path,
+            "--model", "./" + "cores/Engines/Piper-tts/" + self.engine_name,
             "--length-scale", str(calculated_length_scale),
             "--noise-scale", str(self.noise_scale),
             "--noise-w", str(self.noise_w),
@@ -331,9 +335,9 @@ class KokoroTTS(EngineTTS):
         except Exception as e:
             print(f"Error saving {sf_format}: {e}. (Note: MP3 requires libsndfile 1.1.0+)")
 
-"""
+
 if __name__ == "__main__":
-    
+    """
     print("Generating audio with Kokoro...")
     kokoro_engine = FactoryTTS.create(kokoro_tts, **kokoro_attr)
     audio_k, sr_k = kokoro_engine.generate_audio()
@@ -349,16 +353,15 @@ if __name__ == "__main__":
         sample_rate=kokoro_attr["sample_rate"]
     )
     print("Kokoro: Audio played and saved.\n")
-    
+
     
     print("Generating audio with Piper...")
     piper_engine = FactoryTTS.create(piper_tts, **piper_attr)
     audio_p, sr_p = piper_engine.generate_audio()
-    prin                        "model_path": "cores/Engines/kokoro-tts/kokoro-v1.0.onnx",
-                        "voice_path": "cores/Engines/kokoro-tts/voices-v1.0.bin",t(f"Original sample rate from Piper: {sr_p}")
     print("Playing...")
     piper_engine.play(audio_p, sr_p)
     
+
     piper_engine.save_audio(
         audio_p,
         sr_p,

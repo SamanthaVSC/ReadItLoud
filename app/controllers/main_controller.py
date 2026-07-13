@@ -51,6 +51,7 @@ from app.models.media_model import MediaModel
 from app.models.book_model import BookModel
 from app.models.record_model import Record, RecordState
 from app.models.tts_engine_factory import FactoryTTS
+from app.models.llm_model import Whisper
  
 with open("data/tts_engine.json", "r") as file:
     TTS_DATA = json.load(file)
@@ -70,6 +71,7 @@ class MainController:
         self._book_model  = BookModel()
         self.record        = Record()
         self.factory       = FactoryTTS()
+        #self.trascriber    = Whisper()
  
         # ── Wire signals ────────────────────────────────────────
         self._connect_signals()
@@ -269,15 +271,15 @@ class MainController:
  
     def _on_read(self, checked) -> None:
         """Generate TTS audio, save it to disk, refresh the list, then play it."""
-        engine             = self._view.comoboxes["engine"].currentText()
-        language           = self._view.comoboxes["engine_lang"].currentText()
+        engine = self._view.comoboxes["engine"].currentText()
+        language = self._view.comoboxes["engine_lang"].currentText()
         voice_display_name = self._view.comoboxes["engine_voices"].currentText()
-        sample_rate_str    = self._view.comoboxes["sample_rate"].currentText()
-        format_str         = self._view.comoboxes["format"].currentText()
-        speed_value        = self._view.sliders["gen_speed"].value()  / 100.0
-        volume_value       = self._view.sliders["gen_volume"].value() / 100.0
-        normalize_audio    = self._view.checkboxes["normalize_audio"].isChecked()
-        text_input         = self._view.get_editor_text()
+        sample_rate_str = self._view.comoboxes["sample_rate"].currentText()
+        format_str = self._view.comoboxes["format"].currentText()
+        speed_value = self._view.sliders["gen_speed"].value()  / 100.0
+        volume_value = self._view.sliders["gen_volume"].value() / 100.0
+        normalize_audio = self._view.checkboxes["normalize_audio"].isChecked()
+        text_input = self._view.get_editor_text()
  
         if not text_input.strip():
             QMessageBox.information(
@@ -290,7 +292,7 @@ class MainController:
         if (engine in TTS_DATA
                 and language in TTS_DATA[engine]
                 and voice_display_name in TTS_DATA[engine][language]):
-            voice_id = TTS_DATA[engine][language][voice_display_name]
+            voice_id: str = TTS_DATA[engine][language][voice_display_name]
  
         if format_str and not format_str.startswith("."):
             format_str = "." + format_str
@@ -305,6 +307,8 @@ class MainController:
             "output_path":     "./cache/records/",
             "detect_lang":     language,
             "sample_rate":     int(sample_rate_str),
+            "engine_name": voice_id,
+            
         }
  
         # ── 1. Generate ─────────────────────────────────────────
