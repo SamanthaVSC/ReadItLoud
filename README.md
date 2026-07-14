@@ -22,7 +22,7 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 
 ## ✨ Features
 
-### ✅ Implemented (v0.1 demo)
+### ✅ Implemented (v0.25.3 demo)
 
 - 📝 Integrated text editor (5,000 characters)
 - 📚 PDF and EPUB reader with built-in web viewer
@@ -31,10 +31,9 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 - 📊 Real-time character counter
 - 💾 Import/export text files
 - 🎤 Audio recorder
+-   🔊 Speech synthesis (TTS) — Factory pattern architecture
 
 ## 🚧 In development (architecture ready)
-
-- 🔊 Speech synthesis (TTS) — Factory pattern architecture
 - 🌐 Integrated translation
 - 📖 Grammar correction
 - ✍️ Audio transcription
@@ -49,7 +48,7 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 **Design pattern:**
 
 - **MVC** — Strict separation of responsabilities
-- **Abstract Base Class** — `TTSEngine(ABC)` for uniform iterface of engines
+- **Abstract Base Class** — `TTSEngine(ABC)` for uniform interface of engines
 
 ---
 
@@ -78,7 +77,7 @@ source venv/bin/activate # Linux/macOS
 
 # venv\Scripts\activate # Windows
 
-# 3. Instalar dependencias
+# 3. Install Dependencies
 
 pip install -r requirements.txt
 

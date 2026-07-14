@@ -156,7 +156,6 @@ class MainWindowView(QMainWindow):
         # Guardamos el texto original del botón para restaurarlo tras STOP
         self._record_button_default_text: str = self.buttons["record_pause"].text()
 
-
     # ── Char counter + limit ─────────────────────────────────────
 
     def _on_editor_text_changed(self) -> None:
@@ -244,6 +243,8 @@ class MainWindowView(QMainWindow):
             # Record actions button
             "record_pause": self.ui.record_pause_pB,
             "stop_record": self.ui.stop_pB,
+            # Other buttons (e.g. in the settings panel)
+            "about": self.ui.about_software_pB,
         }
 
     # ── Comobox references (for signal connection) ───────────────
@@ -252,13 +253,31 @@ class MainWindowView(QMainWindow):
         """Return a dict of button-name → Comobox for the controller
         to connect signals."""
         return {
+            "sample_rate": self.ui.sample_rate_cB,
+            "format": self.ui.choice_format_cB,
             "engine": self.ui.engine_cB,
             "engine_lang": self.ui.engine_lang_cB,
             "engine_voices": self.ui.engine_voice_cB,
             "grammar_lang": self.ui.grammar_lang_cb,
-            "qualifier_lang": self.ui.qualifier_lang_cB,
             "trans_from": self.ui.trans_from_cB,
             "trans_to": self.ui.trans_to_cB,
+            }
+
+    @property
+    def sliders(self):
+        """Return a dict of button-name → Slider for the controller
+        to connect signals."""
+        return {
+            "gen_volume": self.ui.volume_HSlider,
+            "gen_speed": self.ui.speed_HSlider,
+            }
+        
+    @property
+    def checkboxes(self):
+        """Return a dict of button-name → Checkbox for the controller
+        to connect signals."""
+        return {
+            "normalize_audio": self.ui.normalize_audio_checkbox,
             }
 
     # ── UI state helpers ────────────────────────────────────────
@@ -558,24 +577,3 @@ class MainWindowView(QMainWindow):
         btn = self.buttons["record_pause"]
         btn.setChecked(False)
         btn.setText(self._record_button_default_text)
-
-
-
-    def update_languages(self, selected_engine):
-        """Updates the language combo box based on the selected engine."""
-        self.language_combo.clear()
-        
-        if selected_engine in TTS_DATA:
-            self.language_combo.addItems(TTS_DATA[selected_engine].keys())
-        
-        if self.language_combo.count() == 0:
-            self.voice_combo.clear()
-
-    def update_voices(self, selected_language):
-        """Updates the voice combo box based on the selected engine and language."""
-        self.voice_combo.clear()
-        
-        selected_engine = self.engine_combo.currentText()
-        
-        if selected_engine in TTS_DATA and selected_language in TTS_DATA[selected_engine]:
-            self.voice_combo.addItems(TTS_DATA[selected_engine][selected_language])
