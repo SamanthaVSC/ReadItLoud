@@ -24,11 +24,7 @@ GitHub: https://github.com/SamanthaVSC/ReadItLoud
 """
 
 """
-TTSModel — High-level model for Text-to-Speech, Translation, Transcription
-and Grammar operations.
-
-Responsibilities (future):
-  - Read text aloud using an offline TTS engine
+Responsibilities:
   - Translate text between English and Spanish
   - Transcribe audio to text
   - Check grammar and provide feedback
@@ -37,86 +33,83 @@ Responsibilities (future):
 Concrete engines are injected via the factory or directly, so the model
 stays decoupled from any specific implementation.
 """
+import whisper
+import language_tool_python as tl
 
-from typing import Protocol
+from faster_whisper import WhisperModel
+from jiwer import wer
 
-class TranslateEngine(Protocol):
-    """Protocol for translation backends."""
+class FasterWhisper:
+    def __init__(self, model = "cores/audio qualifiers/faster-whisper/faster-whisper-base", device="cpu", compute_type="int8", expected_text='', audio_file=''):
+        self.model = model
+        self.device = device
+        self.compute_type = compute_type
+        self.expected_text = expected_text
+        self.audio_file = audio_file
 
+    def qualifier(self) -> str:
+        self.model_instance = WhisperModel(self.model, device=self.device, compute_type=self.compute_type)
+        segments, info = self.model_instance.transcribe(self.audio_file)
+        transcription = " ".join([seg.text for seg in segments])
+        error = wer(self.expected_text.lower(), transcription.lower())
+        score = (1 - error) * 100
+        return f"Score: {score:.2f}%"
+
+class TranslateEngine:
     def translate(self, text: str, source_lang: str, target_lang: str) -> str: ...
 
-class TranscribeEngine(Protocol):
-    """Protocol for transcription backends."""
+class Whisper:
+    def __init__(self, 
+                 model_path: str="./cores/audio transcription/whisper/models/base.pt", 
+                 device: str="cpu", 
+                 audio_input: str = '',
+                ):
+        self.model_path = model_path
+        self.device = device
+        self.audio_input = audio_input
 
-    def transcribe(self, audio_path: str) -> str: ...
+    def transcribe(self) -> str:
+        self.model = whisper.load_model(self.model_path, device=self.device)
+        return self.model.transcribe(self.audio_input)["text"]
 
+class GrammarChecker:
+    def __init__(self, text_input, lang):
+        self.text_input = text_input
+        self.lang = lang
 
-class GrammarEngine(Protocol):
-    """Protocol for grammar-check backends."""
-
-    def check(self, text: str) -> list[dict]: ...
-
-
-class TTSModel:
-    """High-level model that orchestrates TTS, translation, transcription
-    and grammar checking.  Concrete engines are injected so the model
-    stays decoupled from any specific implementation."""
-
-    def __init__(self) -> None:
-        self._tts_engine: TTSEngine | None = None
-        self._translate_engine: TranslateEngine | None = None
-        self._transcribe_engine: TranscribeEngine | None = None
-        self._grammar_engine: GrammarEngine | None = None
-
-    # ── Engine setters (dependency injection) ───────────────────
-
-    def set_tts_engine(self, engine: TTSEngine) -> None:
-        """Set the TTS engine instance directly."""
-        self._tts_engine = engine
-
-    def set_tts_engine_by_name(self, name: str, **kwargs) -> None:
-        """Create and set a TTS engine via the ModelFactory registry."""
-        self._tts_engine = ModelFactory.create(name, **kwargs)
-
-    def set_translate_engine(self, engine: TranslateEngine) -> None:
-        self._translate_engine = engine
-
-    def set_transcribe_engine(self, engine: TranscribeEngine) -> None:
-        self._transcribe_engine = engine
-
-    def set_grammar_engine(self, engine: GrammarEngine) -> None:
-        self._grammar_engine = engine
-
-    # ── Public API ──────────────────────────────────────────────
-
-    def read_aloud(self, text: str) -> None:
-        """Send *text* to the TTS engine for spoken output."""
-        if self._tts_engine:
-            self._tts_engine.synthesize(text, "cache/records/output.wav")
+    def output_corrections(self):
+        tool = tl.LanguageTool(self.lang)
+        corrections = tool.check(self.text_input)
+        for error in corrections:
+            return error
+        if not corrections:
+            return "Nothing to correct"
         else:
-            print("[TTSModel] read_aloud — no engine configured")
+            return corrections
 
-    def translate(self, text: str, source_lang: str = "en", target_lang: str = "es") -> str:
-        """Translate *text* and return the result."""
-        if self._translate_engine:
-            return self._translate_engine.translate(text, source_lang, target_lang)
-        print("[TTSModel] translate — no engine configured")
-        return text
+# Example usage with one of your models:
+if __name__ == "__main__":
+    # Choose which model to test
+   
+    model_path = "./../../cores/audio qualifiers/faster-whisper/faster-whisper-base"
+    
+    # Configuration
+    qualifier_test = FasterWhisper(
+        model=model_path,
+        device="cuda",  # or "cuda" if you have GPU
+        compute_type="int8",  # Options: "int8", "float16", "float32"
+        expected_text="Hola, soy una voz artificial. Esto es una prueba, probando, probando. ¿Cómo se escucha?",
+        audio_file="../../cache/records/Piper_20260714030617.wav"  # or .mp3, .flac, etc.
+    )
+    
+    
+    # Run the qualification test
+    result = qualifier_test.qualifier()
+    print(result)
+   
+    
+    #check1 = GrammarChecker(text_input="Do you want being there?", lang="en")
+    #check1.output_corrections()
 
-    def transcribe(self, audio_path: str) -> str:
-        """Transcribe the audio at *audio_path* and return text."""
-        if self._transcribe_engine:
-            return self._transcribe_engine.transcribe(audio_path)
-        print("[TTSModel] transcribe — no engine configured")
-        return ""
-
-    def check_grammar(self, text: str) -> list[dict]:
-        """Check grammar of *text* and return a list of issues."""
-        if self._grammar_engine:
-            return self._grammar_engine.check(text)
-        print("[TTSModel] check_grammar — no engine configured")
-        return []
-
-    def check_pronunciation(self, text: str) -> None:
-        """Pronunciation feedback stub."""
-        print("[TTSModel] check_pronunciation — not implemented yet")
+    #whisper1 = Whisper(model_path="./cores/audio transcription/whisper/models/medium.pt", device="cpu",audio_input="app/models/English af_bella.wav")
+    #print(whisper1.transcribe())

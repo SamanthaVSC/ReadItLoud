@@ -85,8 +85,6 @@
     "es-es": {
       "Carlfm (M) x_low": "es_ES-carlfm-x_low.onnx",
       "Davefx (M) medium": "es_ES-davefx-medium.onnx",
-      "Mls 10246 (F) low": "es_ES-mls_10246-low.onnx",
-      "Mls 9972 (M) low": "es_ES-mls_9972-low.onnx",
       "Sharvard (F) medium": "es_ES-sharvard-medium.onnx"
     }
   }

@@ -22,7 +22,7 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 
 ## ✨ Features
 
-### ✅ Implemented (v0.25.3 demo)
+### ✅ Implemented (v0.80.5 demo)
 
 - 📝 Integrated text editor (5,000 characters)
 - 📚 PDF and EPUB reader with built-in web viewer
@@ -32,13 +32,12 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 - 💾 Import/export text files
 - 🎤 Audio recorder
 -   🔊 Speech synthesis (TTS) — Factory pattern architecture
+-   ✍️ Audio transcription
+-  📖 Grammar correction
+-   🗣️ Pronunciation feedback
 
 ## 🚧 In development (architecture ready)
 - 🌐 Integrated translation
-- 📖 Grammar correction
-- ✍️ Audio transcription
-- 🗣️ Pronunciation feedback
-
 ------
 
 ## 🏗️ Architecture

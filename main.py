@@ -35,19 +35,24 @@ This module bootstraps the Qt application using the MVC architecture:
 import sys
 
 from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QIcon
 
 from app.views.main_window import MainWindowView
 from app.controllers.main_controller import MainController
+from app.models.ico_model import IconManager
 
 
 def main() -> None:
     app = QApplication(sys.argv)
+    
+    ico_model = IconManager()
 
     # ── Create the View ─────────────────────────────────────────
     view = MainWindowView()
+    view.setWindowIcon(QIcon("config/app-logo.png"))
 
     # ── Create the Controller (which creates Models internally) ─
-    controller = MainController(view, app)
+    controller = MainController(view, app, ico_model)
 
     # ── Apply the persisted theme before showing the window ─────
     controller.apply_initial_theme()

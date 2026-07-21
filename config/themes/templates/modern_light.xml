@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <!-- Ocean Breeze — Soft ivory with vivid teal accents -->
-  <color name="primaryColor">#0891b2</color>
-  <color name="primaryLightColor">#06b6d4</color>
-  <color name="secondaryColor">#f0fdfa</color>
-  <color name="secondaryLightColor">#ffffff</color>
-  <color name="secondaryDarkColor">#ccfbf1</color>
-  <color name="primaryTextColor">#134e4a</color>
-  <color name="secondaryTextColor">#64748b</color>
+  <color name="primaryColor">#686868</color>
+  <color name="primaryLightColor">#EBEBEB</color>
+  <color name="secondaryColor">#FFFFFF</color>
+  <color name="secondaryLightColor">#FFFFFF</color>
+  <color name="secondaryDarkColor">#7D7D7D</color>
+  <color name="primaryTextColor">#000000</color>
+  <color name="secondaryTextColor">#000000</color>
 </resources>

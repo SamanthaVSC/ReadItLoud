@@ -36,7 +36,7 @@ Controller via Qt signal/slot connections.
 """
 from os import walk
 from pathlib import Path
-from PySide6.QtCore import QSize, Qt, QTimer, QUrl
+from PySide6.QtCore import QSize, Qt, QTimer, QUrl, Signal
 from PySide6.QtGui import QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtWebEngineCore import QWebEngineScript, QWebEngineSettings
@@ -86,6 +86,9 @@ def _format_playback_time(ms: int) -> str:
 class MainWindowView(QMainWindow):
     """Thin view wrapper around the Qt Designer-generated UI."""
 
+    # Signals to communicate with controller
+    toggle_requested = Signal()
+    
     # ── Límite máximo de caracteres en el editor ────────────────
     MAX_CHARS = 5000
 
@@ -94,6 +97,9 @@ class MainWindowView(QMainWindow):
         self.ui = Ui_mainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("ReadItLoud")
+
+        # Connect internal signal
+        self.ui.theme_pB.clicked.connect(self.toggle_requested.emit)
 
         # Ensure the MDI sub-window for the writer widget is active
         sub_window = self.ui.writer_sw.parentWidget()
@@ -124,8 +130,8 @@ class MainWindowView(QMainWindow):
         self.toggle_reader_mode_pB.setText(u"\U0001f319 Dark mode")
         self.toggle_reader_mode_pB.setCheckable(True)
         self.ui.horizontalLayout_4.insertWidget(
-            self.ui.horizontalLayout_4.count() - 1,  # before the spacer
-            self.toggle_reader_mode_pB,
+        self.ui.horizontalLayout_4.count() - 1,  # before the spacer
+        self.toggle_reader_mode_pB,
         )
 
         # Re-apply dark mode after a new book finishes loading
@@ -155,6 +161,47 @@ class MainWindowView(QMainWindow):
         self._record_elapsed_ms: int = 0
         # Guardamos el texto original del botón para restaurarlo tras STOP
         self._record_button_default_text: str = self.buttons["record_pause"].text()
+
+    def update_icon(self, button_name: str, icon):
+        """Update icon for a specific button"""
+        button_map = {
+            "delete": self.ui.delete_pB,
+            "copy": self.ui.copy_pB,
+            "cut": self.ui.cut_pB,
+            "paste": self.ui.paste_pB,
+            "undo": self.ui.undo_pB,
+            "redo": self.ui.redo_pB,
+            "export": self.ui.export_pB,
+            "clear": self.ui.clear_pB,
+            "read": self.ui.read_pB,
+            "qualify":self.ui.check_pronounce_pB,
+            "translate": self.ui.translate_pB,
+            "transcribe": self.ui.transcibe_pB,
+            "check_grammar": self.ui.Check_grammar_pB,
+            "theme": self.ui.theme_pB,
+            "open_book": self.ui.open_book_pB,
+            "upload": self.ui.upload_pB,
+            "reload_audio": self.ui.reload_audio_pB,
+            # Audio action buttons
+            "play": self.ui.play_pause_pB,
+            "rename": self.ui.rename_pB,
+            # Reader mode toggle
+            "toggle_reader_mode": self.toggle_reader_mode_pB,
+            # Record actions button
+            "record_pause": self.ui.record_pause_pB,
+            "stop_record": self.ui.stop_pB,
+            # Other buttons (e.g. in the settings panel)
+            "about": self.ui.about_software_pB,
+            "settings": self.ui.right_panel_pB,
+            "save": self.ui.save_pB,
+            "playlist": self.ui.left_panel_pB,
+            "audio_preview": self.ui.preview_pB,
+        }     
+        
+        button = button_map.get(button_name)
+        """Update icon for a specific tab"""
+        if button:
+            button.setIcon(icon)
 
     # ── Char counter + limit ─────────────────────────────────────
 
@@ -203,6 +250,18 @@ class MainWindowView(QMainWindow):
         return self.ui.writer_editText
 
     @property
+    def grammar_feedback(self):
+        return self.ui.feedback_grammar_textBrowser
+    
+    @property
+    def speak_qualifier(self):
+        return self.ui.feedback_speaking_textBrowser
+    
+    @property
+    def translator(self):
+        return self.ui.translator_textBrowser
+    
+    @property
     def generated_list(self):
         """List widget showing generated audio files."""
         return self.ui.audioListWidget
@@ -228,11 +287,12 @@ class MainWindowView(QMainWindow):
             "export": self.ui.export_pB,
             "clear": self.ui.clear_pB,
             "read": self.ui.read_pB,
+            "qualify":self.ui.check_pronounce_pB,
             "translate": self.ui.translate_pB,
             "transcribe": self.ui.transcibe_pB,
             "check_grammar": self.ui.Check_grammar_pB,
             "theme": self.ui.theme_pB,
-            "open_book": self.ui.open_book_bP,
+            "open_book": self.ui.open_book_pB,
             "upload": self.ui.upload_pB,
             "reload_audio": self.ui.reload_audio_pB,
             # Audio action buttons
@@ -245,11 +305,15 @@ class MainWindowView(QMainWindow):
             "stop_record": self.ui.stop_pB,
             # Other buttons (e.g. in the settings panel)
             "about": self.ui.about_software_pB,
+            "settings": self.ui.right_panel_pB,
+            "save": self.ui.save_pB,
+            "playlist": self.ui.left_panel_pB,
+            "audio_preview": self.ui.preview_pB,
         }
 
     # ── Comobox references (for signal connection) ───────────────
     @property
-    def comoboxes(self):
+    def comboxes(self):
         """Return a dict of button-name → Comobox for the controller
         to connect signals."""
         return {
@@ -258,7 +322,7 @@ class MainWindowView(QMainWindow):
             "engine": self.ui.engine_cB,
             "engine_lang": self.ui.engine_lang_cB,
             "engine_voices": self.ui.engine_voice_cB,
-            "grammar_lang": self.ui.grammar_lang_cb,
+            "lang": self.ui.lang_cb,
             "trans_from": self.ui.trans_from_cB,
             "trans_to": self.ui.trans_to_cB,
             }
@@ -284,7 +348,7 @@ class MainWindowView(QMainWindow):
 
     def get_editor_text(self) -> str:
         return self.editor.toPlainText()
-
+    
     def set_editor_text(self, text: str) -> None:
         self.editor.setText(text)
 

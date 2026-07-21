@@ -50,20 +50,24 @@ from app.models.theme_model import ThemeModel
 from app.models.media_model import MediaModel
 from app.models.book_model import BookModel
 from app.models.record_model import Record, RecordState
-from app.models.tts_engine_factory import FactoryTTS
-from app.models.llm_model import Whisper
- 
+from app.models.EngineFactories.create_factory import FactoryTTS
+from app.models.llm_model import GrammarChecker, Whisper, FasterWhisper
+from app.models.ico_model import IconManager 
+
 with open("data/tts_engine.json", "r") as file:
     TTS_DATA = json.load(file)
- 
- 
+   
+with open("data/languages.json", "r") as file:
+    LANGUAGE_DATA = json.load(file)
+
 class MainController:
     """Central controller wiring the ReadItLoud UI to its domain models."""
- 
-    def __init__(self, view: MainWindowView, app) -> None:
+
+    def __init__(self, view: MainWindowView, app, ico_model) -> None:
         self._view = view
+        self.ico_model = ico_model
         self._app = app  # QApplication reference (needed for theme application)
- 
+        
         # ── Instantiate models ──────────────────────────────────
         self._doc_model   = DocumentModel()
         self._theme_model = ThemeModel()
@@ -71,7 +75,8 @@ class MainController:
         self._book_model  = BookModel()
         self.record        = Record()
         self.factory       = FactoryTTS()
-        #self.trascriber    = Whisper()
+        self._ico_model = IconManager()
+
  
         # ── Wire signals ────────────────────────────────────────
         self._connect_signals()
@@ -81,14 +86,40 @@ class MainController:
     def apply_initial_theme(self) -> None:
         """Apply the persisted theme and its wallpaper on startup."""
         theme_path, invert = self._theme_model.apply_initial()
+        self._app.aboutToQuit.connect(self._on_app_closing)
         apply_stylesheet(self._app, theme=theme_path, invert_secondary=invert)
         self._view.set_wallpaper(self._theme_model.wallpaper_path)
- 
+
+     # ── ico model ──────────────────────────────────────────────
+     # Connect view signals
+        self._view.toggle_requested.connect(self._on_toggle)
+        
+        # Connect app close signal to save theme
+        #self.app.aboutToQuit.connect(self._on_app_closing)
+        
+        # Initial icon setup (uses restored theme)
+        self._update_all_icons()
+    
+    def _on_toggle(self):
+        """Handle toggle theme request"""
+        self._ico_model.toggle_theme()
+        self._update_all_icons()
+    
+    def _on_app_closing(self):
+        """Save theme state before application closes"""
+        self._ico_model.save_theme()
+    
+    def _update_all_icons(self):
+        """Sync all icons from model to view"""
+        for icon_name in self._ico_model.get_icon_names():
+            icon = self._ico_model.get_icon(icon_name)
+            self._view.update_icon(icon_name, icon)
+            
     # ── Signal wiring ───────────────────────────────────────────
  
     def _connect_signals(self) -> None:
         btns  = self._view.buttons
-        cmbs  = self._view.comoboxes
+        cmbs  = self._view.comboxes
         slds  = self._view.sliders
         chkbs = self._view.checkboxes
  
@@ -107,6 +138,7 @@ class MainController:
  
         # TTS / NLP operations
         btns["read"].clicked.connect(self._on_read)
+        btns["qualify"].clicked.connect(self._on_check_speak)
         btns["translate"].clicked.connect(self._on_translate)
         btns["transcribe"].clicked.connect(self._on_transcribe)
         btns["check_grammar"].clicked.connect(self._on_check_grammar)
@@ -137,6 +169,9 @@ class MainController:
         # Seeding the engine combo triggers update_languages automatically
         # (currentTextChanged fires when the first item is added).
         cmbs["engine"].addItems(list(TTS_DATA.keys()))
+        cmbs["lang"].addItems(list(LANGUAGE_DATA.values()))
+        cmbs["trans_from"].addItems(list(LANGUAGE_DATA.values()))
+        cmbs["trans_to"].addItems(list(LANGUAGE_DATA.values()))
  
         # ✅ 41 000 Hz → 44 100 Hz (41 kHz is non-standard; hardware/codecs may reject it)
         cmbs["sample_rate"].addItems(["44100", "48000"])
@@ -168,8 +203,8 @@ class MainController:
  
     def update_languages(self, selected_engine: str) -> None:
         """Refresh the language combo box based on the selected engine."""
-        lang_combo  = self._view.comoboxes["engine_lang"]
-        voice_combo = self._view.comoboxes["engine_voices"]
+        lang_combo  = self._view.comboxes["engine_lang"]
+        voice_combo = self._view.comboxes["engine_voices"]
  
         lang_combo.blockSignals(True)
         voice_combo.blockSignals(True)
@@ -189,8 +224,8 @@ class MainController:
  
     def update_voices(self, selected_language: str) -> None:
         """Refresh the voice combo box based on the current engine and language."""
-        engine_combo = self._view.comoboxes["engine"]
-        voice_combo  = self._view.comoboxes["engine_voices"]
+        engine_combo = self._view.comboxes["engine"]
+        voice_combo  = self._view.comboxes["engine_voices"]
  
         voice_combo.clear()
  
@@ -200,9 +235,9 @@ class MainController:
             voice_combo.addItems(voices_dict.keys())
  
     def speak(self) -> None:
-        engine             = self._view.comoboxes["engine"].currentText()
-        language           = self._view.comoboxes["engine_lang"].currentText()
-        voice_display_name = self._view.comoboxes["engine_voices"].currentText()
+        engine             = self._view.comboxes["engine"].currentText()
+        language           = self._view.comboxes["engine_lang"].currentText()
+        voice_display_name = self._view.comboxes["engine_voices"].currentText()
         voice_file         = TTS_DATA[engine][language][voice_display_name]
  
         print(f"{engine} for {language} and {voice_display_name} works!")
@@ -271,11 +306,11 @@ class MainController:
  
     def _on_read(self, checked) -> None:
         """Generate TTS audio, save it to disk, refresh the list, then play it."""
-        engine = self._view.comoboxes["engine"].currentText()
-        language = self._view.comoboxes["engine_lang"].currentText()
-        voice_display_name = self._view.comoboxes["engine_voices"].currentText()
-        sample_rate_str = self._view.comoboxes["sample_rate"].currentText()
-        format_str = self._view.comoboxes["format"].currentText()
+        engine = self._view.comboxes["engine"].currentText()
+        language = self._view.comboxes["engine_lang"].currentText()
+        voice_display_name = self._view.comboxes["engine_voices"].currentText()
+        sample_rate_str = self._view.comboxes["sample_rate"].currentText()
+        format_str = self._view.comboxes["format"].currentText()
         speed_value = self._view.sliders["gen_speed"].value()  / 100.0
         volume_value = self._view.sliders["gen_volume"].value() / 100.0
         normalize_audio = self._view.checkboxes["normalize_audio"].isChecked()
@@ -320,7 +355,7 @@ class MainController:
             return
  
         # ── 2. Save ─────────────────────────────────────────────
-        output_stem = engine + "_" + datetime.now().strftime("%Y%m%d%H%M%S")
+        output_stem = engine + "_" + voice_display_name + "_" + datetime.now().strftime("%Y%m%d%H%M%S")
         try:
             self.factory.save_audio(self.audio, self.sample_rate, output_stem)
             self._refresh_audio_lists()
@@ -336,15 +371,63 @@ class MainController:
         except Exception as e:
             QMessageBox.warning(self._view, "Playback Error", f"Could not play audio:\n{e}")
  
+    
+    def _on_check_speak(self) -> None:
+        if self._view.editor.toPlainText():
+            expected = self._view.editor.toPlainText()
+            folder = "cache/records/"
+            
+            try:
+                audio_name = self._view.generated_list.currentItem().text()
+                audio_path = folder + audio_name
+                faster_whisper = FasterWhisper(expected_text=expected, audio_file=audio_path)
+                score = faster_whisper.qualifier()
+                self._view.speak_qualifier.setText(score)
+
+            except AttributeError:
+                self.message = QMessageBox()
+                self.message.information(self._view, "Qualifier", "Please select an audio file from the list.")
+
+        else:
+            self.message = QMessageBox()
+
     def _on_translate(self) -> None:
         pass
  
     def _on_transcribe(self) -> None:
-        pass
- 
-    def _on_check_grammar(self) -> None:
-        pass
- 
+        if not self._view.editor.toPlainText():
+            folder = "cache/records/"
+        
+            try:
+                audio_name = self._view.generated_list.currentItem().text()
+                audio_path = folder + audio_name
+                whisper = Whisper(audio_input=audio_path)
+                transcription = whisper.transcribe()
+                self._view.editor.setText(transcription)
+
+            except AttributeError:
+                self.message = QMessageBox()
+                self.message.warning(self._view, "Transcriber", "Please select an audio file from the list.")
+        
+        else:
+            self.message = QMessageBox()
+            self.message.warning(self._view, "Transcriber","Please, clean the text editor.")
+
+    def _on_check_grammar(self) -> str:
+
+        text = self._view.get_editor_text()
+        if not text:
+          self._view.grammar_feedback.setHtml(
+              "<p style='color: orange;'>⚠️ Please enter some text.</p>"
+        )
+        
+        selected_lang = self._view.comboxes["lang"].currentText()
+        grammar = GrammarChecker(text_input=text, lang=selected_lang)
+        ms = grammar.output_corrections()
+        
+        if text:
+            self._view.grammar_feedback.setText(str(ms))
+
     # ── Record handlers ─────────────────────────────────────────
  
     def on_record_pause(self, checked: bool) -> None:
@@ -435,7 +518,7 @@ class MainController:
     # ── File handlers ───────────────────────────────────────────
  
     def _on_open_book(self) -> None:
-        """Open a file dialog to select a PDF or EPUB and display it."""
+        """Open a file dialog to select a PDF and display it."""
         file_path, _ = QFileDialog.getOpenFileName(
             self._view,
             "Open book",
@@ -455,10 +538,7 @@ class MainController:
  
         if result["type"] == "pdf" and result["url"]:
             print(f"[OpenBook] Loading PDF URL: {result['url']}")
-            self._view.load_book_url(result["url"])
-        elif result["type"] == "epub" and result["html"]:
-            print(f"[OpenBook] Loading EPUB HTML ({len(result['html'])} chars)")
-            self._view.load_book_html(result["html"])
+            self._view.load_book_url(result["url"]) 
  
         self._view.activate_reader_panel()
  
@@ -492,7 +572,7 @@ class MainController:
         if source is None or filename is None:
             QMessageBox.information(
                 self._view, "Play",
-                "Please select an audio file from the list first."
+                "Please select an audio file from the list."
             )
             return
  
@@ -518,7 +598,7 @@ class MainController:
         if source is None or filename is None:
             QMessageBox.information(
                 self._view, "Rename",
-                "Please select an audio file from the list first."
+                "Please select an audio file from the list."
             )
             return
  
@@ -548,7 +628,7 @@ class MainController:
         if source is None or filename is None:
             QMessageBox.information(
                 self._view, "Delete",
-                "Please select an audio file from the list first."
+                "Please select an audio file from the list."
             )
             return
  
