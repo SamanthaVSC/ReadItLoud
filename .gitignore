@@ -91,7 +91,7 @@ cache/*.ogg
 
 # Environment variables
 .env
-.env.local# Cache (generated audio files – don't commit them!)
+.env.local # Cache (generated audio files – don't commit them!)
 
 # Python
 __pycache__/
@@ -112,9 +112,6 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Config with secrets (if any)
-config/secrets.yaml
-
 # Logs
 *.log
 
@@ -124,5 +121,3 @@ cores/
 shh_key.txt
 shh_key.txt.pub
 cache/
-config/themes/default.txt
-config/themes/

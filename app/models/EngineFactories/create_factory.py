@@ -29,10 +29,14 @@ reading documents with speech synthesis (TTS), pronunciation feedback
 and integrated grammar correction.
 ...
 """
+import time
+import threading
 from abc import ABC, abstractmethod
 
 from app.models.EngineFactories.piper_factory import PiperTTS
 from app.models.EngineFactories.kokoro_factory import KokoroTTS
+#from piper_factory import PiperTTS
+#from kokoro_factory import KokoroTTS
 
 kokoro_tts = "Kokoro"
 piper_tts = "Piper"
@@ -43,7 +47,7 @@ en_text = """How can I help you today, dear friend?"""
 kokoro_attr = {
     "text_input": en_text,
     "voice": "af_bella",
-    "speed": 1.0,
+    "speed": 0.9,
     "volume": 1.0,
     "normalize_audio": True,
     "format": ".mp3",
@@ -61,16 +65,13 @@ piper_attr = {
     "volume": 1.0,
     "normalize_audio": False,
     "format": ".wav",
-    "output_path": "./cache/records/",
+    "output_path": "./cache/records",
     "detect_lang": "en",
     "voice": "",
     "model_path": "./../../../cores/Engines/Piper-tts/",
-    #"length_scale": 1.0,
-    #"noise_scale": 0.5,
-    #"noise_w": 0.6,
-    #"sentence_silence": 0.1,
     "sample_rate": 44100,
 }
+
 
 class FactoryTTS:
     @classmethod
@@ -82,37 +83,37 @@ class FactoryTTS:
         raise ValueError(f"Unknown TTS type: {type_str}")
 
 if __name__ == "__main__":
-
-    print("Generating audio with Kokoro...")
-    kokoro_engine = FactoryTTS.create(kokoro_tts, **kokoro_attr)
-    audio_k, sr_k = kokoro_engine.generate_audio()
-    kokoro_engine.play(audio_k, sr_k)
     
-    kokoro_engine.save_audio(
-        audio_k,
-        sr_k,
-        "kokoro_",
-        normalize_audio=kokoro_attr["normalize_audio"],
-        format=kokoro_attr["format"],
-        output_path=kokoro_attr["output_path"],
-    )
-    print("Kokoro: Audio played and saved.\n")
-
-    """
     print("Generating audio with Piper...")
     piper_engine = FactoryTTS.create(piper_tts, **piper_attr)
     audio_p, sr_p = piper_engine.generate_audio()
-    print("Playing...")
-    piper_engine.play(audio_p, sr_p)
-    
 
-    piper_engine.save_audio(
-        audio_p,
-        sr_p,
-        "piper",
-        normalize_audio=piper_attr["normalize_audio"],
-        format=piper_attr["format"],
-        output_path=piper_attr["output_path"],
-    )
-    print(f"Piper: Audio played and saved")
-    """
+    # print("Playing on worker thread...")
+    # t = threading.Thread(target=piper_engine.play, args=(audio_p, sr_p), daemon=True)
+    # t.start()
+
+    # time.sleep(1)            # let it play for 1 second
+    # print("Stopping...")
+    # piper_engine.stop()      # kills playback; sd.wait() in worker returns early
+    # #t.join(timeout=2)        # wait for worker to exit cleanly
+    # print("Stopped.")
+    piper_engine.save_audio(audio=audio_p, sample_rate=sr_p, output_wav="Test1", format=".wav", normalize_audio=False)
+    '''
+    print("Piper: Audio played and saved")
+    
+    print("Generating audio with Kokoro...")
+    kokoro_engine = FactoryTTS.create(kokoro_tts, **kokoro_attr)
+    audio_k, sr_k = kokoro_engine.generate_audio()
+
+    #print("Playing on worker thread...")
+    #t = threading.Thread(target=kokoro_engine.play, args=(audio_k, sr_k), daemon=True)
+    #t.start()
+    
+    kokoro_engine.save_audio(audio=audio_k, sample_rate=sr_k, output_wav="Test", format="mp3")
+
+    time.sleep(1)
+    print("Stopping...")
+    kokoro_engine.stop()
+    #t.join(timeout=2)
+    print("Stopped.")
+    '''

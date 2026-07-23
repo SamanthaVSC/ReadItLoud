@@ -8,7 +8,7 @@
 
 ## 🌟 What is ReadItLoud?
 
-ReadItLoud is a free, open-source desktop application that lets you **learn languages ​​while staying productive**. With ReadItLoud, you can upload your own study materials (academic PDFs, EPUB books, text documents) and simultaneously:
+ReadItLoud is a free, open-source desktop application that lets you **learn languages ​​while staying productive**. With ReadItLoud, you can upload your own study materials (academic PDFs books, text documents) and simultaneously:
 
 - 📚 Read the document within the interface
 - 🔊 Listen to correct pronunciation via text-to-speech
@@ -25,20 +25,26 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 ### ✅ Implemented (v0.80.5 demo)
 
 - 📝 Integrated text editor (5,000 characters)
-- 📚 PDF and EPUB reader with built-in web viewer
+- 📚 PDF reader with built-in web viewer
 - 🎵 Audio player (WAV/MP3 files)
 - 🌙 Dark/light mode (app and reader)
 - 📊 Real-time character counter
 - 💾 Import/export text files
 - 🎤 Audio recorder
--   🔊 Speech synthesis (TTS) — Factory pattern architecture
--   ✍️ Audio transcription
--  📖 Grammar correction
--   🗣️ Pronunciation feedback
+- 🔊 Speech synthesis (TTS) — Factory pattern architecture
+   ✍️ Audio transcription
+- 📖 Grammar correction
+   🗣️ Pronunciation feedback
 
 ## 🚧 In development (architecture ready)
-- 🌐 Integrated translation
-------
+- Integrate translation
+- Separate each engine and model into independent environments (Activate them via subproccess)
+- Separate logic and view of Reader mode into two part (Frontend and Backend) and show it fronted by QWebEngineView
+- Add pins to Reader Mode to keep several book opened at the same time
+- Add content menu with the fallowing items; practice reading and read
+- Integrate TTS to Reader Mode
+- Integrate pronounciation checker to Reader Mode
+-------
 
 ## 🏗️ Architecture
 

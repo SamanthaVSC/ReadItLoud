@@ -11,17 +11,18 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QCheckBox, QComboBox,
-    QFormLayout, QFrame, QGroupBox, QHBoxLayout,
+    QFrame, QGridLayout, QGroupBox, QHBoxLayout,
     QLabel, QListWidget, QListWidgetItem, QMainWindow,
-    QMdiArea, QPushButton, QSizePolicy, QSlider,
-    QSpacerItem, QTabWidget, QTextBrowser, QTextEdit,
-    QVBoxLayout, QWidget)
+    QMdiArea, QMenu, QMenuBar, QPushButton,
+    QSizePolicy, QSlider, QSpacerItem, QTabWidget,
+    QTextBrowser, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
@@ -32,10 +33,22 @@ class Ui_mainWindow(object):
         mainWindow.setAutoFillBackground(False)
         mainWindow.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         mainWindow.setDockNestingEnabled(False)
+        self.actionAbout = QAction(mainWindow)
+        self.actionAbout.setObjectName(u"actionAbout")
+        self.actionManualIntegrated = QAction(mainWindow)
+        self.actionManualIntegrated.setObjectName(u"actionManualIntegrated")
+        self.actionGuide = QAction(mainWindow)
+        self.actionGuide.setObjectName(u"actionGuide")
+        self.actionAboutSofware = QAction(mainWindow)
+        self.actionAboutSofware.setObjectName(u"actionAboutSofware")
+        self.actionPreferences = QAction(mainWindow)
+        self.actionPreferences.setObjectName(u"actionPreferences")
+        self.actionTools = QAction(mainWindow)
+        self.actionTools.setObjectName(u"actionTools")
         self.centralwidget_grid = QWidget(mainWindow)
         self.centralwidget_grid.setObjectName(u"centralwidget_grid")
-        self.horizontalLayout_8 = QHBoxLayout(self.centralwidget_grid)
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.horizontalLayout_2 = QHBoxLayout(self.centralwidget_grid)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.RightContainer_widget = QWidget(self.centralwidget_grid)
         self.RightContainer_widget.setObjectName(u"RightContainer_widget")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
@@ -111,13 +124,12 @@ class Ui_mainWindow(object):
         self.verticalLayout_10.addWidget(self.OptiongBox)
 
 
-        self.horizontalLayout_8.addWidget(self.RightContainer_widget)
+        self.horizontalLayout_2.addWidget(self.RightContainer_widget)
 
-        self.verticalLayout_11 = QVBoxLayout()
-        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.centralwidget_pB_panels__hLayout = QHBoxLayout()
-        self.centralwidget_pB_panels__hLayout.setObjectName(u"centralwidget_pB_panels__hLayout")
-        self.centralwidget_pB_panels__hLayout.setContentsMargins(0, -1, -1, -1)
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.left_panel_pB = QPushButton(self.centralwidget_grid)
         self.left_panel_pB.setObjectName(u"left_panel_pB")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
@@ -127,12 +139,11 @@ class Ui_mainWindow(object):
         self.left_panel_pB.setSizePolicy(sizePolicy1)
         self.left_panel_pB.setCheckable(True)
 
-        self.centralwidget_pB_panels__hLayout.addWidget(self.left_panel_pB)
+        self.horizontalLayout.addWidget(self.left_panel_pB)
 
-        self.image1Label = QLabel(self.centralwidget_grid)
-        self.image1Label.setObjectName(u"image1Label")
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.centralwidget_pB_panels__hLayout.addWidget(self.image1Label)
+        self.horizontalLayout.addItem(self.horizontalSpacer)
 
         self.theme_pB = QPushButton(self.centralwidget_grid)
         self.theme_pB.setObjectName(u"theme_pB")
@@ -140,14 +151,7 @@ class Ui_mainWindow(object):
         self.theme_pB.setSizePolicy(sizePolicy1)
         self.theme_pB.setCheckable(False)
 
-        self.centralwidget_pB_panels__hLayout.addWidget(self.theme_pB)
-
-        self.about_software_pB = QPushButton(self.centralwidget_grid)
-        self.about_software_pB.setObjectName(u"about_software_pB")
-        sizePolicy1.setHeightForWidth(self.about_software_pB.sizePolicy().hasHeightForWidth())
-        self.about_software_pB.setSizePolicy(sizePolicy1)
-
-        self.centralwidget_pB_panels__hLayout.addWidget(self.about_software_pB)
+        self.horizontalLayout.addWidget(self.theme_pB)
 
         self.right_panel_pB = QPushButton(self.centralwidget_grid)
         self.right_panel_pB.setObjectName(u"right_panel_pB")
@@ -155,10 +159,10 @@ class Ui_mainWindow(object):
         self.right_panel_pB.setSizePolicy(sizePolicy1)
         self.right_panel_pB.setCheckable(True)
 
-        self.centralwidget_pB_panels__hLayout.addWidget(self.right_panel_pB)
+        self.horizontalLayout.addWidget(self.right_panel_pB)
 
 
-        self.verticalLayout_11.addLayout(self.centralwidget_pB_panels__hLayout)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.mdiArea = QMdiArea(self.centralwidget_grid)
         self.mdiArea.setObjectName(u"mdiArea")
@@ -289,6 +293,7 @@ class Ui_mainWindow(object):
 
         self.counterLabel = QLabel(self.writerwidget)
         self.counterLabel.setObjectName(u"counterLabel")
+        self.counterLabel.setStyleSheet(u"font: 600 10.5pt \"Inter\";")
 
         self.horizontalLayout_20.addWidget(self.counterLabel)
 
@@ -314,15 +319,15 @@ class Ui_mainWindow(object):
 
         self.horizontalLayout_21.addWidget(self.translate_pB)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_21.addItem(self.horizontalSpacer_5)
+        self.horizontalLayout_21.addItem(self.horizontalSpacer_4)
 
         self.read_pB = QPushButton(self.writerwidget)
         self.read_pB.setObjectName(u"read_pB")
         sizePolicy6.setHeightForWidth(self.read_pB.sizePolicy().hasHeightForWidth())
         self.read_pB.setSizePolicy(sizePolicy6)
-        self.read_pB.setCheckable(False)
+        self.read_pB.setCheckable(True)
         self.read_pB.setChecked(False)
 
         self.horizontalLayout_21.addWidget(self.read_pB)
@@ -354,36 +359,36 @@ class Ui_mainWindow(object):
         self.mdiArea.addSubWindow(self.writer_sw)
         self.Reader = QWidget()
         self.Reader.setObjectName(u"Reader")
-        self.verticalLayout_2 = QVBoxLayout(self.Reader)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.gridLayout_7 = QGridLayout(self.Reader)
+        self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.open_book_pB = QPushButton(self.Reader)
         self.open_book_pB.setObjectName(u"open_book_pB")
 
-        self.horizontalLayout_4.addWidget(self.open_book_pB)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_3)
-
-
-        self.verticalLayout_2.addLayout(self.horizontalLayout_4)
+        self.gridLayout_7.addWidget(self.open_book_pB, 0, 0, 1, 1)
 
         self.book_webEngineView = QWebEngineView(self.Reader)
         self.book_webEngineView.setObjectName(u"book_webEngineView")
-        sizePolicy2.setHeightForWidth(self.book_webEngineView.sizePolicy().hasHeightForWidth())
-        self.book_webEngineView.setSizePolicy(sizePolicy2)
+        sizePolicy5.setHeightForWidth(self.book_webEngineView.sizePolicy().hasHeightForWidth())
+        self.book_webEngineView.setSizePolicy(sizePolicy5)
         self.book_webEngineView.setUrl(QUrl(u"about:blank"))
 
-        self.verticalLayout_2.addWidget(self.book_webEngineView)
+        self.gridLayout_7.addWidget(self.book_webEngineView, 1, 0, 1, 3)
+
+        self.toggle_reader_mode_pB = QPushButton(self.Reader)
+        self.toggle_reader_mode_pB.setObjectName(u"toggle_reader_mode_pB")
+
+        self.gridLayout_7.addWidget(self.toggle_reader_mode_pB, 0, 1, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(462, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_7.addItem(self.horizontalSpacer_3, 0, 2, 1, 1)
 
         self.mdiArea.addSubWindow(self.Reader)
 
-        self.verticalLayout_11.addWidget(self.mdiArea)
+        self.verticalLayout_2.addWidget(self.mdiArea)
 
 
-        self.horizontalLayout_8.addLayout(self.verticalLayout_11)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
 
         self.contentLayout = QTabWidget(self.centralwidget_grid)
         self.contentLayout.setObjectName(u"contentLayout")
@@ -401,18 +406,55 @@ class Ui_mainWindow(object):
         self.contentLayout.setTabsClosable(False)
         self.engine_tab = QWidget()
         self.engine_tab.setObjectName(u"engine_tab")
-        self.verticalLayout_17 = QVBoxLayout(self.engine_tab)
-        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.verticalLayout = QVBoxLayout(self.engine_tab)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.audio_settings_gB = QGroupBox(self.engine_tab)
         self.audio_settings_gB.setObjectName(u"audio_settings_gB")
         sizePolicy7.setHeightForWidth(self.audio_settings_gB.sizePolicy().hasHeightForWidth())
         self.audio_settings_gB.setSizePolicy(sizePolicy7)
-        self.verticalLayout_16 = QVBoxLayout(self.audio_settings_gB)
-        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.gridLayout = QGridLayout(self.audio_settings_gB)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.voiceLabel = QLabel(self.audio_settings_gB)
+        self.voiceLabel.setObjectName(u"voiceLabel")
+        sizePolicy8.setHeightForWidth(self.voiceLabel.sizePolicy().hasHeightForWidth())
+        self.voiceLabel.setSizePolicy(sizePolicy8)
+        self.voiceLabel.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+
+        self.gridLayout.addWidget(self.voiceLabel, 2, 0, 1, 1)
+
+        self.about_engines_pB = QPushButton(self.audio_settings_gB)
+        self.about_engines_pB.setObjectName(u"about_engines_pB")
+        sizePolicy1.setHeightForWidth(self.about_engines_pB.sizePolicy().hasHeightForWidth())
+        self.about_engines_pB.setSizePolicy(sizePolicy1)
+
+        self.gridLayout.addWidget(self.about_engines_pB, 1, 4, 1, 1)
+
+        self.engine_lang_cB = QComboBox(self.audio_settings_gB)
+        self.engine_lang_cB.setObjectName(u"engine_lang_cB")
+        sizePolicy7.setHeightForWidth(self.engine_lang_cB.sizePolicy().hasHeightForWidth())
+        self.engine_lang_cB.setSizePolicy(sizePolicy7)
+
+        self.gridLayout.addWidget(self.engine_lang_cB, 1, 2, 1, 2)
+
+        self.label = QLabel(self.audio_settings_gB)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout.addWidget(self.label, 0, 4, 1, 1)
+
+        self.preview_pB = QPushButton(self.audio_settings_gB)
+        self.preview_pB.setObjectName(u"preview_pB")
+        sizePolicy8.setHeightForWidth(self.preview_pB.sizePolicy().hasHeightForWidth())
+        self.preview_pB.setSizePolicy(sizePolicy8)
+
+        self.gridLayout.addWidget(self.preview_pB, 2, 3, 1, 1)
+
+        self.languageLabel = QLabel(self.audio_settings_gB)
+        self.languageLabel.setObjectName(u"languageLabel")
+        sizePolicy8.setHeightForWidth(self.languageLabel.sizePolicy().hasHeightForWidth())
+        self.languageLabel.setSizePolicy(sizePolicy8)
+
+        self.gridLayout.addWidget(self.languageLabel, 0, 2, 1, 2)
+
         self.engineLabel = QLabel(self.audio_settings_gB)
         self.engineLabel.setObjectName(u"engineLabel")
         sizePolicy8.setHeightForWidth(self.engineLabel.sizePolicy().hasHeightForWidth())
@@ -421,124 +463,50 @@ class Ui_mainWindow(object):
         self.engineLabel.setAutoFillBackground(False)
         self.engineLabel.setFrameShape(QFrame.Shape.NoFrame)
 
-        self.verticalLayout.addWidget(self.engineLabel)
+        self.gridLayout.addWidget(self.engineLabel, 0, 0, 1, 1)
 
         self.engine_cB = QComboBox(self.audio_settings_gB)
         self.engine_cB.setObjectName(u"engine_cB")
-        sizePolicy7.setHeightForWidth(self.engine_cB.sizePolicy().hasHeightForWidth())
-        self.engine_cB.setSizePolicy(sizePolicy7)
-        self.engine_cB.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
-        self.engine_cB.setFrame(False)
 
-        self.verticalLayout.addWidget(self.engine_cB)
+        self.gridLayout.addWidget(self.engine_cB, 1, 0, 1, 2)
 
-
-        self.horizontalLayout_2.addLayout(self.verticalLayout)
-
-        self.verticalLayout_9 = QVBoxLayout()
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.languageLabel = QLabel(self.audio_settings_gB)
-        self.languageLabel.setObjectName(u"languageLabel")
-        sizePolicy8.setHeightForWidth(self.languageLabel.sizePolicy().hasHeightForWidth())
-        self.languageLabel.setSizePolicy(sizePolicy8)
-
-        self.verticalLayout_9.addWidget(self.languageLabel)
-
-        self.engine_lang_cB = QComboBox(self.audio_settings_gB)
-        self.engine_lang_cB.setObjectName(u"engine_lang_cB")
-        sizePolicy7.setHeightForWidth(self.engine_lang_cB.sizePolicy().hasHeightForWidth())
-        self.engine_lang_cB.setSizePolicy(sizePolicy7)
-
-        self.verticalLayout_9.addWidget(self.engine_lang_cB)
-
-
-        self.horizontalLayout_2.addLayout(self.verticalLayout_9)
-
-
-        self.verticalLayout_16.addLayout(self.horizontalLayout_2)
-
-        self.verticalSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
-
-        self.verticalLayout_16.addItem(self.verticalSpacer)
-
-        self.horizontalLayout_15 = QHBoxLayout()
-        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.voiceLabel = QLabel(self.audio_settings_gB)
-        self.voiceLabel.setObjectName(u"voiceLabel")
-        sizePolicy8.setHeightForWidth(self.voiceLabel.sizePolicy().hasHeightForWidth())
-        self.voiceLabel.setSizePolicy(sizePolicy8)
-        self.voiceLabel.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-
-        self.horizontalLayout_15.addWidget(self.voiceLabel)
-
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_15.addItem(self.horizontalSpacer_8)
-
-
-        self.verticalLayout_16.addLayout(self.horizontalLayout_15)
-
-        self.horizontalLayout_14 = QHBoxLayout()
-        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
         self.engine_voice_cB = QComboBox(self.audio_settings_gB)
         self.engine_voice_cB.setObjectName(u"engine_voice_cB")
         sizePolicy7.setHeightForWidth(self.engine_voice_cB.sizePolicy().hasHeightForWidth())
         self.engine_voice_cB.setSizePolicy(sizePolicy7)
 
-        self.horizontalLayout_14.addWidget(self.engine_voice_cB)
-
-        self.preview_pB = QPushButton(self.audio_settings_gB)
-        self.preview_pB.setObjectName(u"preview_pB")
-        sizePolicy8.setHeightForWidth(self.preview_pB.sizePolicy().hasHeightForWidth())
-        self.preview_pB.setSizePolicy(sizePolicy8)
-
-        self.horizontalLayout_14.addWidget(self.preview_pB)
-
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_14.addItem(self.horizontalSpacer)
+        self.gridLayout.addWidget(self.engine_voice_cB, 2, 1, 1, 2)
 
 
-        self.verticalLayout_16.addLayout(self.horizontalLayout_14)
-
-
-        self.verticalLayout_17.addWidget(self.audio_settings_gB)
+        self.verticalLayout.addWidget(self.audio_settings_gB)
 
         self.groupBox_4 = QGroupBox(self.engine_tab)
         self.groupBox_4.setObjectName(u"groupBox_4")
         sizePolicy7.setHeightForWidth(self.groupBox_4.sizePolicy().hasHeightForWidth())
         self.groupBox_4.setSizePolicy(sizePolicy7)
-        self.formLayout = QFormLayout(self.groupBox_4)
-        self.formLayout.setObjectName(u"formLayout")
-        self.verticalLayout_12 = QVBoxLayout()
-        self.verticalLayout_12.setSpacing(4)
-        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.gridLayout_2 = QGridLayout(self.groupBox_4)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.volumeLabel = QLabel(self.groupBox_4)
         self.volumeLabel.setObjectName(u"volumeLabel")
         sizePolicy8.setHeightForWidth(self.volumeLabel.sizePolicy().hasHeightForWidth())
         self.volumeLabel.setSizePolicy(sizePolicy8)
 
-        self.verticalLayout_12.addWidget(self.volumeLabel)
+        self.gridLayout_2.addWidget(self.volumeLabel, 0, 0, 1, 1)
 
-        self.speedLabel = QLabel(self.groupBox_4)
-        self.speedLabel.setObjectName(u"speedLabel")
-        sizePolicy8.setHeightForWidth(self.speedLabel.sizePolicy().hasHeightForWidth())
-        self.speedLabel.setSizePolicy(sizePolicy8)
-
-        self.verticalLayout_12.addWidget(self.speedLabel)
-
-
-        self.formLayout.setLayout(0, QFormLayout.ItemRole.LabelRole, self.verticalLayout_12)
-
-        self.verticalLayout_15 = QVBoxLayout()
-        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.volume_HSlider = QSlider(self.groupBox_4)
         self.volume_HSlider.setObjectName(u"volume_HSlider")
         sizePolicy7.setHeightForWidth(self.volume_HSlider.sizePolicy().hasHeightForWidth())
         self.volume_HSlider.setSizePolicy(sizePolicy7)
         self.volume_HSlider.setOrientation(Qt.Orientation.Horizontal)
 
-        self.verticalLayout_15.addWidget(self.volume_HSlider)
+        self.gridLayout_2.addWidget(self.volume_HSlider, 0, 1, 1, 1)
+
+        self.speedLabel = QLabel(self.groupBox_4)
+        self.speedLabel.setObjectName(u"speedLabel")
+        sizePolicy8.setHeightForWidth(self.speedLabel.sizePolicy().hasHeightForWidth())
+        self.speedLabel.setSizePolicy(sizePolicy8)
+
+        self.gridLayout_2.addWidget(self.speedLabel, 1, 0, 1, 1)
 
         self.speed_HSlider = QSlider(self.groupBox_4)
         self.speed_HSlider.setObjectName(u"speed_HSlider")
@@ -546,13 +514,10 @@ class Ui_mainWindow(object):
         self.speed_HSlider.setSizePolicy(sizePolicy7)
         self.speed_HSlider.setOrientation(Qt.Orientation.Horizontal)
 
-        self.verticalLayout_15.addWidget(self.speed_HSlider)
+        self.gridLayout_2.addWidget(self.speed_HSlider, 1, 1, 1, 1)
 
 
-        self.formLayout.setLayout(0, QFormLayout.ItemRole.FieldRole, self.verticalLayout_15)
-
-
-        self.verticalLayout_17.addWidget(self.groupBox_4)
+        self.verticalLayout.addWidget(self.groupBox_4)
 
         self.image1Label_2 = QLabel(self.engine_tab)
         self.image1Label_2.setObjectName(u"image1Label_2")
@@ -560,90 +525,68 @@ class Ui_mainWindow(object):
         self.image1Label_2.setSizePolicy(sizePolicy2)
         self.image1Label_2.setStyleSheet(u"")
 
-        self.verticalLayout_17.addWidget(self.image1Label_2)
+        self.verticalLayout.addWidget(self.image1Label_2)
 
         self.groupBox = QGroupBox(self.engine_tab)
         self.groupBox.setObjectName(u"groupBox")
         sizePolicy6.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy6)
-        self.verticalLayout_5 = QVBoxLayout(self.groupBox)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.horizontalLayout_12 = QHBoxLayout()
-        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.sample_ratetLabel = QLabel(self.groupBox)
-        self.sample_ratetLabel.setObjectName(u"sample_ratetLabel")
+        self.gridLayout_3 = QGridLayout(self.groupBox)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.save_pB = QPushButton(self.groupBox)
+        self.save_pB.setObjectName(u"save_pB")
+        sizePolicy1.setHeightForWidth(self.save_pB.sizePolicy().hasHeightForWidth())
+        self.save_pB.setSizePolicy(sizePolicy1)
 
-        self.horizontalLayout_12.addWidget(self.sample_ratetLabel)
-
-        self.sample_rate_cB = QComboBox(self.groupBox)
-        self.sample_rate_cB.setObjectName(u"sample_rate_cB")
-
-        self.horizontalLayout_12.addWidget(self.sample_rate_cB)
-
-
-        self.verticalLayout_5.addLayout(self.horizontalLayout_12)
-
-        self.horizontalLayout_11 = QHBoxLayout()
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.choice_formatLabel = QLabel(self.groupBox)
-        self.choice_formatLabel.setObjectName(u"choice_formatLabel")
-
-        self.horizontalLayout_11.addWidget(self.choice_formatLabel)
-
-        self.choice_format_cB = QComboBox(self.groupBox)
-        self.choice_format_cB.setObjectName(u"choice_format_cB")
-
-        self.horizontalLayout_11.addWidget(self.choice_format_cB)
-
-
-        self.verticalLayout_5.addLayout(self.horizontalLayout_11)
+        self.gridLayout_3.addWidget(self.save_pB, 3, 0, 1, 1)
 
         self.normalize_audio_checkbox = QCheckBox(self.groupBox)
         self.normalize_audio_checkbox.setObjectName(u"normalize_audio_checkbox")
 
-        self.verticalLayout_5.addWidget(self.normalize_audio_checkbox)
+        self.gridLayout_3.addWidget(self.normalize_audio_checkbox, 2, 0, 1, 3)
 
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.save_pB = QPushButton(self.groupBox)
-        self.save_pB.setObjectName(u"save_pB")
+        self.choice_formatLabel = QLabel(self.groupBox)
+        self.choice_formatLabel.setObjectName(u"choice_formatLabel")
 
-        self.horizontalLayout_3.addWidget(self.save_pB)
+        self.gridLayout_3.addWidget(self.choice_formatLabel, 1, 0, 1, 2)
 
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.choice_format_cB = QComboBox(self.groupBox)
+        self.choice_format_cB.setObjectName(u"choice_format_cB")
 
-        self.horizontalLayout_3.addItem(self.horizontalSpacer_4)
+        self.gridLayout_3.addWidget(self.choice_format_cB, 1, 2, 1, 1)
+
+        self.sample_rate_cB = QComboBox(self.groupBox)
+        self.sample_rate_cB.setObjectName(u"sample_rate_cB")
+
+        self.gridLayout_3.addWidget(self.sample_rate_cB, 0, 2, 1, 1)
+
+        self.sample_ratetLabel = QLabel(self.groupBox)
+        self.sample_ratetLabel.setObjectName(u"sample_ratetLabel")
+
+        self.gridLayout_3.addWidget(self.sample_ratetLabel, 0, 0, 1, 2)
 
 
-        self.verticalLayout_5.addLayout(self.horizontalLayout_3)
-
-
-        self.verticalLayout_17.addWidget(self.groupBox)
+        self.verticalLayout.addWidget(self.groupBox)
 
         self.contentLayout.addTab(self.engine_tab, "")
         self.feedback_tab = QWidget()
         self.feedback_tab.setObjectName(u"feedback_tab")
-        self.verticalLayout_7 = QVBoxLayout(self.feedback_tab)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.gridLayout_4 = QGridLayout(self.feedback_tab)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.grammarLabel = QLabel(self.feedback_tab)
         self.grammarLabel.setObjectName(u"grammarLabel")
         self.grammarLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout_5.addWidget(self.grammarLabel)
+        self.gridLayout_4.addWidget(self.grammarLabel, 0, 0, 1, 1)
 
         self.lang_cb = QComboBox(self.feedback_tab)
         self.lang_cb.setObjectName(u"lang_cb")
 
-        self.horizontalLayout_5.addWidget(self.lang_cb)
+        self.gridLayout_4.addWidget(self.lang_cb, 0, 1, 1, 1)
 
         self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_5.addItem(self.horizontalSpacer_7)
-
-
-        self.verticalLayout_7.addLayout(self.horizontalLayout_5)
+        self.gridLayout_4.addItem(self.horizontalSpacer_7, 0, 2, 1, 1)
 
         self.groupBox_2 = QGroupBox(self.feedback_tab)
         self.groupBox_2.setObjectName(u"groupBox_2")
@@ -657,7 +600,7 @@ class Ui_mainWindow(object):
         self.verticalLayout_14.addWidget(self.feedback_grammar_textBrowser)
 
 
-        self.verticalLayout_7.addWidget(self.groupBox_2)
+        self.gridLayout_4.addWidget(self.groupBox_2, 1, 0, 1, 3)
 
         self.groupBox_3 = QGroupBox(self.feedback_tab)
         self.groupBox_3.setObjectName(u"groupBox_3")
@@ -671,66 +614,74 @@ class Ui_mainWindow(object):
         self.verticalLayout_13.addWidget(self.feedback_speaking_textBrowser)
 
 
-        self.verticalLayout_7.addWidget(self.groupBox_3)
+        self.gridLayout_4.addWidget(self.groupBox_3, 2, 0, 1, 3)
 
         self.contentLayout.addTab(self.feedback_tab, "")
         self.translation_tab = QWidget()
         self.translation_tab.setObjectName(u"translation_tab")
-        self.verticalLayout_6 = QVBoxLayout(self.translation_tab)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.score_label = QLabel(self.translation_tab)
-        self.score_label.setObjectName(u"score_label")
-
-        self.verticalLayout_6.addWidget(self.score_label)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label_3 = QLabel(self.translation_tab)
-        self.label_3.setObjectName(u"label_3")
-        sizePolicy8.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
-        self.label_3.setSizePolicy(sizePolicy8)
-        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.label_3)
-
-        self.trans_from_cB = QComboBox(self.translation_tab)
-        self.trans_from_cB.setObjectName(u"trans_from_cB")
-
-        self.horizontalLayout.addWidget(self.trans_from_cB)
-
+        self.gridLayout_5 = QGridLayout(self.translation_tab)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.label_4 = QLabel(self.translation_tab)
         self.label_4.setObjectName(u"label_4")
         sizePolicy8.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
         self.label_4.setSizePolicy(sizePolicy8)
         self.label_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout.addWidget(self.label_4)
+        self.gridLayout_5.addWidget(self.label_4, 1, 2, 1, 1)
 
         self.trans_to_cB = QComboBox(self.translation_tab)
         self.trans_to_cB.setObjectName(u"trans_to_cB")
 
-        self.horizontalLayout.addWidget(self.trans_to_cB)
-
-
-        self.verticalLayout_6.addLayout(self.horizontalLayout)
+        self.gridLayout_5.addWidget(self.trans_to_cB, 1, 3, 1, 1)
 
         self.translator_textBrowser = QTextBrowser(self.translation_tab)
         self.translator_textBrowser.setObjectName(u"translator_textBrowser")
 
-        self.verticalLayout_6.addWidget(self.translator_textBrowser)
+        self.gridLayout_5.addWidget(self.translator_textBrowser, 2, 0, 1, 4)
+
+        self.score_label = QLabel(self.translation_tab)
+        self.score_label.setObjectName(u"score_label")
+
+        self.gridLayout_5.addWidget(self.score_label, 0, 0, 1, 2)
+
+        self.label_3 = QLabel(self.translation_tab)
+        self.label_3.setObjectName(u"label_3")
+        sizePolicy8.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy8)
+        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_5.addWidget(self.label_3, 1, 0, 1, 1)
+
+        self.trans_from_cB = QComboBox(self.translation_tab)
+        self.trans_from_cB.setObjectName(u"trans_from_cB")
+
+        self.gridLayout_5.addWidget(self.trans_from_cB, 1, 1, 1, 1)
 
         self.contentLayout.addTab(self.translation_tab, "")
 
-        self.horizontalLayout_8.addWidget(self.contentLayout)
+        self.horizontalLayout_2.addWidget(self.contentLayout)
 
         mainWindow.setCentralWidget(self.centralwidget_grid)
+        self.menuBar = QMenuBar(mainWindow)
+        self.menuBar.setObjectName(u"menuBar")
+        self.menuBar.setGeometry(QRect(0, 0, 1342, 25))
+        self.menuHelp = QMenu(self.menuBar)
+        self.menuHelp.setObjectName(u"menuHelp")
+        self.menuSettings = QMenu(self.menuBar)
+        self.menuSettings.setObjectName(u"menuSettings")
+        mainWindow.setMenuBar(self.menuBar)
+
+        self.menuBar.addAction(self.menuSettings.menuAction())
+        self.menuBar.addAction(self.menuHelp.menuAction())
+        self.menuHelp.addAction(self.actionGuide)
+        self.menuHelp.addAction(self.actionAboutSofware)
+        self.menuSettings.addAction(self.actionPreferences)
 
         self.retranslateUi(mainWindow)
         self.left_panel_pB.toggled.connect(self.RightContainer_widget.setHidden)
         self.right_panel_pB.toggled.connect(self.contentLayout.setHidden)
 
         self.contentLayout.setCurrentIndex(0)
-        self.engine_cB.setCurrentIndex(-1)
         self.engine_lang_cB.setCurrentIndex(-1)
 
 
@@ -739,60 +690,151 @@ class Ui_mainWindow(object):
 
     def retranslateUi(self, mainWindow):
         mainWindow.setWindowTitle(QCoreApplication.translate("mainWindow", u"MainWindow", None))
+        self.actionAbout.setText(QCoreApplication.translate("mainWindow", u"About", None))
+        self.actionManualIntegrated.setText(QCoreApplication.translate("mainWindow", u"ManGuideual", None))
+        self.actionGuide.setText(QCoreApplication.translate("mainWindow", u"Guide", None))
+        self.actionAboutSofware.setText(QCoreApplication.translate("mainWindow", u"About", None))
+        self.actionPreferences.setText(QCoreApplication.translate("mainWindow", u"Prefereneces...", None))
+        self.actionTools.setText(QCoreApplication.translate("mainWindow", u"Tools", None))
         self.audioLabel.setText(QCoreApplication.translate("mainWindow", u"Historial records", None))
         self.rep_timeLabel.setText(QCoreApplication.translate("mainWindow", u"00:00", None))
         self.OptiongBox.setTitle(QCoreApplication.translate("mainWindow", u"OPTIONS ", None))
+#if QT_CONFIG(tooltip)
+        self.reload_audio_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Reload list", None))
+#endif // QT_CONFIG(tooltip)
         self.reload_audio_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.check_pronounce_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Check pronuciation", None))
+#endif // QT_CONFIG(tooltip)
         self.check_pronounce_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.play_pause_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Play & pause", None))
+#endif // QT_CONFIG(tooltip)
         self.play_pause_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.rename_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Rename", None))
+#endif // QT_CONFIG(tooltip)
         self.rename_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.delete_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Delete", None))
+#endif // QT_CONFIG(tooltip)
         self.delete_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.transcibe_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Transcribe", None))
+#endif // QT_CONFIG(tooltip)
         self.transcibe_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.left_panel_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Audio section", None))
+#endif // QT_CONFIG(tooltip)
         self.left_panel_pB.setText("")
-        self.image1Label.setText("")
+#if QT_CONFIG(tooltip)
+        self.theme_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Switch themes", None))
+#endif // QT_CONFIG(tooltip)
         self.theme_pB.setText("")
-        self.about_software_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.right_panel_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Engine & model settings", None))
+#endif // QT_CONFIG(tooltip)
         self.right_panel_pB.setText("")
-        self.writer_sw.setWindowTitle(QCoreApplication.translate("mainWindow", u"WRITER", None))
+        self.writer_sw.setWindowTitle(QCoreApplication.translate("mainWindow", u"Writer", None))
+#if QT_CONFIG(tooltip)
+        self.copy_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Copy", None))
+#endif // QT_CONFIG(tooltip)
         self.copy_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.cut_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Cut", None))
+#endif // QT_CONFIG(tooltip)
         self.cut_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.paste_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Paste", None))
+#endif // QT_CONFIG(tooltip)
         self.paste_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.undo_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Undo", None))
+#endif // QT_CONFIG(tooltip)
         self.undo_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.redo_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Redo", None))
+#endif // QT_CONFIG(tooltip)
         self.redo_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.export_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Export .txt", None))
+#endif // QT_CONFIG(tooltip)
         self.export_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.upload_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Load .txt", None))
+#endif // QT_CONFIG(tooltip)
         self.upload_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.clear_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Backspace", None))
+#endif // QT_CONFIG(tooltip)
         self.clear_pB.setText("")
+        self.writer_editText.setHtml(QCoreApplication.translate("mainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Inter'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.counterLabel.setText(QCoreApplication.translate("mainWindow", u"0/5000", None))
+#if QT_CONFIG(tooltip)
+        self.Check_grammar_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Check grammar", None))
+#endif // QT_CONFIG(tooltip)
         self.Check_grammar_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.translate_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Translate", None))
+#endif // QT_CONFIG(tooltip)
         self.translate_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.read_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Read with TTS", None))
+#endif // QT_CONFIG(tooltip)
         self.read_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.record_pause_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Start & pause recording", None))
+#endif // QT_CONFIG(tooltip)
         self.record_pause_pB.setText("")
+#if QT_CONFIG(tooltip)
+        self.stop_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Stop recording", None))
+#endif // QT_CONFIG(tooltip)
         self.stop_pB.setText("")
-        self.Reader.setWindowTitle(QCoreApplication.translate("mainWindow", u"READER", None))
+        self.Reader.setWindowTitle(QCoreApplication.translate("mainWindow", u"Reader", None))
         self.open_book_pB.setText(QCoreApplication.translate("mainWindow", u"Open a book (PDF)", None))
+        self.toggle_reader_mode_pB.setText("")
         self.audio_settings_gB.setTitle(QCoreApplication.translate("mainWindow", u"Choice a TSS engine and a voice", None))
-        self.engineLabel.setText(QCoreApplication.translate("mainWindow", u"Engine", None))
-        self.engine_cB.setCurrentText("")
-        self.languageLabel.setText(QCoreApplication.translate("mainWindow", u"Language", None))
         self.voiceLabel.setText(QCoreApplication.translate("mainWindow", u"Voice ", None))
+#if QT_CONFIG(tooltip)
+        self.about_engines_pB.setToolTip(QCoreApplication.translate("mainWindow", u"About the engine", None))
+#endif // QT_CONFIG(tooltip)
+        self.about_engines_pB.setText("")
+        self.label.setText("")
+#if QT_CONFIG(tooltip)
+        self.preview_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Voice preview", None))
+#endif // QT_CONFIG(tooltip)
         self.preview_pB.setText("")
+        self.languageLabel.setText(QCoreApplication.translate("mainWindow", u"Language", None))
+        self.engineLabel.setText(QCoreApplication.translate("mainWindow", u"Engine", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("mainWindow", u"Settings", None))
         self.volumeLabel.setText(QCoreApplication.translate("mainWindow", u"Volume", None))
         self.speedLabel.setText(QCoreApplication.translate("mainWindow", u"Speed", None))
         self.image1Label_2.setText("")
         self.groupBox.setTitle(QCoreApplication.translate("mainWindow", u"Output", None))
-        self.sample_ratetLabel.setText(QCoreApplication.translate("mainWindow", u"Sample Rate", None))
-        self.choice_formatLabel.setText(QCoreApplication.translate("mainWindow", u"Output format", None))
-        self.normalize_audio_checkbox.setText(QCoreApplication.translate("mainWindow", u"Normalize Audio", None))
+#if QT_CONFIG(tooltip)
+        self.save_pB.setToolTip(QCoreApplication.translate("mainWindow", u"Save TTS audio", None))
+#endif // QT_CONFIG(tooltip)
         self.save_pB.setText("")
+        self.normalize_audio_checkbox.setText(QCoreApplication.translate("mainWindow", u"Normalize Audio", None))
+        self.choice_formatLabel.setText(QCoreApplication.translate("mainWindow", u"Output format", None))
+        self.sample_ratetLabel.setText(QCoreApplication.translate("mainWindow", u"Sample Rate", None))
         self.contentLayout.setTabText(self.contentLayout.indexOf(self.engine_tab), QCoreApplication.translate("mainWindow", u"Engines", None))
         self.grammarLabel.setText(QCoreApplication.translate("mainWindow", u"Language", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("mainWindow", u"Grammar Checker", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("mainWindow", u"QUALIFICATION:", None))
         self.contentLayout.setTabText(self.contentLayout.indexOf(self.feedback_tab), QCoreApplication.translate("mainWindow", u"Feedbacks", None))
+        self.label_4.setText(QCoreApplication.translate("mainWindow", u"to", None))
         self.score_label.setText(QCoreApplication.translate("mainWindow", u"Translation", None))
         self.label_3.setText(QCoreApplication.translate("mainWindow", u"From", None))
-        self.label_4.setText(QCoreApplication.translate("mainWindow", u"to", None))
         self.contentLayout.setTabText(self.contentLayout.indexOf(self.translation_tab), QCoreApplication.translate("mainWindow", u"Translations", None))
+        self.menuHelp.setTitle(QCoreApplication.translate("mainWindow", u"Help", None))
+        self.menuSettings.setTitle(QCoreApplication.translate("mainWindow", u"Settings", None))
     # retranslateUi
 

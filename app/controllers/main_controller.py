@@ -37,13 +37,17 @@ methods instead.  The View never calls Model methods — the Controller
 does that on its behalf.
 """
 import json
-from datetime import datetime          # ← moved to top-level (was inline in _on_read)
+from datetime import datetime
 from pathlib import Path
 from os import walk
- 
+import threading
+
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget, QTextEdit, QDialog, QVBoxLayout, QPushButton
+from PySide6.QtCore import QUrl
+from PySide6.QtGui import QDesktopServices
+
 from qt_material import apply_stylesheet
- 
+
 from app.views.main_window import MainWindowView
 from app.models.document_model import DocumentModel
 from app.models.theme_model import ThemeModel
@@ -52,7 +56,15 @@ from app.models.book_model import BookModel
 from app.models.record_model import Record, RecordState
 from app.models.EngineFactories.create_factory import FactoryTTS
 from app.models.llm_model import GrammarChecker, Whisper, FasterWhisper
-from app.models.ico_model import IconManager 
+from app.models.ico_model import IconManager
+from app.views.ui_dialogsettingmenu import Ui_Dialog
+
+class MyPrefenceSettingDialog(QDialog):
+    def __init__(self):
+        super().__init__(parent=None)
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+    
 
 with open("data/tts_engine.json", "r") as file:
     TTS_DATA = json.load(file)
@@ -73,11 +85,10 @@ class MainController:
         self._theme_model = ThemeModel()
         self._media_model = MediaModel()
         self._book_model  = BookModel()
-        self.record        = Record()
-        self.factory       = FactoryTTS()
-        self._ico_model = IconManager()
-
- 
+        self.record       = Record()
+        self.factory      = FactoryTTS()
+        self._ico_model   = IconManager()
+        
         # ── Wire signals ────────────────────────────────────────
         self._connect_signals()
  
@@ -122,8 +133,8 @@ class MainController:
         cmbs  = self._view.comboxes
         slds  = self._view.sliders
         chkbs = self._view.checkboxes
- 
-        btns["about"].clicked.connect(self._on_about)
+        mn_act = self._view.menu_actions
+        
         chkbs["normalize_audio"].toggled.connect(self.normalized)
  
         # Edit operations
@@ -173,7 +184,6 @@ class MainController:
         cmbs["trans_from"].addItems(list(LANGUAGE_DATA.values()))
         cmbs["trans_to"].addItems(list(LANGUAGE_DATA.values()))
  
-        # ✅ 41 000 Hz → 44 100 Hz (41 kHz is non-standard; hardware/codecs may reject it)
         cmbs["sample_rate"].addItems(["44100", "48000"])
         cmbs["format"].addItems([".mp3", ".wav"])
  
@@ -187,6 +197,10 @@ class MainController:
         slds["gen_speed"].setTickInterval(20)
         slds["gen_speed"].valueChanged.connect(self.on_speed_slider)
  
+        mn_act["preference"].triggered.connect(self.prefence_settings)
+        mn_act["about_software"].triggered.connect(self._on_about)
+        mn_act["guide"].triggered.connect(self.open_guide) 
+        
     # ── Slider callbacks ────────────────────────────────────────
  
     def on_volume_slider(self, int_value: int) -> float:
@@ -233,15 +247,6 @@ class MainController:
         if selected_engine in TTS_DATA and selected_language in TTS_DATA[selected_engine]:
             voices_dict = TTS_DATA[selected_engine][selected_language]
             voice_combo.addItems(voices_dict.keys())
- 
-    def speak(self) -> None:
-        engine             = self._view.comboxes["engine"].currentText()
-        language           = self._view.comboxes["engine_lang"].currentText()
-        voice_display_name = self._view.comboxes["engine_voices"].currentText()
-        voice_file         = TTS_DATA[engine][language][voice_display_name]
- 
-        print(f"{engine} for {language} and {voice_display_name} works!")
-        print(f"Loading model: {voice_file}")
  
     # ── Edit handlers ───────────────────────────────────────────
  
@@ -353,7 +358,7 @@ class MainController:
         except Exception as e:
             QMessageBox.critical(self._view, "TTS Error", f"Could not generate audio:\n{e}")
             return
- 
+        '''
         # ── 2. Save ─────────────────────────────────────────────
         output_stem = engine + "_" + voice_display_name + "_" + datetime.now().strftime("%Y%m%d%H%M%S")
         try:
@@ -362,12 +367,13 @@ class MainController:
         except Exception as e:
             QMessageBox.critical(self._view, "Save Error", f"Could not save audio:\n{e}")
             return
- 
+        '''
         # ── 3. Play ─────────────────────────────────────────────
         # ⚠️  sd.wait() blocks the Qt main thread while audio plays.
         # Once everything else is stable, move this call into a QThread.
         try:
-            self.factory.play(self.audio, self.sample_rate)
+            t = threading.Thread(target=self.factory.play, args=(self.audio,  self.sample_rate), daemon=True)
+            t.start()
         except Exception as e:
             QMessageBox.warning(self._view, "Playback Error", f"Could not play audio:\n{e}")
  
@@ -672,3 +678,14 @@ class MainController:
         """Reload both audio lists from disk and update the view."""
         recorded = self._media_model.list_recorded_media()
         self._view.populate_recorded_list(recorded)
+
+    def open_guide(self):
+        url = QUrl("https://github.com/SamanthaVSC/ReadItLoud/tree/demo")
+        if not QDesktopServices.openUrl(url):
+            print("Failed to open URL")
+            
+    def prefence_settings(self):
+        dialog = MyPrefenceSettingDialog()
+        dialog.setWindowTitle("Preferences")
+        dialog.exec()
+        

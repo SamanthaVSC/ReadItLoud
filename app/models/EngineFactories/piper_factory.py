@@ -22,57 +22,58 @@ Author: Samantha Alvarez Hechevarría
 Contact: samanthadesktop324@gmail.com
 GitHub: https://github.com/SamanthaVSC/ReadItLoud
 """
-import numpy as np
-from abc import ABC, abstractmethod
-import soundfile as sf
-import sounddevice as sd
+import os
 import subprocess
 import tempfile
-import os
 
-from app.models.EngineFactories.tts_engine_factory import  EngineTTS
+import numpy as np
+import soundfile as sf
+
+
+from app.models.EngineFactories.tts_engine_factory import EngineTTS
+#from tts_engine_factory import EngineTTS
+
 
 class PiperTTS(EngineTTS):
-    def __init__(self, 
-                 detect_lang: str = "", 
-                 text_input: str = "", 
+    def __init__(self,
+                 detect_lang: str = "",
+                 text_input: str = "",
                  speed: float = 1.0,
                  volume: float = 1.0,
-                 format: str = ".wav", 
-                 output_path: str = ".", 
+                 format: str = ".wav",
+                 output_path: str = ".",
                  engine_name: str = "",
                  model_path: str = "./cores/Engines/Piper-tts/",
                  voice_path: str = "",
-                 sample_rate: int = 22050,
-                 length_scale: float = 1.0, 
+                 sample_rate: int = 48000,
+                 length_scale: float = 1.0,
                  noise_scale: float = 0.5,
                  noise_w: float = 0.6,
                  sentence_silence: float = 0.1,
                  normalize_audio: bool = False,
                  **kwargs
         ):
-        super().__init__(detect_lang, 
-                         text_input, 
+        super().__init__(detect_lang,
+                         text_input,
                          speed=speed,
                          volume=volume,
                          model_path=model_path,
-                         voice_path=voice_path,      
+                         voice_path=voice_path,
                          normalize_audio=normalize_audio,
                          format=format,
-                         sample_rate=sample_rate,    
+                         sample_rate=sample_rate,
                          output_path=output_path
                         )
-        
+
         self.length_scale = length_scale
         self.noise_scale = noise_scale
         self.noise_w = noise_w
         self.sentence_silence = sentence_silence
         self.engine_name = engine_name
-        
-    def generate_audio(self,
-                       text_input: str = None
-                       ):
-        
+        # Tracked so stop() can terminate a running piper subprocess.
+        self._process = None
+
+    def generate_audio(self, text_input: str = None):
         if text_input is not None:
             self.text_input = text_input
 
@@ -82,9 +83,14 @@ class PiperTTS(EngineTTS):
         safe_speed = self.speed if self.speed > 0 else 1.0
         calculated_length_scale = 1.0 / safe_speed
 
+        # FIX: previously "./" + self.model_path + self.engine_name produced
+        # "././cores/Engines/Piper-tts/..." (double "./" prefix). Use
+        # os.path.join for OS-safe, idempotent path composition.
+        model_file = os.path.join(self.model_path, self.engine_name)
+
         cmd = [
             "piper",
-            "--model", "./" + self.model_path + self.engine_name,
+            "--model", model_file,
             "--length-scale", str(calculated_length_scale),
             "--noise-scale", str(self.noise_scale),
             "--noise-w", str(self.noise_w),
@@ -92,15 +98,17 @@ class PiperTTS(EngineTTS):
             "--output_file", temp_path
         ]
 
-        process = subprocess.Popen(
+        self._process = subprocess.Popen(
             cmd,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
-        stdout, stderr = process.communicate(input=self.text_input.encode())
+        stdout, stderr = self._process.communicate(input=self.text_input.encode())
+        returncode = self._process.returncode
+        self._process = None
 
-        if process.returncode != 0:
+        if returncode != 0:
             try:
                 os.remove(temp_path)
             except OSError:
@@ -118,49 +126,20 @@ class PiperTTS(EngineTTS):
         audio = self._apply_volume(audio)
         return audio, sample_rate
 
-    def play(self, 
-             audio, 
-             sample_rate
-             ):
-        
-        sd.play(audio, sample_rate)
-        sd.wait()
+    def stop(self):
+        """Stop playback AND kill any running piper subprocess.
 
-    def save_audio(self, 
-                   audio, 
-                   sample_rate, 
-                   output_wav,
-                   normalize_audio: bool = None, 
-                   format: str = None, 
-                   output_path: str = None
-                   ) -> None:
-        
-        if normalize_audio is None:
-            normalize_audio = self.normalize_audio
-        if format is None:
-            format = self.format
-        if output_path is None:
-            output_path = self.output_path
+        Overrides EngineTTS.stop() to also handle the case where stop is
+        called during generation (subprocess still running) rather than
+        during playback.
+        """
+        super().stop()
+        if self._process is not None:
+            try:
+                self._process.terminate()
+            except Exception:
+                # Best-effort; the process may have already exited.
+                pass
+            self._process = None
 
-        audio = self._resample(audio, sample_rate, self.sample_rate)
-        sample_rate = self.sample_rate
-
-        if normalize_audio:
-            max_val = np.max(np.abs(audio))
-            if max_val > 0:
-                audio = audio / max_val
-
-        if output_path and not os.path.exists(output_path):
-            os.makedirs(output_path, exist_ok=True)
-
-        base_name = os.path.splitext(output_wav)[0]
-        file_name = base_name + format
-        final_output = os.path.join(output_path, file_name)
-        sf_format = format.replace('.', '').upper()
-
-        try:
-            sf.write(final_output, audio, sample_rate, format=sf_format)
-            print(f"Saved audio to: {final_output} (sample_rate={sample_rate})")
-        except Exception as e:
-            print(f"Error saving {sf_format}: {e}. (Note: MP3 requires libsndfile 1.1.0+)")
-
+    # play() and save_audio() are inherited from EngineTTS.

@@ -100,7 +100,7 @@ class IconManager:
                 "modern_light": "config/white-icons/record.svg",
                 "modern_dark": "config/black-icons/record.svg"
             },
-            "about": {
+            "about_engine": {
                 "modern_light": "config/white-icons/about.svg",
                 "modern_dark": "config/black-icons/about.svg"
             },
@@ -131,8 +131,9 @@ class IconManager:
             "translation_section": {
                 "modern_light": "config/white-icons/paste.svg",
                 "modern_dark": "config/black-icons/paste.svg"
-            }    
+            }
         }
+        
         # Restore saved theme on startup
         self.load_theme()
     

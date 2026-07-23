@@ -29,28 +29,42 @@ reading documents with speech synthesis (TTS), pronunciation feedback
 and integrated grammar correction.
 ...
 """
+
+import os
 import numpy as np
+import sounddevice as sd
+import soundfile as sf
+
+from abc import ABC, abstractmethod
 
 # Allowed sample rates
 ALLOWED_SAMPLE_RATES = [44100, 48000]
 
-import numpy as np
-from abc import ABC, abstractmethod
 
 class EngineTTS(ABC):
+    """Abstract base for all TTS engines.
+
+    Provides shared state, shared audio helpers (_apply_volume, _resample),
+    and concrete implementations of playback (play/stop) and persistence
+    (save_audio) that are identical across engines. Subclasses only need
+    to implement generate_audio(). Engines that hold extra resources
+    (e.g. Piper's subprocess) may override stop() and chain via
+    super().stop().
+    """
+
     def __init__(self, detect_lang: str = "",
                  text_input: str = "",
-                 voice: str = "", 
-                 speed: float = 1.0, 
+                 voice: str = "",
+                 speed: float = 1.0,
                  volume: float = 1.0,
                  model_path: str = "",
                  voice_path: str = "",
-                 normalize_audio: bool = False, 
+                 normalize_audio: bool = False,
                  format: str = ".wav",
                  sample_rate: int = 48000,
-                 output_path: str = ".",
+                 output_path: str = "./cache/records",
                  **kwargs):
-        
+
         self.detect_lang = detect_lang
         self.text_input = text_input
         self.voice = voice
@@ -60,9 +74,8 @@ class EngineTTS(ABC):
         self.voice_path = voice_path
         self.normalize_audio = normalize_audio
         self.format = format
-        self.sample_rate = sample_rate
         self.output_path = output_path
-    
+
         if sample_rate not in ALLOWED_SAMPLE_RATES:
             raise ValueError(
                 f"Invalid sample_rate '{sample_rate}'. "
@@ -70,12 +83,12 @@ class EngineTTS(ABC):
             )
         self.sample_rate = sample_rate
 
+        # Playback state
+        self._is_playing = False
 
-    def _apply_volume(self, 
-                      audio
-                      ):
-        
-       
+    # ---- Shared audio helpers -------------------------------------------------
+
+    def _apply_volume(self, audio):
         if not isinstance(audio, np.ndarray):
             audio = np.array(audio)
         audio = audio.astype(np.float32)
@@ -108,30 +121,73 @@ class EngineTTS(ABC):
                 audio
             )
             return resampled.astype(np.float32)
-        
-    @abstractmethod
-    def generate_audio(self,
-                       text_input: str = None
-                       ):
-        
-        pass
 
-    @abstractmethod
-    def play(self, 
-             audio, 
-             sample_rate
-             ):
-        
-        pass
+    # ---- Shared playback control ---------------------------------------------
+    # Concrete (non-abstract): playback is pure sounddevice work and does not
+    # depend on which engine produced the audio. Subclasses inherit these
+    # as-is. Engines with extra resources (e.g. Piper's subprocess) may
+    # override stop() and chain via super().stop().
 
-    @abstractmethod
-    def save_audio(self, 
-                   audio, sample_rate,
+    def play(self, audio, sample_rate):
+        """Play a numpy waveform through the default output device.
+
+        Blocks the calling thread until playback finishes or stop() is
+        called from another thread (in which case sd.wait() returns early).
+        """
+        self._is_playing = True
+        try:
+            sd.play(audio, sample_rate)
+            sd.wait()
+        finally:
+            self._is_playing = False
+
+    def stop(self):
+        """Stop any currently playing audio. Safe to call when not playing."""
+        sd.stop()
+        self._is_playing = False
+
+    # ---- Shared persistence ---------------------------------------------------
+
+    def save_audio(self,
+                   audio,
+                   sample_rate,
                    output_wav,
-                   normalize_audio: bool = None, 
-                   format: str = None, 
+                   normalize_audio: bool = None,
+                   format: str = None,
                    output_path: str = None
                    ) -> None:
-        
-        pass
+        if normalize_audio is None:
+            normalize_audio = self.normalize_audio
+        if format is None:
+            format = self.format
+        if output_path is None:
+            output_path = self.output_path
 
+        audio = self._resample(audio, sample_rate, self.sample_rate)
+        sample_rate = self.sample_rate
+
+        if normalize_audio:
+            max_val = np.max(np.abs(audio))
+            if max_val > 0:
+                audio = audio / max_val
+
+        if output_path and not os.path.exists(output_path):
+            os.makedirs(output_path, exist_ok=True)
+
+        base_name = os.path.splitext(output_wav)[0]
+        file_name = base_name + format
+        final_output = os.path.join(output_path, file_name)
+        sf_format = format.replace('.', '').upper()
+
+        try:
+            sf.write(final_output, audio, sample_rate, format=sf_format)
+            print(f"Saved audio to: {final_output} (sample_rate={sample_rate})")
+        except Exception as e:
+            print(f"Error saving {sf_format}: {e}. (Note: MP3 requires libsndfile 1.1.0+)")
+
+    # ---- Engine-specific contract --------------------------------------------
+
+    @abstractmethod
+    def generate_audio(self, text_input: str = None):
+        """Synthesize speech. Must return (audio_np, sample_rate)."""
+        pass

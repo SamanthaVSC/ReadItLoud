@@ -125,14 +125,10 @@ class MainWindowView(QMainWindow):
 
         # ── Reader dark mode toggle button ──────────────────────
         self._reader_dark_mode: bool = False
-        self.toggle_reader_mode_pB = QPushButton(self.ui.Reader)
-        self.toggle_reader_mode_pB.setObjectName(u"toggle_reader_mode_pB")
-        self.toggle_reader_mode_pB.setText(u"\U0001f319 Dark mode")
-        self.toggle_reader_mode_pB.setCheckable(True)
-        self.ui.horizontalLayout_4.insertWidget(
-        self.ui.horizontalLayout_4.count() - 1,  # before the spacer
-        self.toggle_reader_mode_pB,
-        )
+        self.ui.toggle_reader_mode_pB
+        self.ui.toggle_reader_mode_pB.setObjectName(u"toggle_reader_mode_pB")
+        self.ui.toggle_reader_mode_pB.setText(u"\U0001f319 Dark mode")
+        self.ui.toggle_reader_mode_pB.setCheckable(True)
 
         # Re-apply dark mode after a new book finishes loading
         self.book_viewer.loadFinished.connect(self._on_book_load_finished)
@@ -186,16 +182,16 @@ class MainWindowView(QMainWindow):
             "play": self.ui.play_pause_pB,
             "rename": self.ui.rename_pB,
             # Reader mode toggle
-            "toggle_reader_mode": self.toggle_reader_mode_pB,
+            "toggle_reader_mode": self.ui.toggle_reader_mode_pB,
             # Record actions button
             "record_pause": self.ui.record_pause_pB,
             "stop_record": self.ui.stop_pB,
             # Other buttons (e.g. in the settings panel)
-            "about": self.ui.about_software_pB,
             "settings": self.ui.right_panel_pB,
             "save": self.ui.save_pB,
             "playlist": self.ui.left_panel_pB,
             "audio_preview": self.ui.preview_pB,
+            "about_engine": self.ui.about_engines_pB,
         }     
         
         button = button_map.get(button_name)
@@ -270,9 +266,18 @@ class MainWindowView(QMainWindow):
     def book_viewer(self):
         """The QWebEngineView used to display PDFs and EPUBs."""
         return self.ui.book_webEngineView
+    
+    @property
+    def menu_actions(self) -> dict:
+        """Return a dict of menu-action of QMenuBar for the controller
+        to connect signals."""
+        return {
+            "preference": self.ui.actionPreferences,
+            "about_software": self.ui.actionAboutSofware,
+            "guide": self.ui.actionGuide,
+        }
 
     # ── Button references (for signal connection) ───────────────
-
     @property
     def buttons(self) -> dict:
         """Return a dict of button-name → QPushButton for the controller
@@ -299,12 +304,11 @@ class MainWindowView(QMainWindow):
             "play": self.ui.play_pause_pB,
             "rename": self.ui.rename_pB,
             # Reader mode toggle
-            "toggle_reader_mode": self.toggle_reader_mode_pB,
+            "toggle_reader_mode": self.ui.toggle_reader_mode_pB,
             # Record actions button
             "record_pause": self.ui.record_pause_pB,
             "stop_record": self.ui.stop_pB,
             # Other buttons (e.g. in the settings panel)
-            "about": self.ui.about_software_pB,
             "settings": self.ui.right_panel_pB,
             "save": self.ui.save_pB,
             "playlist": self.ui.left_panel_pB,
@@ -314,7 +318,7 @@ class MainWindowView(QMainWindow):
     # ── Comobox references (for signal connection) ───────────────
     @property
     def comboxes(self):
-        """Return a dict of button-name → Comobox for the controller
+        """Return a dict of item-name of QComoBox for the controller
         to connect signals."""
         return {
             "sample_rate": self.ui.sample_rate_cB,
@@ -343,7 +347,7 @@ class MainWindowView(QMainWindow):
         return {
             "normalize_audio": self.ui.normalize_audio_checkbox,
             }
-
+        
     # ── UI state helpers ────────────────────────────────────────
 
     def get_editor_text(self) -> str:
@@ -532,11 +536,11 @@ class MainWindowView(QMainWindow):
 
         # ── 3. Update button text ──────────────────────────────
         if self._reader_dark_mode:
-            self.toggle_reader_mode_pB.setText(u"\u2600 Light mode")
-            self.toggle_reader_mode_pB.setChecked(True)
+            self.ui.toggle_reader_mode_pB.setText(u"\u2600 Light mode")
+            self.ui.toggle_reader_mode_pB.setChecked(True)
         else:
-            self.toggle_reader_mode_pB.setText(u"\U0001f319 Dark mode")
-            self.toggle_reader_mode_pB.setChecked(False)
+            self.ui.toggle_reader_mode_pB.setText(u"\U0001f319 Dark mode")
+            self.ui.toggle_reader_mode_pB.setChecked(False)
 
     # ── Wallpaper helpers ───────────────────────────────────────
 

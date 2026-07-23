@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <!-- Ocean Deep — Midnight navy with luminous teal accents -->
   <color name="primaryColor">#FFFFFF</color>
   <color name="primaryLightColor">#424141</color>
-  <color name="secondaryColor">#000000</color>
-  <color name="secondaryLightColor">#FFFFFF</color>
+  <color name="secondaryColor">#272727</color>
+  <color name="secondaryLightColor">#000000</color>
   <color name="secondaryDarkColor">#000000</color>
   <color name="primaryTextColor">#FFFFFF</color>
   <color name="secondaryTextColor">#FFFFFF</color>
