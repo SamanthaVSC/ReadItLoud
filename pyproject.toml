@@ -10,5 +10,14 @@ dependencies = [
     "pyside6>=6.11.1",
     "qt-material>=2.17",
     "qt-pyqt-pyside-custom-widgets>=2.1.4",
+    "requests>=2.34.2",
     "sounddevice>=0.5.5",
+    "stanza>=1.12.2",
+    "language-tool-python",
+    "argostranslate",
+    "whisper",
+    "faster-whisper>=1.2.1",
+    "jiwer>=4.0.0",
+    "scipy>=1.17.1",
 ]
+
