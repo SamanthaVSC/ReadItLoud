@@ -1,0 +1,80 @@
+# ReadItLoud — Authors
+
+This file lists the copyright holders and contributors of the ReadItLoud project.  
+If you have made a contribution, please add yourself to the list below following the given format.
+
+---
+
+## Copyright Holder
+
+**Samantha Alvarez Hechevarría** — Author and main developer  
+- Email: samanthadesktop324@gmail.com  
+- GitHub: https://github.com/SamanthaVSC  
+- Year of original authorship: 2026
+
+---
+
+## Contributors
+
+*(No additional contributors yet — this project is currently maintained solely by the copyright holder.)*
+
+When adding a new contributor, please follow this format:
+
+```
+# [Nombre] — [tipo de contribución] — [año]
+#   Description of contribution.
+```
+
+---
+
+## Acknowledgments
+
+This project stands on the shoulders of many great open‑source libraries and tools. We are grateful to their authors and maintainers:
+
+PySide6 — Official Qt bindings for Python (The Qt Company)
+Official documentation: https://doc.qt.io/qtforpython-6
+PyPI: https://pypi.org/project/PySide6/
+Wiki: https://wiki.qt.io/Qt_for_Python
+
+qt‑material — Material Design themes for Qt applications (Yasser A. Rebello / UN-GCPDS)
+GitHub: https://github.com/UN-GCPDS/qt-material
+Documentation: https://qt-material.readthedocs.io
+PyPI: https://pypi.org/project/qt-material/
+
+faster‑whisper — Optimized implementation of OpenAI's Whisper using CTranslate2 (Systran)
+GitHub: https://github.com/SYSTRAN/faster-whisper
+PyPI: https://pypi.org/project/faster-whisper/
+
+whisper — Speech recognition model (OpenAI)
+GitHub: https://github.com/openai/whisper
+PyPI: https://pypi.org/project/openai-whisper/
+
+Piper TTS — Fast, local neural text-to-speech system (Rhasspy)
+GitHub: https://github.com/rhasspy/piper
+Samples: https://rhasspy.github.io/piper-samples/
+
+Kokoro — Lightweight open‑weight TTS model (82M parameters) by hexgrad
+Model (Hugging Face): https://huggingface.co/hexgrad/Kokoro-82M
+Official GitHub: https://github.com/hexgrad/kokoro
+PyPI (wrapper Python): https://pypi.org/project/kokoro/
+
+Orpheus — SOTA open‑source TTS built on Llama‑3b (Canopy Labs)
+GitHub: https://github.com/canopyai/Orpheus-TTS
+Model (Hugging Face): https://huggingface.co/canopylabs/orpheus-3b-0.1-ft
+
+LanguageTool — Open source grammar and style checker for 30+ languages ​​(LanguageTooler GmbH)
+Official site: https://languagetool.org/
+GitHub: https://github.com/languagetool-org/languagetool
+Developers: https://languagetool.org/dev
+
+Argos Translate — Open‑source offline neural machine translation (Argos Open Tech)
+GitHub: https://github.com/argosopentech/argos-translate
+Official site: https://www.argosopentech.com/
+PyPI: https://pypi.org/project/argostranslate/
+
+---
+
+## License
+
+This project is licensed under the **GNU General Public License v3** (GPL‑3.0).  
+See the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for the full text.

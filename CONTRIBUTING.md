@@ -2,21 +2,6 @@
 
 A desktop application to help people practice reading, improve their listening skills, and refine their pronunciation — powered by offline Text-to-Speech engines.
 
-**Built with Python & PySide6**
-
----
-
-## ✨ Features
-
-- 📝 **Text Input** — Type or paste text for reading practice with real-time editing
-- 🔊 **Offline TTS Playback** — Listen to text read aloud using local engines (no internet required)
-- 🎙️ **Voice Selection** — Choose from multiple voices and languages
-- ⚙️ **Model Selection** — Automatic or manual TTS engine selection (Piper, Kokoro, Coqui)
-- 💾 **Save Audio** — Export generated speech as audio files
-- 📊 **Progress Feedback** — Real-time progress indicators during speech generation
-- 🎯 **Pronunciation Practice** — Tools to help improve your pronunciation
-- 🖼️ **Text from Image** — Extract text from images for reading practice (OCR)
-
 ---
 
 ## 🏗️ Architecture
@@ -24,49 +9,68 @@ A desktop application to help people practice reading, improve their listening s
 ReadItLoud follows **Clean Architecture** principles with **MVP** (Model-View-Presenter) at the UI layer:
 
 ```
-ReadItLoud/
-├── cache/                    # Cached audio files
-├── config/
-│   └── setting.yaml          # Application configuration
-├── core/
-│   ├── model_factory.py      # Abstract base class / factory pattern
-│   ├── audio_text_extractors/ # Extract text from audio
-│   ├── pronunciation_checker/ # Pronunciation evaluation
-│   ├── text_from_image/      # OCR text extraction
-│   └── engines_tts/          # TTS engine implementations
-│       ├── piper_engine/
-│       ├── kokoro_engine/
-│       └── coqui_engine/
-├── domain/
-│   └── logic.py              # Business logic (framework-independent)
-├── presenters/
-│   └── presenter.py          # MVP Presenters
-├── views/
-│   ├── form.ui               # Qt Designer UI file
-│   └── mainwindow.py         # Main window (PySide6)
-├── resources/
-│   ├── icons/
-│   ├── themes/
-│   └── fonts/
-├── tests/
-├── third_party_licenses/
-│   └── LGPLv3.txt
-├── docs/
-│   └── architecture.md
-├── data/
-│   └── text_input.txt
-├── main.py                   # Application entry point
-├── pyproject.toml
-├── requirements.txt
-└── README.md
+=    MVC    =
+=============
+
+    ├── app/
+    │   ├── controllers/
+    │   │   ├── main_controller.py
+    │   ├── models/
+    │   │   ├── book_model.py
+    │   │   ├── document_model.py
+    │   │   ├── llm_model.py
+    │   │   ├── media_model.py
+    │   │   ├── record_model.py
+    │   │   ├── theme_model.py
+    │   │   └── tts_engine_factory.py
+    │   └── views/
+    │   ├── main_window.py
+    │   ├── mainwindow.ui
+    │   ├── mainwindow_ui.py
+    │   └── ui_mainwindow.py
+    ├── cache/
+    │   └── records/
+    ├── config/
+    │   ├── themes/
+    │   │   ├── default.txt
+    │   │   ├── templates/
+    │   │   │   ├── modern_dark.xml
+    │   │   │   └── modern_light.xml
+    │   │   └── themes.py
+    │   └── wallpapers/
+    │   ├── light.jpeg
+    │   └── night.jpeg
+
+    ├── cores/
+    │   ├── audio qualifiers/
+    │   │   └── faster-whisper
+    │   ├── audio transcription/
+    │   │   └── whisper
+    │   ├── Engines/
+    │   │   ├── kokoro-tts
+    │   │   ├── orpheus
+    │   │   └── Piper-tts
+    │   ├── Grammar models/
+    │   │   └── languagetool
+    │   ├── model_factory.py
+    │   ├── translation models/
+    │   │   ├── argos-translate
+    ├── docs/
+    │   └── │architecture.md
+    ├── AUTHORS
+    ├── CONTRIBUTING.md
+    ├── CODE_OF_CONDUCT.md
+    ├── LICENSE
+    ├── main.py
+    ├── NOTICE
+    ├── pyproject.toml
+    ├── README.md
+    ├── requirements.txt
+    ├── tests/
+    ├── third_party_licenses/
+    │   └── LGPLv3.txt
+    └── uv.lock
 ```
-
-### Key Principles
-
-- **Core logic is independent of UI** — Business rules live in `domain/` and `core/`, never in views
-- **MVP at the UI layer** — Views (`PySide6`) are passive; Presenters mediate between View and Model
-- **Factory Pattern for TTS engines** — New engines can be added without modifying existing code
-- **Offline-first** — All TTS engines run locally; no cloud API calls required
 
 ---
 
@@ -74,7 +78,7 @@ ReadItLoud/
 
 ### Prerequisites
 
-- **Python 3.10+**
+- **Python 3.10**
 - **pip** (Python package manager)
 - A virtual environment tool (`venv`, `virtualenv`, or `conda`)
 

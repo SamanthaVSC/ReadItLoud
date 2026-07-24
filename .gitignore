@@ -3,12 +3,20 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.lock
 
 # Virtual environments
 .venv/
 venv/
 env/
 ENV/
+
+#
+engines_tss/
+audio transcription/
+image transcription/
+translation engines/
+
 
 # Distribution / packaging
 build/
@@ -83,10 +91,7 @@ cache/*.ogg
 
 # Environment variables
 .env
-.env.local# Cache (generated audio files – don't commit them!)
-cache/
-*.wav
-*.mp3
+.env.local # Cache (generated audio files – don't commit them!)
 
 # Python
 __pycache__/
@@ -107,8 +112,12 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Config with secrets (if any)
-config/secrets.yaml
-
 # Logs
 *.log
+
+# Other
+tests/
+cores/
+shh_key.txt
+shh_key.txt.pub
+cache/

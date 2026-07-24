@@ -1,151 +1,243 @@
-# 🗣️ ReadItLoud
+# 📖 ReadItLoud
 
-A desktop application to help people practice reading, improve their listening skills, and refine their pronunciation — powered by offline Text-to-Speech engines.
+> Desktop application for language learning through document reading, featuring text-to-speech (TTS), pronunciation feedback, and integrated grammar correction.
 
-**Built with Python & PySide6**
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/) [![PySide6](https://img.shields.io/badge/PySide6-6.11%2B-green.svg)](https://www.qt.io/qt-for-python) [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)](https://chat.z.ai/c/ad6d15bb-1bbf-40cf-b197-9b70df3a3211)
 
 ---
+
+## 🌟 What is ReadItLoud?
+
+ReadItLoud is a free, open-source desktop application that lets you **learn languages ​​while staying productive**. With ReadItLoud, you can upload your own study materials (academic PDFs books, text documents) and simultaneously:
+
+- 📚 Read the document within the interface
+- 🔊 Listen to correct pronunciation via text-to-speech
+- 🗣️ Practice your own pronunciation with real-time feedback
+- 📖 Receive grammar corrections while writing or reading
+- 🌐 Translate text snippets without leaving the app
+
+The project's philosophy is simple: **you shouldn't have to choose between studying for your degree and learning a language—with ReadItLoud, you can do both at the same time.**
+
+------
 
 ## ✨ Features
 
-- 📝 **Text Input** — Type or paste text for reading practice with real-time editing
-- 🔊 **Offline TTS Playback** — Listen to text read aloud using local engines (no internet required)
-- 🎙️ **Voice Selection** — Choose from multiple voices and languages
-- ⚙️ **Model Selection** — Automatic or manual TTS engine selection (Piper, Kokoro, Coqui)
-- 💾 **Save Audio** — Export generated speech as audio files
-- 📊 **Progress Feedback** — Real-time progress indicators during speech generation
-- 🎯 **Pronunciation Practice** — Tools to help improve your pronunciation
-- 🖼️ **Text from Image** — Extract text from images for reading practice (OCR)
+### ✅ Implemented (v0.80.5 demo)
 
----
+- 📝 Integrated text editor (5,000 characters)
+- 📚 PDF reader with built-in web viewer
+- 🎵 Audio player (WAV/MP3 files)
+- 🌙 Dark/light mode (app and reader)
+- 📊 Real-time character counter
+- 💾 Import/export text files
+- 🎤 Audio recorder
+- 🔊 Speech synthesis (TTS) — Factory pattern architecture
+   ✍️ Audio transcription
+- 📖 Grammar correction
+   🗣️ Pronunciation feedback
+
+## 🚧 In development (architecture ready)
+- Integrate translation
+- Separate each engine and model into independent environments (Activate them via subproccess)
+- Separate logic and view of Reader mode into two part (Frontend and Backend) and show it fronted by QWebEngineView
+- Add pins to Reader Mode to keep several book opened at the same time
+- Add content menu with the fallowing items; practice reading and read
+- Integrate TTS to Reader Mode
+- Integrate pronounciation checker to Reader Mode
+-------
 
 ## 🏗️ Architecture
 
-ReadItLoud follows **Clean Architecture** principles with **MVP** (Model-View-Presenter) at the UI layer:
+ ReadItLoud follows a **strict MVC** architecture with design patterns that ensure extensibility:
 
-```
-ReadItLoud/
-├── cache/                    # Cached audio files
-├── config/
-│   └── setting.yaml          # Application configuration
-├── core/
-│   ├── model_factory.py      # Abstract base class / factory pattern
-│   ├── audio_text_extractors/ # Extract text from audio
-│   ├── pronunciation_checker/ # Pronunciation evaluation
-│   ├── text_from_image/      # OCR text extraction
-│   └── engines_tts/          # TTS engine implementations
-│       ├── piper_engine/
-│       ├── kokoro_engine/
-│       └── coqui_engine/
-├── domain/
-│   └── logic.py              # Business logic (framework-independent)
-├── presenters/
-│   └── presenter.py          # MVP Presenters
-├── views/
-│   ├── form.ui               # Qt Designer UI file
-│   └── mainwindow.py         # Main window (PySide6)
-├── resources/
-│   ├── icons/
-│   ├── themes/
-│   └── fonts/
-├── tests/
-├── third_party_licenses/
-│   └── LGPLv3.txt
-├── docs/
-│   └── architecture.md
-├── data/
-│   └── text_input.txt
-├── main.py                   # Application entry point
-├── pyproject.toml
-├── requirements.txt
-└── README.md
-```
+**Design pattern:**
 
-### Key Principles
-
-- **Core logic is independent of UI** — Business rules live in `domain/` and `core/`, never in views
-- **MVP at the UI layer** — Views (`PySide6`) are passive; Presenters mediate between View and Model
-- **Factory Pattern for TTS engines** — New engines can be added without modifying existing code
-- **Offline-first** — All TTS engines run locally; no cloud API calls required
+- **MVC** — Strict separation of responsabilities
+- **Abstract Base Class** — `TTSEngine(ABC)` for uniform interface of engines
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Installation
 
-### Prerequisites
+### Requirements
 
-- **Python 3.10+**
-- **pip** (Python package manager)
-- A virtual environment tool (`venv`, `virtualenv`, or `conda`)
+- Python 3.10
+- Refer to requirements.txt and pyproject.toml to more details
 
-### Installation
+### Steps
 
-1. **Clone the repository**
+bash
 
-   ```bash
-   git clone https://github.com/SamanthaVSC/ReadItLout.git
-   cd ReadItLout
-   ```
+# 1. Clone the repository
 
-2. **Create and activate a virtual environment**
+git clone https://github.com/SamanthaVSC/ReadItLoud.git
 
-   ```bash
-   # Linux / macOS
-   python3 -m venv .venv
-   source .venv/bin/activate
+cd ReadItLoud
 
-   # Windows
-   python -m venv .venv
-   .venv\Scripts\activate
-   ```
+# 2. Create virtual environment (recommended)
 
-3. **Install dependencies**
+python -m venv venv
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+source venv/bin/activate # Linux/macOS
 
-4. **Run the application**
+# venv\Scripts\activate # Windows
 
-   ```bash
-   python main.py
-   ```
+# 3. Install Dependencies
+
+pip install -r requirements.txt
+
+# 4. Run the application
+
+python main.py
 
 ---
 
-## 🤝 Contributing
+## 📂 Structure of the project
 
-We welcome contributions of all kinds — bug fixes, features, documentation, translations, and more!
+=    MVC    =
+=============
 
-Please read our [**Contributing Guide**](CONTRIBUTING.md) to get started, and our [**Code of Conduct**](CODE_OF_CONDUCT.md) to understand our community standards.
-
-### Quick Start for Contributors
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/my-new-feature`)
-3. Make your changes
-4. Run tests if available
-5. Commit with a clear message (`git commit -m "Add: my new feature"`)
-6. Push to your branch (`git push origin feature/my-new-feature`)
-7. Open a Pull Request
+    ├── app/
+    │   ├── controllers/
+    │   │   ├── main_controller.py
+    │   ├── models/
+    │   │   ├── book_model.py
+    │   │   ├── document_model.py
+    │   │   ├── llm_model.py
+    │   │   ├── media_model.py
+    │   │   ├── record_model.py
+    │   │   ├── theme_model.py
+    │   │   └── tts_engine_factory.py
+    │   └── views/
+    │   ├── main_window.py
+    │   ├── mainwindow.ui
+    │   ├── mainwindow_ui.py
+    │   └── ui_mainwindow.py
+    ├── cache/
+    │   └── records/
+    ├── config/
+    │   ├── themes/
+    │   │   ├── default.txt
+    │   │   ├── templates/
+    │   │   │   ├── modern_dark.xml
+    │   │   │   └── modern_light.xml
+    │   │   └── themes.py
+    │   └── wallpapers/
+    │   ├── light.jpeg
+    │   └── night.jpeg
+    
+    ├── cores/
+    │   ├── audio qualifiers/
+    │   │   └── faster-whisper
+    │   ├── audio transcription/
+    │   │   └── whisper
+    │   ├── Engines/
+    │   │   ├── kokoro-tts
+    │   │   ├── orpheus
+    │   │   └── Piper-tts
+    │   ├── Grammar models/
+    │   │   └── languagetool
+    │   ├── model_factory.py
+    │   ├── translation models/
+    │   │   ├── argos-translate
+    ├── docs/
+    │   └── │architecture.md
+    ├── AUTHORS
+    ├── CONTRIBUTING.md
+    ├── CODE_OF_CONDUCT.md
+    ├── LICENSE
+    ├── main.py
+    ├── NOTICE
+    ├── pyproject.toml
+    ├── README.md
+    ├── requirements.txt
+    ├── tests/
+    ├── third_party_licenses/
+    │   └── LGPLv3.txt
+    └── uv.lock
 
 ---
 
-## 📄 License
+## 🎯 Use cases
 
-This project is licensed under the **GPL v3** — see the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for details.
+### For university students
 
-### Third-Party Licenses
+> "I have to read an IEEE paper for my engineering class. I upload it to ReadItLoud, listen to the correct pronunciation of technical terms, practice my own pronunciation, and get feedback. I study for my degree **and** improve my English at the same time."
 
-This project uses **PySide6** (Qt for Python), which is licensed under the **GNU Lesser General Public License v3 (LGPLv3)**. See [third_party_licenses/LGPLv3.txt](third_party_licenses/LGPLv3.txt) for the full license text.
+### For researchers
 
-As a user of this application, you have the right to replace the PySide6 library with a modified version, in accordance with the LGPLv3 license terms.
+> "I read academic articles in English all day long. ReadItLoud lets me listen to them while taking notes, translate unfamiliar terms without switching apps, and check my grammar when writing abstracts."
+
+### For self-learners
+
+> "I want to learn English, but online courses are expensive and rigid. With ReadItLoud, I can upload English books I already own, listen to the pronunciation, and learn at my own pace."
 
 ---
 
-## 📬 Contact
+## 🌍 Project philosophy
 
-Have questions, suggestions, or want to collaborate?
+ReadItLoud was born from the conviction that:
 
-- **Email:** samanthadesktop324@email.com
-- **GitHub Issues:** [Open an issue](https://github.com/SamanthaVSC/ReadItLout/issues)
+1. **Language learning shouldn't be a luxury** — Commercial apps cost $75–$168/year, making them inaccessible to millions of students in some countries from Eastern Medium, Latin America, Africa and India.
+2. **Study materials should be your own** — Not decontextualized phrases, but the actual texts each student needs.
+3. **Technological sovereignty matters** — 100% offline processing; no data sent to the cloud, no reliance on foreign companies.
+4. **Knowledge should be free** — That’s why it’s licensed under GPL v3: anyone can use, learn from, and improve it, but credit always goes back to the community.
+
+---
+
+## 📜 License
+
+ ReadItLoud — Desktop application for language learning
+
+Copyright (C) 2026 Samantha Alvarez Hechevarría
+
+This program is free software: you can redistribute it and/or modify
+
+it under the terms of the GNU General Public License as published by
+
+the Free Software Foundation, either version 3 of the License, or
+
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+See the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for the full text of the GPL v3 license.
+
+---
+
+## 👤 Author
+
+**Samantha Alvarez Hechevarría**
+
+- 📧 Email: [samanthadesktop324@gmail.com](mailto:samanthadesktop324@gmail.com)
+- 🐙 GitHub: [@SamanthaVSC](https://github.com/SamanthaVSC)
+- 📅 Year of creation: 2026
+
+## 🤝 Contributions
+
+Contributions are welcome. Please read [AUTHORS](https://github.com/SamanthaVSC/AUTHORS) and [NOTICE](https://github.com/SamanthaVSC/NOTICE) before contributing. By submitting a pull request, you agree that your contribution will be licensed under GPL v3.
+
+## 🙏 Acknowledgments
+
+- Global open-source community
+- faster_whisper - MIT License
+- whisper - (OpenAI) MIT License
+- piper tts -  GPL-3.0
+- kokoro - Apache License 2.0
+- languagetool - GNU Lesser General Public License (LGPL) v2.1+
+- argos-translate - Dual-licensed under MIT License or Creative Commons CC0
+- espeak-ng - GPL-3.0. 
+
+---
+
+*If ReadItLoud has been useful to you, please share it with someone who is learning a language. That is the best way to give back.* 🌎
