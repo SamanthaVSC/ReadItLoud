@@ -21,7 +21,7 @@ If you have made a contribution, please add yourself to the list below following
 When adding a new contributor, please follow this format:
 
 ```
-# [Nombre] — [tipo de contribución] — [año]
+# [Name] — [kind of contribution] — [date(MM/DD/YY)]
 #   Description of contribution.
 ```
 
@@ -31,15 +31,6 @@ When adding a new contributor, please follow this format:
 
 This project stands on the shoulders of many great open‑source libraries and tools. We are grateful to their authors and maintainers:
 
-PySide6 — Official Qt bindings for Python (The Qt Company)
-Official documentation: https://doc.qt.io/qtforpython-6
-PyPI: https://pypi.org/project/PySide6/
-Wiki: https://wiki.qt.io/Qt_for_Python
-
-qt‑material — Material Design themes for Qt applications (Yasser A. Rebello / UN-GCPDS)
-GitHub: https://github.com/UN-GCPDS/qt-material
-Documentation: https://qt-material.readthedocs.io
-PyPI: https://pypi.org/project/qt-material/
 
 faster‑whisper — Optimized implementation of OpenAI's Whisper using CTranslate2 (Systran)
 GitHub: https://github.com/SYSTRAN/faster-whisper
@@ -58,7 +49,8 @@ Model (Hugging Face): https://huggingface.co/hexgrad/Kokoro-82M
 Official GitHub: https://github.com/hexgrad/kokoro
 PyPI (wrapper Python): https://pypi.org/project/kokoro/
 
-Orpheus — SOTA open‑source TTS built on Llama‑3b (Canopy Labs)
+Orpheus — SOTA open‑source TTS built on Llama‑3b (C
+anopy Labs)
 GitHub: https://github.com/canopyai/Orpheus-TTS
 Model (Hugging Face): https://huggingface.co/canopylabs/orpheus-3b-0.1-ft
 
@@ -78,3 +70,4 @@ PyPI: https://pypi.org/project/argostranslate/
 
 This project is licensed under the **GNU General Public License v3** (GPL‑3.0).  
 See the [LICENSE](https://choosealicense.com/licenses/gpl-3.0/) file for the full text.
+

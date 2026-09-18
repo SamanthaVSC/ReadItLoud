@@ -1,0 +1,24 @@
+QMainWindow {
+    background: #f4f4f4;
+}
+
+QWidget {
+    color: #222222;
+    font-size: 14px;
+}
+
+QPushButton {
+    background: #ffffff;
+    border: 1px solid #bbbbbb;
+    border-radius: 6px;
+    padding: 8px 14px;
+}
+
+QPushButton:hover {
+    background: #e8e8e8;
+}
+
+#titleLabel {
+    font-size: 24px;
+    font-weight: bold;
+}

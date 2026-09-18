@@ -22,47 +22,34 @@ The project's philosophy is simple: **you shouldn't have to choose between study
 
 ## ✨ Features
 
-### ✅ Implemented (v0.80.5 demo)
+### ✅ Implemented
 
-- 📝 Integrated text editor (5,000 characters)
-- 📚 PDF reader with built-in web viewer
-- 🎵 Audio player (WAV/MP3 files)
+- 📝 Integrated text editor (5,000 characters). Use a  character real-time counter
+
+## 🚧 In development
+- 🌐 Integrate translation
+- 📚 PDF reader with built-in: lets users have opened pin for each book they like
+- 🎵 Audio player (WAV/MP3 files): lets the users play, pause and stop audios
 - 🌙 Dark/light mode (app and reader)
-- 📊 Real-time character counter
-- 💾 Import/export text files
-- 🎤 Audio recorder
-- 🔊 Speech synthesis (TTS) — Factory pattern architecture
-   ✍️ Audio transcription
-- 📖 Grammar correction
-   🗣️ Pronunciation feedback
+- 🎤 Audio recorder: lets the users play, pause and stop records
+- 🔊 Speech synthesis (TTS): generates audio
+   ✍️ Audio transcription (whisper): transcribe from audio to text
+- 📖 Grammar correction (languagetool)
+-  🗣️ Pronunciation assessment (whisper)
 
-## 🚧 In development (architecture ready)
-- Integrate translation
-- Separate each engine and model into independent environments (Activate them via subproccess)
-- Separate logic and view of Reader mode into two part (Frontend and Backend) and show it fronted by QWebEngineView
-- Add pins to Reader Mode to keep several book opened at the same time
-- Add content menu with the fallowing items; practice reading and read
-- Integrate TTS to Reader Mode
-- Integrate pronounciation checker to Reader Mode
+
+
+
 -------
 
-## 🏗️ Architecture
-
- ReadItLoud follows a **strict MVC** architecture with design patterns that ensure extensibility:
-
-**Design pattern:**
-
-- **MVC** — Strict separation of responsabilities
-- **Abstract Base Class** — `TTSEngine(ABC)` for uniform interface of engines
-
----
-
+## 
 ## 🚀 Installation
 
 ### Requirements
-
-- Python 3.10
-- Refer to requirements.txt and pyproject.toml to more details
+- languagetool
+- cmake
+- Transformer
+- llama.cpp
 
 ### Steps
 
@@ -72,89 +59,7 @@ bash
 
 git clone https://github.com/SamanthaVSC/ReadItLoud.git
 
-cd ReadItLoud
-
-# 2. Create virtual environment (recommended)
-
-python -m venv venv
-
-source venv/bin/activate # Linux/macOS
-
-# venv\Scripts\activate # Windows
-
-# 3. Install Dependencies
-
-pip install -r requirements.txt
-
-# 4. Run the application
-
-python main.py
-
----
-
-## 📂 Structure of the project
-
-=    MVC    =
-=============
-
-    ├── app/
-    │   ├── controllers/
-    │   │   ├── main_controller.py
-    │   ├── models/
-    │   │   ├── book_model.py
-    │   │   ├── document_model.py
-    │   │   ├── llm_model.py
-    │   │   ├── media_model.py
-    │   │   ├── record_model.py
-    │   │   ├── theme_model.py
-    │   │   └── tts_engine_factory.py
-    │   └── views/
-    │   ├── main_window.py
-    │   ├── mainwindow.ui
-    │   ├── mainwindow_ui.py
-    │   └── ui_mainwindow.py
-    ├── cache/
-    │   └── records/
-    ├── config/
-    │   ├── themes/
-    │   │   ├── default.txt
-    │   │   ├── templates/
-    │   │   │   ├── modern_dark.xml
-    │   │   │   └── modern_light.xml
-    │   │   └── themes.py
-    │   └── wallpapers/
-    │   ├── light.jpeg
-    │   └── night.jpeg
-    
-    ├── cores/
-    │   ├── audio qualifiers/
-    │   │   └── faster-whisper
-    │   ├── audio transcription/
-    │   │   └── whisper
-    │   ├── Engines/
-    │   │   ├── kokoro-tts
-    │   │   ├── orpheus
-    │   │   └── Piper-tts
-    │   ├── Grammar models/
-    │   │   └── languagetool
-    │   ├── model_factory.py
-    │   ├── translation models/
-    │   │   ├── argos-translate
-    ├── docs/
-    │   └── │architecture.md
-    ├── AUTHORS
-    ├── CONTRIBUTING.md
-    ├── CODE_OF_CONDUCT.md
-    ├── LICENSE
-    ├── main.py
-    ├── NOTICE
-    ├── pyproject.toml
-    ├── README.md
-    ├── requirements.txt
-    ├── tests/
-    ├── third_party_licenses/
-    │   └── LGPLv3.txt
-    └── uv.lock
+git checkout cpp
 
 ---
 
@@ -230,7 +135,6 @@ Contributions are welcome. Please read [AUTHORS](https://github.com/SamanthaVSC/
 ## 🙏 Acknowledgments
 
 - Global open-source community
-- faster_whisper - MIT License
 - whisper - (OpenAI) MIT License
 - piper tts -  GPL-3.0
 - kokoro - Apache License 2.0

@@ -115,9 +115,15 @@ Thumbs.db
 # Logs
 *.log
 
-# Other
+# Qt
+.qtcreator/
+build/
+
+# Project
 tests/
 cores/
 shh_key.txt
 shh_key.txt.pub
 cache/
+.github_token
+saves/

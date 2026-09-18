@@ -1,0 +1,1 @@
+* aquí se guardara el tipo de motor de voz, con su lenguaje y voz respectiva, volumen y velocidad de la voz, sample reate y normalized audio para que el reader lo pueda cargar desde su lógica (backend) 
